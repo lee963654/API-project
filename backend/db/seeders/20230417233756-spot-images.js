@@ -17,7 +17,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   options.tableName = "Spot-Images";
+   options.tableName = "SpotImages";
    await queryInterface.bulkInsert(options, [
     {
       spotId: 1,
@@ -44,7 +44,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = "Spot-Images";
+    options.tableName = "SpotImages";
     await queryInterface.bulkDelete(options)
   }
 };
