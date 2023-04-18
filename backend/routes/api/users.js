@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 
+const { Op } = require('sequelize');
+
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Booking, SpotImage, ReviewImage, Review } = require('../../db/models');
 
@@ -27,6 +29,12 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+  check('firstName')
+    .exists({ checkFalsy: true})
+    .withMessage('First Name is required'),
+  check('lastName')
+    .exists({ checkFalsy: true})
+    .withMessage('Last Name is required'),
   handleValidationErrors
 ];
 
@@ -46,9 +54,16 @@ router.post('/', validateSignup, async(req, res) => {
 
     const duplicateUser = await User.findAll({
       where: {
-
+        [Op.or]: {
+          email: email,
+          username: username
+        }
       }
     })
+
+    if (duplicateUser) {
+
+    }
 
     const safeUser = {
         id: user.id,
