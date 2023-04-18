@@ -1,9 +1,11 @@
 const express = require('express');
 const { Op } = require('sequelize');
 
-const { Spot, SpotImage } = require('../../db/models');
+const { Spot, SpotImage, Review, Booking } = require('../../db/models');
 
 const router = express.Router();
+
+
 
 
 router.get('/', async (req, res) => {
@@ -11,11 +13,9 @@ router.get('/', async (req, res) => {
     const spotImages = await SpotImage.findAll();
 
     let spotsList = []
+    let stars = 0
+    let count = 0
 
-    // spots.forEach((spot) => {
-    //     spotsList.push(spot.toJSON())
-    // })
-    // console.log(spotsList)
 
 
     for (let spot of spots) {
@@ -28,6 +28,19 @@ router.get('/', async (req, res) => {
                 spotId: spot.id
             }
         })
+
+        const findStars = await Review.findAll({
+            where: {
+                spotId: spot.id
+            }
+        })
+
+        for (let star of findStars) {
+            star.toJSON()
+            stars = stars + star.stars
+            count = count + 1
+        }
+
         for (let image of findImage) {
             image.toJSON()
             if (image.preview) {
@@ -36,15 +49,47 @@ router.get('/', async (req, res) => {
                 spot.previewImage = "No Image Available"
             }
         }
+
+
         if (!spot.previewImage) {
             spot.previewImage = "No Image Available"
         }
+
+        spot.avgRating = stars / count
+        stars = 0
+        count = 0
     }
 
 
     return res.json(spotsList)
 })
 
+
+router.get('/current', async (req, res) => {
+    console.log(req.user.id)
+
+    const userSpot = await Spot.findAll({
+        where: {
+            ownerId: req.user.id
+        },
+        include: [
+            {
+                model: SpotImage
+            },
+            {
+                model: Review
+            },
+            {
+                model: Booking
+            }
+        ]
+    })
+
+    const reviews = await Review.findAll()
+
+
+    return res.json(userSpot)
+})
 
 
 module.exports = router

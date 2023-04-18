@@ -29,7 +29,23 @@ module.exports = {
     },
     {
       reviewId: 3,
-      url: 'www.new9.org',
+      url: 'www.new1.org',
+    },
+    {
+      reviewId: 4,
+      url: 'www.new2.org',
+    },
+    {
+      reviewId: 5,
+      url: 'www.new3.org',
+    },
+    {
+      reviewId: 6,
+      url: 'www.new5.org',
+    },
+    {
+      reviewId: 7,
+      url: 'www.new7.org',
     },
    ])
   },

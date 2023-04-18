@@ -34,6 +34,31 @@ module.exports = {
       url: 'www.new2.org',
       preview: false,
     },
+    {
+      spotId: 4,
+      url: 'www.new3.org',
+      preview: false,
+    },
+    {
+      spotId: 5,
+      url: 'www.new4.org',
+      preview: true,
+    },
+    {
+      spotId: 6,
+      url: 'www.new5.org',
+      preview: true,
+    },
+    {
+      spotId: 7,
+      url: 'www.new6.org',
+      preview: false,
+    },
+    {
+      spotId: 8,
+      url: 'www.new7.org',
+      preview: true,
+    },
    ])
   },
 
