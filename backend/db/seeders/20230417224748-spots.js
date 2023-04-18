@@ -34,7 +34,7 @@ module.exports = {
       {
         ownerId: 1,
         address: '1234 Main Ave',
-        city: "Trenton",
+        city: "Newark",
         state: 'New Jersey',
         country: 'USA',
         lat: 50,
@@ -45,8 +45,8 @@ module.exports = {
       },
       {
         ownerId: 2,
-        address: '123 Main Ave',
-        city: "Trenton",
+        address: '1 Main Ave',
+        city: "New Brunswick",
         state: 'New Jersey',
         country: 'USA',
         lat: 50,
@@ -56,9 +56,9 @@ module.exports = {
         price: 500000
       },
       {
-        ownerId: 3,
-        address: '123 Main Ave',
-        city: "Trenton",
+        ownerId: 2,
+        address: '2 Main Ave',
+        city: "Wayne",
         state: 'New Jersey',
         country: 'USA',
         lat: 50,
@@ -68,9 +68,9 @@ module.exports = {
         price: 5000
       },
       {
-        ownerId: 4,
-        address: '123 Main Ave',
-        city: "Trenton",
+        ownerId: 2,
+        address: '3 Main Ave',
+        city: "Cape May",
         state: 'New Jersey',
         country: 'USA',
         lat: 50,
