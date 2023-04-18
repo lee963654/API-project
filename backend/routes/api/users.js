@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot } = require('../../db/models');
+const { User, Spot, Booking, SpotImage, ReviewImage, Review } = require('../../db/models');
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -61,17 +61,18 @@ router.post('/', validateSignup, async(req, res) => {
 
 
 // Test
-// router.get('/', async(req, res) => {
-//   const user = await User.findAll({
-//     include: [
-//       {
-//         model: Spot
-//       }
-//     ]
-//   })
+router.get('/', async(req, res) => {
+  const user = await Spot.findAll({
+    include: [
+      {
+        model: Review
+      },
+    ]
+  })
 
-//   return res.json(user)
-// })
+  return res.json(user)
+
+})
 
 
 module.exports = router;
