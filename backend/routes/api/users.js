@@ -44,6 +44,12 @@ router.post('/', validateSignup, async(req, res) => {
         lastName
     });
 
+    const duplicateUser = await User.findAll({
+      where: {
+
+      }
+    })
+
     const safeUser = {
         id: user.id,
         firstName: user.firstName,
@@ -60,19 +66,6 @@ router.post('/', validateSignup, async(req, res) => {
 });
 
 
-// Test
-router.get('/', async(req, res) => {
-  const user = await Spot.findAll({
-    include: [
-      {
-        model: Review
-      },
-    ]
-  })
-
-  return res.json(user)
-
-})
 
 
 module.exports = router;
