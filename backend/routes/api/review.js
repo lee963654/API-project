@@ -7,38 +7,15 @@ const { Spot, SpotImage, Review, Booking, User, ReviewImage } = require('../../d
 const router = express.Router();
 
 
+
+
+
+
+
+
+
 // get all reviews of the current user
 router.get('/current', requireAuth, async(req, res) => {
-//     const userReview = await Review.findAll({
-//         where: {
-//             userId: req.user.id
-//         },
-//         include: [
-//             {
-//                 model: User,
-//                 attributes: ['id', 'firstName', 'lastName'],
-//             },
-//             {
-//                 model: Spot,
-//                 attributes: {
-//                     exclude: ['createdAt', 'updatedAt']
-//                 }
-//             },
-//             {
-//                 model: ReviewImage,
-//                 attributes: ['id', 'url']
-//             }
-//         ]
-//     })
-
-
-// return res.json(userReview)
-
-
-
-
-
-
 
     const returnReview = []
 
@@ -87,10 +64,7 @@ router.get('/current', requireAuth, async(req, res) => {
             price: spot.price,
         }
 
-        // const ReviewImages = {
-        //     id: reviewImage.id,
-        //     url: reviewImage.url
-        // }
+
 
         ele.Spot = Spot
         ele.User = User

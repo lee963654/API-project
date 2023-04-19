@@ -44,11 +44,77 @@ const validateCreateSpot = [
     check('price')
         .exists({ checkFalsy: true})
         .withMessage('Price per day is required'),
-  handleValidationErrors
+        handleValidationErrors
 ];
 
 
 
+// Create a review for a spot based on the spots id
+router.post('/:spotId/reviews', requireAuth, async(req, res) => {
+
+})
+
+
+
+// Get all reviews by a Spot id
+router.get('/:spotId/reviews', async(req, res, next) => {
+
+    const result = []
+
+    const review = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        }
+    })
+
+    const testSpot = await Spot.findOne({
+        where: {
+            id: req.params.spotId
+        }
+    })
+
+    if (!review.length && testSpot) {
+        const err = new Error("This spot has no reviews")
+        err.status = 404
+        return next(err)
+    }
+
+    if (!review.length) {
+        const err = new Error("Spot couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+    for (let ele of review) {
+        const user = await ele.getUser()
+        const reviewImage = await ele.getReviewImages()
+        ele = ele.toJSON()
+
+        const reviewImg = []
+
+        for (let image of reviewImage) {
+            reviewImg.push({
+                id: image.id,
+                url: image.url
+            })
+        }
+
+        const User = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName
+        }
+
+        ele.ReviewImages = reviewImg
+        ele.User = User
+        result.push(ele)
+
+    }
+
+    return res.json({
+        Review: result
+    })
+})
 
 
 
