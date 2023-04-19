@@ -319,7 +319,11 @@ router.post('/:spotId/images', requireAuth, authorization, async(req, res, next)
         preview,
     })
 
-    return res.json(newImage)
+    return res.json({
+        id: newImage.id,
+        url: newImage.url,
+        preview: newImage.preview
+    })
 })
 
 
@@ -365,6 +369,7 @@ router.put('/:spotId', requireAuth, validateCreateSpot, async(req, res, next) =>
 })
 
 
+// delete a spot
 router.delete('/:spotId', requireAuth, async(req, res, next) => {
     const deleteSpot = await Spot.findOne({
         where: {
