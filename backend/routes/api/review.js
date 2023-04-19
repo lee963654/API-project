@@ -111,7 +111,33 @@ router.get('/current', requireAuth, async(req, res) => {
 })
 
 
+// Delete a Review
+router.delete('/:reviewId', requireAuth, async(req, res, next) => {
+    const deleteReview = await Review.findOne({
+        where: {
+            id: req.params.reviewId
+        }
+    })
 
+    if (!deleteReview) {
+        const err = new Error("Review couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+    if (parseInt(deleteReview.userId) !== parseInt(req.user.id)) {
+        const err = new Error("Forbidden")
+        err.status = 403
+        return next(err)
+    }
+
+    await deleteReview.destroy()
+
+    return res.json({
+        message: "Successfully deleted"
+    })
+
+})
 
 
 
