@@ -1,11 +1,56 @@
 const express = require('express');
 const { Op } = require('sequelize');
 
-const { requireAuth } = require('../../utils/auth')
+const { requireAuth } = require('../../utils/auth');
+const { handleValidationErrors } = require("../../utils/validation");
+const { check } = require("express-validator");
 
 const { Spot, SpotImage, Review, Booking, User } = require('../../db/models');
 
 const router = express.Router();
+
+
+
+// validateCreateSpot
+const validateCreateSpot = [
+    check('address')
+        .exists({ checkFalsy: true })
+        .withMessage('Street address is required'),
+    check('city')
+        .exists({ checkFalsy: true })
+        .withMessage('City is required'),
+    check('state')
+        .exists({ checkFalsy: true })
+        .withMessage('State is required'),
+    check('country')
+        .exists({ checkFalsy: true})
+        .withMessage('Country is required'),
+    check('lat')
+        .exists({ checkFalsy: true})
+        .withMessage('Latitude is not valid'),
+    check('lng')
+        .exists({ checkFalsy: true})
+        .withMessage('Longitude is not valid'),
+    check('name')
+        .exists({ checkFalsy: true})
+        .isLength({ max: 50 })
+        .withMessage('Name must be less than 50 characters'),
+    check('name')
+        .exists({ checkFalsy: true})
+        .withMessage('Name is not valid'),
+    check('description')
+        .exists({ checkFalsy: true})
+        .withMessage('Description is required'),
+    check('price')
+        .exists({ checkFalsy: true})
+        .withMessage('Price per day is required'),
+  handleValidationErrors
+];
+
+
+
+
+
 
 
 
@@ -208,6 +253,30 @@ router.get('/:spotId', async (req, res, next) => {
 
 
     return res.json(spotArr[0])
+})
+
+
+
+// Create a Spot
+router.post('/', requireAuth, validateCreateSpot, async (req, res) => {
+    let { address, city, state, country, lat, lng, name, description, price } = req.body;
+    console.log(req.user.id)
+
+    const spot = await Spot.create({
+        ownerId: req.user.id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+    })
+
+    return res.json(spot)
+
 })
 
 
