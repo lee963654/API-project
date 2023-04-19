@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 
-
+// Get All Spots
 router.get('/', async (req, res) => {
     const spots = await Spot.findAll();
     const spotImages = await SpotImage.findAll();
@@ -75,7 +75,7 @@ router.get('/', async (req, res) => {
     })
 })
 
-
+// Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
     console.log(req.user.id)
     let userSpot = []
@@ -135,7 +135,7 @@ router.get('/current', requireAuth, async (req, res) => {
     })
 })
 
-
+// Get details of a spot from an id
 router.get('/:spotId', async (req, res, next) => {
 
     let spotArr = []
@@ -207,7 +207,7 @@ router.get('/:spotId', async (req, res, next) => {
     }
 
 
-    return res.json(spotArr)
+    return res.json(spotArr[0])
 })
 
 
