@@ -1,6 +1,8 @@
 const express = require('express');
 const { Op } = require('sequelize');
 
+const { requireAuth } = require('../../utils/auth')
+
 const { Spot, SpotImage, Review, Booking, User } = require('../../db/models');
 
 const router = express.Router();
@@ -74,7 +76,7 @@ router.get('/', async (req, res) => {
 })
 
 
-router.get('/current', async (req, res) => {
+router.get('/current', requireAuth, async (req, res) => {
     console.log(req.user.id)
     let userSpot = []
     let count = 0
