@@ -1,7 +1,7 @@
 const express = require('express');
 const { Op } = require('sequelize');
 
-const { requireAuth } = require('../../utils/auth');
+const { requireAuth, authorization } = require('../../utils/auth');
 const { handleValidationErrors } = require("../../utils/validation");
 const { check } = require("express-validator");
 
@@ -258,9 +258,20 @@ router.get('/:spotId', async (req, res, next) => {
 
 
 // Create a Spot
-router.post('/', requireAuth, validateCreateSpot, async (req, res) => {
-    let { address, city, state, country, lat, lng, name, description, price } = req.body;
-    console.log(req.user.id)
+router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const currentSpot = await Spot.findOne({
+        where: {
+            address: address
+        }
+    })
+
+    if (currentSpot) {
+        const err = new Error('A spot with that address already exists')
+        err.status = 400
+        return next(err)
+    }
 
     const spot = await Spot.create({
         ownerId: req.user.id,
@@ -275,8 +286,109 @@ router.post('/', requireAuth, validateCreateSpot, async (req, res) => {
         price,
     })
 
-    return res.json(spot)
+    return res.status(201).json(spot)
 
+})
+
+
+// Add an image to a spot based on the spot's id
+router.post('/:spotId/images', requireAuth, authorization, async(req, res, next) => {
+    const { url, preview } = req.body
+
+    const currentSpot = await Spot.findOne({
+        where: {
+            id: req.params.spotId
+        }
+    })
+
+    if (!currentSpot) {
+        const err = new Error("Spot couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+    if (req.user.id !== currentSpot.ownerId) {
+        const err = new Error('Forbidden')
+        err.status = 403
+        return next(err)
+    }
+
+    const newImage = await SpotImage.create({
+        spotId: req.params.spotId,
+        url,
+        preview,
+    })
+
+    return res.json(newImage)
+})
+
+
+// Edit a spot
+router.put('/:spotId', requireAuth, validateCreateSpot, async(req, res, next) => {
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+    const updateSpot = await Spot.findOne({
+        where: {
+            id: req.params.spotId
+        }
+    })
+
+
+    if (!updateSpot) {
+        const err = new Error("Spot couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+
+    if (parseInt(req.user.id) !== parseInt(updateSpot.ownerId)) {
+        const err = new Error("Forbidden")
+        err.status = 403
+        return next(err)
+    }
+
+    if (address !== undefined) updateSpot.address = address
+    if (city !== undefined) updateSpot.city = city
+    if (state !== undefined) updateSpot.state = state
+    if (country !== undefined) updateSpot.country = country
+    if (lat !== undefined) updateSpot.lat = lat
+    if (lng !== undefined) updateSpot.lng = lng
+    if (name !== undefined) updateSpot.name = name
+    if (description !== undefined) updateSpot.description = description
+    if (price !== undefined) updateSpot.price = price
+
+
+
+    return res.json(updateSpot)
+
+})
+
+
+router.delete('/:spotId', requireAuth, async(req, res, next) => {
+    const deleteSpot = await Spot.findOne({
+        where: {
+            id: req.params.spotId
+        }
+    })
+
+    if (!deleteSpot) {
+        const err = new Error("Spot couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+    if (parseInt(req.user.id) !== parseInt(deleteSpot.ownerId)) {
+        const err = new Error("Forbidden")
+        err.status = 403
+        return next(err)
+    }
+
+    await deleteSpot.destroy()
+
+    return res.json({
+        message: "Successfully deleted"
+    })
 })
 
 

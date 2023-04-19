@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
 
       // Test
       Review.belongsTo(models.Spot, {
-        foreignKey: 'spotId'
+        foreignKey: 'spotId',
+        onDelete: 'CASCADE'
       })
       // Test
       Review.belongsTo(models.User, {

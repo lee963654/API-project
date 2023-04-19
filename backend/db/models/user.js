@@ -14,20 +14,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Spot, {
         foreignKey: 'ownerId',
-        as: 'Owner'
+        as: 'Owner',
+        onDelete: 'CASCADE'
       })
 
       User.belongsToMany(models.Spot, {
         through: models.Booking,
         foreignKey: 'userId',
-        otherKey: 'spotId'
+        otherKey: 'spotId',
+        onDelete: 'CASCADE'
       })
 
-      User.belongsToMany(models.Spot, {
-        through: models.Review,
-        foreignKey: 'userId',
-        otherKey: 'spotId'
-      })
+      // User.belongsToMany(models.Spot, {
+      //   through: models.Review,
+      //   foreignKey: 'userId',
+      //   otherKey: 'spotId'
+      // })
 
       // TEST
       User.hasMany(models.Review, {
@@ -77,6 +79,11 @@ module.exports = (sequelize, DataTypes) => {
         len: [60, 60]
       }
     },
+    isAuthorized: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    }
   }, {
     sequelize,
     modelName: 'User',
