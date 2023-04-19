@@ -408,7 +408,7 @@ router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
 
 
 // Add an image to a spot based on the spot's id
-router.post('/:spotId/images', requireAuth, authorization, async(req, res, next) => {
+router.post('/:spotId/images', requireAuth, async(req, res, next) => {
     const { url, preview } = req.body
 
     const currentSpot = await Spot.findOne({
