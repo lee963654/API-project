@@ -32,11 +32,11 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     review: {
       type: DataTypes.STRING,
-      allowNull: false
+
     },
     stars: {
       type: DataTypes.INTEGER,
-      allowNull: false
+
     },
   }, {
     sequelize,

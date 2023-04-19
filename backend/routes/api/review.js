@@ -9,7 +9,38 @@ const router = express.Router();
 
 
 
+// add an image to a review based on the review id
+router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
+    const { url } = req.body
+    const review = await Review.findOne({
+        where: {
+            id: req.params.reviewId
+        }
+    })
+    const numImages = await review.getReviewImages()
 
+    if (numImages.length >= 10) {
+        const err = new Error("Maximum number of images for this resource was reached")
+        err.status = 403
+        return next(err)
+    }
+
+    if (!review) {
+        const err = new Error("Review couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+    const newReviewImage = await ReviewImage.create({
+        reviewId: review.id,
+        url,
+    })
+
+    return res.json({
+        id: newReviewImage.id,
+        url: newReviewImage.url
+    })
+})
 
 
 
