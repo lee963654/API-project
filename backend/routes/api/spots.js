@@ -45,9 +45,10 @@ router.get('/', async (req, res) => {
             image.toJSON()
             if (image.preview) {
                 spot.previewImage = image.url
-            } else {
-                spot.previewImage = "No Image Available"
             }
+            // } else {
+            //     spot.previewImage = "No Image Available"
+            // }
         }
 
 
@@ -76,6 +77,8 @@ router.get('/', async (req, res) => {
 router.get('/current', async (req, res) => {
     console.log(req.user.id)
     let userSpot = []
+    let count = 0
+    let stars = 0
 
     const spot = await Spot.findAll({
         where: {
@@ -83,11 +86,82 @@ router.get('/current', async (req, res) => {
         }
     })
 
+    spot.forEach((ele) => {
+        userSpot.push(ele.toJSON())
+    })
 
-    const reviews = await Review.findAll()
+    for (let ele of userSpot) {
+        const userStar = await Review.findAll({
+            where: {
+                spotId: ele.id
+            }
+        })
+        const previewImage = await SpotImage.findAll({
+            where: {
+                spotId: ele.id
+            }
+        })
+        for (let image of previewImage) {
+            image.toJSON()
+            if (ele.preview) {
+                ele.previewImage = image.url
+            }
+            // } else {
+            //     ele.previewImage = "No Image Available"
+            // }
+        }
+        for (let star of userStar) {
+            star.toJSON()
+            stars = stars + star.stars
+            count = count + 1
+        }
+
+        if (count > 0) {
+            ele.avgRating = stars / count
+            count = 0
+            stars = 0
+        } else {
+            ele.avgRating = "No Rating Available"
+        }
+
+        if (!ele.previewImage) ele.previewImage = "No Image Available"
+
+    }
+
+    return res.json({
+        Spots: userSpot
+    })
+})
 
 
-    return res.json(userSpot)
+router.get('/:spotId', async (req, res, next) => {
+    const spot = await Spot.findAll({
+        where: {
+            id: req.params.spotId
+        },
+        include: [
+            {
+                model: SpotImage,
+                attributes: ['id', 'url', 'preview']
+            },
+            {
+                model: User,
+                as: 'Owner',
+                attributes: ['id', 'firstName', 'lastName']
+            }
+        ]
+
+    })
+
+    // console.log(spot)
+    if (!spot.length) {
+        const err = new Error("Spot couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+
+    return res.json(spot)
 })
 
 
