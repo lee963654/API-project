@@ -55,9 +55,15 @@ router.get('/', async (req, res) => {
             spot.previewImage = "No Image Available"
         }
 
-        spot.avgRating = stars / count
-        stars = 0
-        count = 0
+        if (count > 0) {
+            spot.avgRating = stars / count
+            stars = 0
+            count = 0
+        } else {
+            spot.avgRating = "No Rating Available"
+            stars = 0
+            count = 0
+        }
     }
 
 
