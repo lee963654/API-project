@@ -1,7 +1,7 @@
 const express = require('express');
 const { Op } = require('sequelize');
 
-const { Spot, SpotImage, Review, Booking } = require('../../db/models');
+const { Spot, SpotImage, Review, Booking, User } = require('../../db/models');
 
 const router = express.Router();
 
@@ -81,6 +81,9 @@ router.get('/current', async (req, res) => {
             },
             {
                 model: Booking
+            },
+            {
+                model: User
             }
         ]
     })
