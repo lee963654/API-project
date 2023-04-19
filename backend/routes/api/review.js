@@ -4,9 +4,26 @@ const { Op } = require('sequelize');
 const { handleValidationErrors } = require("../../utils/validation");
 const { requireAuth, authorization } = require('../../utils/auth');
 const { Spot, SpotImage, Review, Booking, User, ReviewImage } = require('../../db/models');
+
 const router = express.Router();
 
 
+
+
+
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isFloat({min: 1, max: 5})
+        .withMessage('Stars must be an integer from 1 to 5'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .withMessage('Stars is required'),
+        handleValidationErrors
+]
 
 
 // add an image to a review based on the review id
@@ -108,6 +125,36 @@ router.get('/current', requireAuth, async(req, res) => {
 
 
     return res.json({ Reviews: returnReview })
+})
+
+
+// Edit a review
+router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
+    const { review, stars } = req.body
+    const editReview = await Review.findOne({
+        where: {
+            id: req.params.reviewId
+        }
+    })
+
+    if (!editReview) {
+        const err = new Error("Review couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+    if (parseInt(editReview.id) !== parseInt(req.user.id)) {
+        const err = new Error("Forbidden")
+        err.status = 403
+        return next(err)
+    }
+
+    if (review !== undefined) editReview.review = review
+    if (stars !== undefined) editReview.stars = stars
+
+    return res.json(editReview)
+
+
 })
 
 

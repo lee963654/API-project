@@ -513,4 +513,6 @@ router.delete('/:spotId', requireAuth, async(req, res, next) => {
 })
 
 
+
 module.exports = router
+// module.exports = validateCreateReview
