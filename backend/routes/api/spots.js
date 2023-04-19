@@ -135,6 +135,9 @@ router.get('/current', async (req, res) => {
 
 
 router.get('/:spotId', async (req, res, next) => {
+
+    let spotArr = []
+
     const spot = await Spot.findAll({
         where: {
             id: req.params.spotId
@@ -153,6 +156,46 @@ router.get('/:spotId', async (req, res, next) => {
 
     })
 
+    const numReviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        }
+    })
+
+
+
+    // console.log("length=========", numReviews.length)
+
+    spot.forEach((ele) => {
+        spotArr.push(ele.toJSON())
+    })
+
+    let reviews = 0
+    let count = 0
+    let stars = 0
+
+    for (let spot of spotArr) {
+        for (let review of numReviews) {
+            if (review) {
+                reviews = reviews + 1
+                stars = stars + review.stars
+                count = count + 1
+            }
+        }
+        spot.numReviews = reviews
+        reviews = 0
+
+        if (count) {
+            spot.avgStarRating = stars / count
+            count = 0
+            stars = 0
+        } else {
+            spot.aveStarRating = "No Rating Available"
+        }
+
+    }
+
+
 
     console.log(spot)
     if (!spot.length) {
@@ -162,7 +205,7 @@ router.get('/:spotId', async (req, res, next) => {
     }
 
 
-    return res.json(spot)
+    return res.json(spotArr)
 })
 
 
