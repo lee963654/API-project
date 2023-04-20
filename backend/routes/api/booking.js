@@ -8,6 +8,28 @@ const { Spot, SpotImage, Review, Booking, User, ReviewImage } = require('../../d
 const router = express.Router();
 
 
+
+// get all bookings for a spot based on the spots id
+router.get('/spotId/bookings', requireAuth, async(req, res, next) => {
+    const booking = await Booking.findAll({
+        where: {
+            spotId: req.params.spotId
+        }
+    })
+    if (!booking.length) {
+        const err = new Error("Spot couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+
+
+})
+
+
+
+
+
 // Get all of the current users bookings
 router.get('/current', requireAuth, async(req, res) => {
 
