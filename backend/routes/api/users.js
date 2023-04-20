@@ -52,22 +52,6 @@ router.post('/', validateSignup, async(req, res, next) => {
         lastName
     });
 
-    // const duplicateUser = await User.findAll({
-    //   where: {
-    //     [Op.or]: {
-    //       email: email,
-    //       username: username
-    //     }
-    //   }
-    // })
-
-    // if (duplicateUser) {
-    //   const err = new Error('User already exists')
-    //   err.message = 'User already exists'
-    //   return next(err)
-    // }
-
-
     const safeUser = {
         id: user.id,
         firstName: user.firstName,
