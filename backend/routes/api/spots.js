@@ -1,7 +1,7 @@
 const express = require('express');
 const { Op } = require('sequelize');
 
-const { requireAuth, authorization } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require("../../utils/validation");
 const { check } = require("express-validator");
 
@@ -93,7 +93,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         return next(err)
     }
 
-    const currentBookings = await Booking.findAll({
+    const currentBookings = await Booking.scope('showAll').findAll({
         where: {
             spotId: req.params.spotId
         }
@@ -103,10 +103,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         booking = booking.toJSON()
         const startBooking = Date.parse(booking.startDate)
         const endBooking = Date.parse(booking.endDate)
-        console.log(startBooking)
-        console.log(endBooking)
-        console.log(Date.parse(startDate))
-        console.log(Date.parse(endDate))
+
 
         if (Date.parse(endDate) < Date.parse(startDate)) {
             const err = new Error('Bad Request')
@@ -118,7 +115,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
             return next(err)
         }
 
-        if ((Date.parse(startDate) > startBooking) && (Date.parse(startDate) < endBooking) && (Date.parse(endDate) > startBooking) && (Date.parse(endDate) < endBooking)) {
+        if ((Date.parse(startDate) >= startBooking) && (Date.parse(startDate) <= endBooking) && (Date.parse(endDate) >= startBooking) && (Date.parse(endDate) <= endBooking)) {
             const err = new Error('Sorry, this spot is already booked for the specified dates')
             err.status = 403
             errors = {
@@ -127,7 +124,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
             }
             err.errors = errors
             return next(err)
-        } else if (Date.parse(endDate) > startBooking && Date.parse(endDate) < endBooking) {
+        } else if (Date.parse(endDate) >= startBooking && Date.parse(endDate) <= endBooking) {
             const err = new Error('Sorry, this spot is already booked for the specified dates')
             err.status = 403
             errors = {
@@ -135,7 +132,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
             }
             err.errors = errors
             return next(err)
-        } else if (Date.parse(startDate) > startBooking && Date.parse(startDate) < endBooking) {
+        } else if (Date.parse(startDate) >= startBooking && Date.parse(startDate) <= endBooking) {
             const err = new Error('Sorry, this spot is already booked for the specified dates')
             err.status = 403
             errors = {
@@ -156,13 +153,14 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
 
     const result = await Booking.findOne({
         where: {
-            startDate: startDate
-        }
+            startDate,
+            endDate,
+        },
+        attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt']
     })
 
 
-
-    return res.json(newBooking)
+    return res.json(result)
 
 })
 
