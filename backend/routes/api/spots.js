@@ -66,14 +66,46 @@ const validateCreateReview = [
 const validateBookings = [
     check('startDate')
         .exists({ checkFalsy: true})
-
-
+        .withMessage("startDate required"),
+    check("startDate")
+        .isDate()
+        .withMessage("startDate must be a valid date"),
+    check("endDate")
+        .exists({ checkFalsy: true})
+        .withMessage("endDate required"),
+    check("endDate")
+        .isDate()
+        .withMessage("endDate must be a valid date"),
+        handleValidationErrors
 ]
 
 
 // Create a booking from a spot based on the spots id
-router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
+router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, next) => {
     const { startDate, endDate } = req.body
+
+    if (Date.parse(endDate) < Date.parse(startDate)) {
+        const err = new Error('Bad Request')
+        err.status = 400
+        errors = {
+            endDate: "endDate cannot be on or before startDate"
+        }
+        err.errors = errors
+        return next(err)
+    }
+
+    if (Date.parse(startDate) < Date.parse(new Date())) {
+        const err = new Error("Bad Request")
+        err.status = 400
+        errors = {
+            startDate: "startDate cannot be before today's date"
+        }
+        err.errors = errors
+        return next(err)
+    }
+
+    console.log(Date.parse(new Date()))
+    console.log(Date.parse(startDate))
 
     const currentSpot = await Spot.findOne({
         where: {
@@ -104,16 +136,6 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         const startBooking = Date.parse(booking.startDate)
         const endBooking = Date.parse(booking.endDate)
 
-
-        if (Date.parse(endDate) < Date.parse(startDate)) {
-            const err = new Error('Bad Request')
-            err.status = 400
-            errors = {
-                endDate: "endDate cannot be on or before startDate"
-            }
-            err.errors = errors
-            return next(err)
-        }
 
         if ((Date.parse(startDate) >= startBooking) && (Date.parse(startDate) <= endBooking) && (Date.parse(endDate) >= startBooking) && (Date.parse(endDate) <= endBooking)) {
             const err = new Error('Sorry, this spot is already booked for the specified dates')
@@ -153,6 +175,8 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
 
     const result = await Booking.findOne({
         where: {
+            spotId: currentSpot.id,
+            userId: req.user.id,
             startDate,
             endDate,
         },
