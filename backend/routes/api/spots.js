@@ -64,6 +64,70 @@ const validateCreateReview = [
 
 
 
+// get all bookings for a spot based on the spots id
+router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
+
+    let ownerRes = []
+
+    const booking = await Booking.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt']
+
+    })
+    if (!booking.length) {
+        const err = new Error("Spot couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+    const spot = await Spot.findOne({
+        where: {
+            id: req.params.spotId
+        }
+    })
+
+
+    if (spot.ownerId !== req.user.id) {
+        const notOwner = await Booking.findAll({
+            where: {
+                spotId: req.params.spotId
+            },
+            attributes: ['spotId', 'startDate', 'endDate']
+        })
+
+        return res.json({
+            Bookings: notOwner
+        })
+
+    } else {
+        const currentUser = await User.findOne({
+            where: {
+                id: req.user.id
+            },
+            attributes: ['id', 'firstName', 'lastName']
+        })
+
+        for (let ele of booking) {
+            ele = ele.toJSON()
+            ele.User = currentUser
+
+            ownerRes.push(ele)
+        }
+    }
+
+    return res.json({
+        Bookings: ownerRes
+    })
+
+
+
+
+})
+
+
+
 // Create a review for a spot based on the spots id
 router.post('/:spotId/reviews', requireAuth, validateCreateReview, async(req, res, next) => {
     const { review, stars } = req.body
