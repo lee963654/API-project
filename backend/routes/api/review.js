@@ -84,6 +84,7 @@ router.get('/current', requireAuth, async(req, res) => {
         ele = ele.toJSON()
 
         const ReviewImages = []
+        let previewImage;
 
         for (let image of reviewImage) {
             image = image.toJSON()
@@ -96,7 +97,7 @@ router.get('/current', requireAuth, async(req, res) => {
 
         for (let image of preview) {
             if (image.preview === true) {
-                ele.previewImage = image.url
+                previewImage = image.url
             }
         }
 
@@ -117,11 +118,12 @@ router.get('/current', requireAuth, async(req, res) => {
             lng: spot.lng,
             name: spot.name,
             price: spot.price,
+            previewImage: previewImage
         }
 
 
-        if (!ele.previewImage) {
-            ele.previewImage = "No preview available"
+        if (!previewImage) {
+            Spot.previewImage = "No preview available"
         }
         ele.Spot = Spot
         ele.User = User
