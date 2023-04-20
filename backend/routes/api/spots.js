@@ -69,6 +69,20 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
 
     let ownerRes = []
 
+
+    const spot = await Spot.findOne({
+        where: {
+            id: req.params.spotId
+        }
+    })
+
+    if (!spot) {
+        const err = new Error("Spot couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+
     const booking = await Booking.findAll({
         where: {
             spotId: req.params.spotId
@@ -76,17 +90,12 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
         attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt']
 
     })
+
     if (!booking.length) {
-        const err = new Error("Spot couldn't be found")
+        const err = new Error("This spot has no bookings")
         err.status = 404
         return next(err)
     }
-
-    const spot = await Spot.findOne({
-        where: {
-            id: req.params.spotId
-        }
-    })
 
 
     if (spot.ownerId !== req.user.id) {
