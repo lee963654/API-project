@@ -79,11 +79,7 @@ module.exports = (sequelize, DataTypes) => {
         len: [60, 60]
       }
     },
-    isAuthorized: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    }
+
   }, {
     sequelize,
     modelName: 'User',
