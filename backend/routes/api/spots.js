@@ -74,18 +74,18 @@ router.post('/:spotId/reviews', requireAuth, validateCreateReview, async(req, re
         }
     })
 
-    const findReview = await spot.getReviews({
-        where: {
-            userId: req.user.id
-        }
-    })
-
-
     if (!spot) {
         const err = new Error("Spot couldn't be found")
         err.status = 404
         return next(err)
     }
+
+
+    const findReview = await spot.getReviews({
+        where: {
+            userId: req.user.id
+        }
+    })
 
     if (findReview.length) {
         const err = new Error("User already has a review for this spot")
