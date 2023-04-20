@@ -104,8 +104,8 @@ router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, 
         return next(err)
     }
 
-    console.log(Date.parse(new Date()))
-    console.log(Date.parse(startDate))
+    // console.log(Date.parse(new Date()))
+    // console.log(Date.parse(startDate))
 
     const currentSpot = await Spot.findOne({
         where: {
