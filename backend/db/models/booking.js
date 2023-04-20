@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       Booking.belongsTo(models.User, {
         foreignKey: 'userId'
       })
+
+      Booking.belongsTo(models.Spot, {
+        foreignKey: 'spotId',
+        onDelete: 'CASCADE'
+      })
+
     }
   }
   Booking.init({
@@ -28,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
+    scopes: {
+      showAll: {
+        attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt']
+      }
+    },
     sequelize,
     modelName: 'Booking',
   });

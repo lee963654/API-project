@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE'
       })
 
+      Spot.hasMany(models.Booking, {
+        foreignKey: 'spotId',
+        onDelete: 'CASCADE'
+      })
+
       // Spot.belongsToMany(models.User, {
       //   through: models.Review,
       //   foreignKey: 'spotId',
@@ -89,6 +94,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {
+    scopes: {
+      exclude: {
+        attributes: {
+          exclude: ['createdAt', 'updatedAt']
+        }
+      }
+    },
     sequelize,
     modelName: 'Spot',
   });

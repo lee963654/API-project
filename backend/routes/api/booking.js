@@ -10,13 +10,48 @@ const router = express.Router();
 
 // Get all of the current users bookings
 router.get('/current', requireAuth, async(req, res) => {
-    const booking = await Booking.findAll({
+
+    let results = []
+
+    const booking = await Booking.scope('showAll').findAll({
         where: {
             userId: req.user.id
-        }
+        },
     })
 
-    return res.json(booking)
+    for (let ele of booking) {
+        let findSpot = await ele.getSpot({
+            attributes: {
+                exclude: ['createdAt', 'updatedAt', 'description']
+            }
+        })
+        ele = ele.toJSON()
+        findSpot = findSpot.toJSON()
+        const previewImg = await SpotImage.findAll({
+            where: {
+                spotId: findSpot.id
+            }
+        })
+        for (let image of previewImg) {
+            image = image.toJSON()
+            if (image.preview) {
+                findSpot.previewImage = image.url
+            }
+        }
+        if (!findSpot.previewImage) {
+            findSpot.previewImage = "No image available"
+        }
+
+        ele.Spot = findSpot
+        results.push(ele)
+    }
+
+
+
+
+    return res.json({
+        Bookings: results
+    })
 })
 
 
@@ -25,4 +60,4 @@ router.get('/current', requireAuth, async(req, res) => {
 
 
 
-module.export = router
+module.exports = router
