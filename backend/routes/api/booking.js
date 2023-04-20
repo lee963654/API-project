@@ -172,6 +172,39 @@ router.put('/:bookingId', requireAuth, validateBookings, async(req, res, next) =
 })
 
 
+// Delete a booking
+router.delete('/:bookingId', requireAuth, async(req, res, next) => {
+    const deleteBooking = await Booking.findOne({
+        where: {
+            id: req.params.bookingId
+        }
+    })
+
+    if (!deleteBooking) {
+        const err = new Error("Booking couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+    if (deleteBooking.userId !== req.user.id) {
+        const err = new Error("forbidden")
+        err.status = 403
+        return next(err)
+    }
+
+    if (Date.parse(deleteBooking.startDate) <= Date.parse(new Date()) && Date.parse(deleteBooking.endDate) >= Date.parse(new Date())) {
+        const err = new Error("Bookings that have been started can't be deleted")
+        err.status = 403
+        return next(err)
+    }
+
+    await deleteBooking.destroy()
+
+    return res.json({
+        message: "Successfully deleted"
+    })
+
+})
 
 
 module.exports = router
