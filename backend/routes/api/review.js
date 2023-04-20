@@ -34,6 +34,14 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
             id: req.params.reviewId
         }
     })
+
+    if (!review) {
+        const err = new Error("Review couldn't be found")
+        err.status = 404
+        return next(err)
+    }
+
+
     const numImages = await review.getReviewImages()
 
     if (numImages.length >= 10) {
@@ -42,11 +50,6 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
         return next(err)
     }
 
-    if (!review) {
-        const err = new Error("Review couldn't be found")
-        err.status = 404
-        return next(err)
-    }
 
     const newReviewImage = await ReviewImage.create({
         reviewId: review.id,
