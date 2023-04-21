@@ -151,13 +151,14 @@ router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
         }
     })
 
+
     if (!editReview) {
         const err = new Error("Review couldn't be found")
         err.status = 404
         return next(err)
     }
 
-    if (parseInt(editReview.id) !== parseInt(req.user.id)) {
+    if (parseInt(editReview.userId) !== parseInt(req.user.id)) {
         const err = new Error("Forbidden")
         err.status = 403
         return next(err)
