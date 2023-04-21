@@ -37,7 +37,7 @@ module.exports = {
         city: "Newark",
         state: 'New Jersey',
         country: 'USA',
-        lat: 505.7853423453,
+        lat: 50.7853423453,
         lng: 4.7478373,
         name: 'name2',
         description: 'abcd',

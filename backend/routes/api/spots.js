@@ -383,8 +383,8 @@ router.get('/:spotId/reviews', async(req, res, next) => {
 // Get All Spots
 router.get('/', async (req, res, next) => {
     const errors = {}
-    // const spots = await Spot.findAll();
-    // const spotImages = await SpotImage.findAll();
+
+    const spotImages = await SpotImage.findAll();
     let { page, size, lat, lng, price } = req.query
 
 
@@ -420,6 +420,19 @@ router.get('/', async (req, res, next) => {
         return next(err)
     }
 
+    const where = {}
+
+    if (lat) {
+        where.lat = lat
+    }
+    if (lng) {
+        where.lng = lng
+    }
+    if (price) {
+        where.price = price
+    }
+
+
     const pagination = {}
 
     if (page && size) {
@@ -427,70 +440,90 @@ router.get('/', async (req, res, next) => {
         pagination.offset = size * (page - 1)
     }
 
-    const spots = await Spot.findAll({
-        ...pagination
-    })
 
 
-    return res.json(spots)
-
-    // let spotsList = []
-    // let stars = 0
-    // let count = 0
 
 
+// TESTING =======================================
+    // const spots = await Spot.findAll({
+
+    // })
 
     // for (let spot of spots) {
-    //     spotsList.push(spot.toJSON())
+    //     console.log(await spot.getSpotImages())
+    //     spot = spot.toJSON()
+
     // }
 
-    // for (let spot of spotsList) {
-    //     const findImage = await SpotImage.findAll({
-    //         where: {
-    //             spotId: spot.id
-    //         }
-    //     })
-
-    //     const findStars = await Review.findAll({
-    //         where: {
-    //             spotId: spot.id
-    //         }
-    //     })
-
-    //     for (let star of findStars) {
-    //         star.toJSON()
-    //         stars = stars + star.stars
-    //         count = count + 1
-    //     }
-
-    //     for (let image of findImage) {
-    //         image.toJSON()
-    //         if (image.preview) {
-    //             spot.previewImage = image.url
-    //         }
-
-    //     }
+    // return res.json(spots)
+// TESTING ==========================================
 
 
-    //     if (!spot.previewImage) {
-    //         spot.previewImage = "No Image Available"
-    //     }
 
-    //     if (count > 0) {
-    //         spot.avgRating = stars / count
-    //         stars = 0
-    //         count = 0
-    //     } else {
-    //         spot.avgRating = "No Rating Available"
-    //         stars = 0
-    //         count = 0
-    //     }
-    // }
+const spots = await Spot.findAll({
+    where: where,
+    ...pagination
+});
+
+    let spotsList = []
+    let stars = 0
+    let count = 0
 
 
-    // return res.json({
-    //     Spots: spotsList
-    // })
+
+    for (let spot of spots) {
+        spotsList.push(spot.toJSON())
+    }
+
+    for (let spot of spotsList) {
+        const findImage = await SpotImage.findAll({
+            where: {
+                spotId: spot.id
+            }
+        })
+
+        const findStars = await Review.findAll({
+            where: {
+                spotId: spot.id
+            }
+        })
+
+        for (let star of findStars) {
+            star.toJSON()
+            stars = stars + star.stars
+            count = count + 1
+        }
+
+        for (let image of findImage) {
+            image.toJSON()
+            if (image.preview) {
+                spot.previewImage = image.url
+            }
+
+        }
+
+
+        if (!spot.previewImage) {
+            spot.previewImage = "No Image Available"
+        }
+
+        if (count > 0) {
+            spot.avgRating = stars / count
+            stars = 0
+            count = 0
+        } else {
+            spot.avgRating = "No Rating Available"
+            stars = 0
+            count = 0
+        }
+    }
+
+
+    return res.json({
+        Spots: spotsList,
+        page: page || 1,
+        size,
+    })
 })
 
 // Get all Spots owned by the Current User
