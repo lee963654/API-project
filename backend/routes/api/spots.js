@@ -83,7 +83,7 @@ const validateBookings = [
 // Create a booking from a spot based on the spots id
 router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, next) => {
     const { startDate, endDate } = req.body
-    const allDates = []
+
 
     let newStartDate = Date.parse(startDate)
     let newEndDate = Date.parse(endDate)
@@ -136,11 +136,9 @@ router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, 
         booking = booking.toJSON()
         const startBooking = Date.parse(booking.startDate)
         const endBooking = Date.parse(booking.endDate)
-        allDates.push(startBooking)
-        allDates.push(endBooking)
 
 
-        if ((Date.parse(startDate) >= startBooking) && (Date.parse(startDate) <= endBooking) && (Date.parse(endDate) >= startBooking) && (Date.parse(endDate) <= endBooking)) {
+        if (((Date.parse(startDate) >= startBooking) && (Date.parse(startDate) <= endBooking) && (Date.parse(endDate) >= startBooking) && (Date.parse(endDate) <= endBooking)) || (Date.parse(startDate) <= startBooking && Date.parse(endDate) > endBooking)) {
             const err = new Error('Sorry, this spot is already booked for the specified dates')
             err.status = 403
             errors = {
@@ -168,25 +166,6 @@ router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, 
         }
 
     }
-
-
-
-    // for (let i = 0; i < allDates.length - 1; i++) {
-    //     let startDate = allDates[i]
-    //     let endDate = allDates[i + 1]
-    //     let nextStartDate = allDates[i + 2]
-    //     if (newStartDate <= startDate && newEndDate > endDate) {
-    //         const err = new Error('Sorry, this spot is already booked for the specified dates')
-    //         err.status = 403
-    //         errors = {
-    //             startDate: "Start date conflicts with an existing booking",
-    //             endDate: "End date conflicts with an existing booking"
-    //         }
-    //         err.errors = errors
-    //         return next(err)
-    //     }
-    // }
-
 
     const newBooking = await Booking.create({
         spotId: currentSpot.id,

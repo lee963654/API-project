@@ -135,7 +135,7 @@ router.put('/:bookingId', requireAuth, validateBookings, async(req, res, next) =
         const startBooking = Date.parse(booking.startDate)
         const endBooking = Date.parse(booking.endDate)
 
-        if ((Date.parse(startDate) >= startBooking) && (Date.parse(startDate) <= endBooking) && (Date.parse(endDate) >= startBooking) && (Date.parse(endDate) <= endBooking)) {
+        if (((Date.parse(startDate) >= startBooking) && (Date.parse(startDate) <= endBooking) && (Date.parse(endDate) >= startBooking) && (Date.parse(endDate) <= endBooking)) || (Date.parse(startDate) <= startBooking && Date.parse(endDate) > endBooking)) {
             const err = new Error('Sorry, this spot is already booked for the specified dates')
             err.status = 403
             errors = {
