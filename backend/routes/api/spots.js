@@ -79,6 +79,16 @@ const validateBookings = [
         handleValidationErrors
 ]
 
+// const validateQuery = [
+//     query('page')
+//         .isFloat({ min: 1, max: 10 })
+//         .withMessage("Page must be greater than or equal to 1"),
+//     query('size')
+//         .isFloat({ min: 1, max: 20 })
+//         .withMessage("Size must be greater than or equal to 1"),
+
+// ]
+
 
 // Create a booking from a spot based on the spots id
 router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, next) => {
@@ -371,69 +381,116 @@ router.get('/:spotId/reviews', async(req, res, next) => {
 
 
 // Get All Spots
-router.get('/', async (req, res) => {
-    const spots = await Spot.findAll();
-    const spotImages = await SpotImage.findAll();
-
-    let spotsList = []
-    let stars = 0
-    let count = 0
+router.get('/', async (req, res, next) => {
+    const errors = {}
+    // const spots = await Spot.findAll();
+    // const spotImages = await SpotImage.findAll();
+    let { page, size, lat, lng, price } = req.query
 
 
+    if (!page) page = 1
+    if (!size) size = 20
+    page = parseInt(page)
+    size = parseInt(size)
 
-    for (let spot of spots) {
-        spotsList.push(spot.toJSON())
+    if (page && (page < 1 || isNaN(page) || page > 10)) {
+        errors.page = "Page must be greater than or equal to 1 and less than or equal to 10"
+    }
+    if (size && (size < 1 || isNaN(size) || size > 20)) {
+        errors.size = "Size must be greater than or equal to 1 and less than or equal to 20"
+    }
+    if (lat && (lat < -90 || isNaN(lat))) {
+        errors.minLat = "Minimum latitude is invalid"
+    } else if (lat && (lat > 90 || isNaN(lat))) {
+        errors.maxLat = "Maximum latitude is invalid"
+    }
+    if (lng && (lng < -180 || isNaN(lng))) {
+        errors.minLng = "Maximum longitude is invalid"
+    } else if (lng && (lng > 180 || isNaN(lng))) {
+        errors.maxLng = "Minimum longitude is invalid"
+    }
+    if (price && price < 0) {
+        errors.minPrice = "Minimum price must be greater than or equal to 0"
+        errors.maxPrice = "Maximum price must be greater than or equal to 0"
+    }
+    if (Object.keys(errors).length) {
+        const err = new Error("Bad Request")
+        err.status = 400
+        err.errors = errors
+        return next(err)
     }
 
-    for (let spot of spotsList) {
-        const findImage = await SpotImage.findAll({
-            where: {
-                spotId: spot.id
-            }
-        })
+    const pagination = {}
 
-        const findStars = await Review.findAll({
-            where: {
-                spotId: spot.id
-            }
-        })
-
-        for (let star of findStars) {
-            star.toJSON()
-            stars = stars + star.stars
-            count = count + 1
-        }
-
-        for (let image of findImage) {
-            image.toJSON()
-            if (image.preview) {
-                spot.previewImage = image.url
-            }
-            // } else {
-            //     spot.previewImage = "No Image Available"
-            // }
-        }
-
-
-        if (!spot.previewImage) {
-            spot.previewImage = "No Image Available"
-        }
-
-        if (count > 0) {
-            spot.avgRating = stars / count
-            stars = 0
-            count = 0
-        } else {
-            spot.avgRating = "No Rating Available"
-            stars = 0
-            count = 0
-        }
+    if (page && size) {
+        pagination.limit = size
+        pagination.offset = size * (page - 1)
     }
 
-
-    return res.json({
-        Spots: spotsList
+    const spots = await Spot.findAll({
+        ...pagination
     })
+
+
+    return res.json(spots)
+
+    // let spotsList = []
+    // let stars = 0
+    // let count = 0
+
+
+
+    // for (let spot of spots) {
+    //     spotsList.push(spot.toJSON())
+    // }
+
+    // for (let spot of spotsList) {
+    //     const findImage = await SpotImage.findAll({
+    //         where: {
+    //             spotId: spot.id
+    //         }
+    //     })
+
+    //     const findStars = await Review.findAll({
+    //         where: {
+    //             spotId: spot.id
+    //         }
+    //     })
+
+    //     for (let star of findStars) {
+    //         star.toJSON()
+    //         stars = stars + star.stars
+    //         count = count + 1
+    //     }
+
+    //     for (let image of findImage) {
+    //         image.toJSON()
+    //         if (image.preview) {
+    //             spot.previewImage = image.url
+    //         }
+
+    //     }
+
+
+    //     if (!spot.previewImage) {
+    //         spot.previewImage = "No Image Available"
+    //     }
+
+    //     if (count > 0) {
+    //         spot.avgRating = stars / count
+    //         stars = 0
+    //         count = 0
+    //     } else {
+    //         spot.avgRating = "No Rating Available"
+    //         stars = 0
+    //         count = 0
+    //     }
+    // }
+
+
+    // return res.json({
+    //     Spots: spotsList
+    // })
 })
 
 // Get all Spots owned by the Current User
