@@ -83,6 +83,7 @@ const validateBookings = [
 // Create a booking from a spot based on the spots id
 router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, next) => {
     const { startDate, endDate } = req.body
+    const allDates = []
 
     if (Date.parse(endDate) < Date.parse(startDate)) {
         const err = new Error('Bad Request')
@@ -103,9 +104,6 @@ router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, 
         err.errors = errors
         return next(err)
     }
-
-    // console.log(Date.parse(new Date()))
-    // console.log(Date.parse(startDate))
 
     const currentSpot = await Spot.findOne({
         where: {
@@ -135,6 +133,8 @@ router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, 
         booking = booking.toJSON()
         const startBooking = Date.parse(booking.startDate)
         const endBooking = Date.parse(booking.endDate)
+        allDates.push(startBooking)
+        allDates.push(endBooking)
 
 
         if ((Date.parse(startDate) >= startBooking) && (Date.parse(startDate) <= endBooking) && (Date.parse(endDate) >= startBooking) && (Date.parse(endDate) <= endBooking)) {
@@ -165,6 +165,9 @@ router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, 
         }
 
     }
+
+    console.log(allDates)
+
 
     const newBooking = await Booking.create({
         spotId: currentSpot.id,
