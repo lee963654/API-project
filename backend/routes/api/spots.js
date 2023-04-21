@@ -85,6 +85,9 @@ router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, 
     const { startDate, endDate } = req.body
     const allDates = []
 
+    let newStartDate = Date.parse(startDate)
+    let newEndDate = Date.parse(endDate)
+
     if (Date.parse(endDate) < Date.parse(startDate)) {
         const err = new Error('Bad Request')
         err.status = 400
@@ -166,7 +169,23 @@ router.post('/:spotId/bookings', requireAuth, validateBookings, async(req, res, 
 
     }
 
-    console.log(allDates)
+
+
+    // for (let i = 0; i < allDates.length - 1; i++) {
+    //     let startDate = allDates[i]
+    //     let endDate = allDates[i + 1]
+    //     let nextStartDate = allDates[i + 2]
+    //     if (newStartDate <= startDate && newEndDate > endDate) {
+    //         const err = new Error('Sorry, this spot is already booked for the specified dates')
+    //         err.status = 403
+    //         errors = {
+    //             startDate: "Start date conflicts with an existing booking",
+    //             endDate: "End date conflicts with an existing booking"
+    //         }
+    //         err.errors = errors
+    //         return next(err)
+    //     }
+    // }
 
 
     const newBooking = await Booking.create({
