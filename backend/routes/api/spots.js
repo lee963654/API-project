@@ -428,10 +428,10 @@ router.get('/', async (req, res, next) => {
     }
 
     const where = {}
+    minLat = Number.parseFloat(minLat)
+    maxLat = Number.parseFloat(maxLat)
 
     if (minLat && maxLat) {
-        minLat = Number.parseFloat(minLat)
-        maxLat = Number.parseFloat(maxLat)
         where.lat = {[Op.between]: [minLat, maxLat]}
     } else if (minLat) {
         minLat = Number.parseFloat(minLat)
