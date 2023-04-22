@@ -31,7 +31,11 @@ const validateCreateSpot = [
         .withMessage('Latitude is not valid'),
     check('lng')
         .exists({ checkFalsy: true})
+<<<<<<< HEAD
         .isFloat({ min: -180, max: 180})
+=======
+        .isFloat({ min: -180, max:180})
+>>>>>>> dev
         .withMessage('Longitude is not valid'),
     check('name')
         .exists({ checkFalsy: true})
@@ -387,7 +391,7 @@ router.get('/', async (req, res, next) => {
     const errors = {}
 
     const spotImages = await SpotImage.findAll();
-    let { page, size, lat, lng, price } = req.query
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
 
 
     if (!page) page = 1
@@ -395,24 +399,29 @@ router.get('/', async (req, res, next) => {
     page = parseInt(page)
     size = parseInt(size)
 
+
     if (page && (page < 1 || isNaN(page) || page > 10)) {
         errors.page = "Page must be greater than or equal to 1 and less than or equal to 10"
     }
     if (size && (size < 1 || isNaN(size) || size > 20)) {
         errors.size = "Size must be greater than or equal to 1 and less than or equal to 20"
     }
-    if (lat && (lat < -90 || isNaN(lat))) {
+    if (minLat && (minLat < -90 || minLat > 90 || isNaN(minLat))) {
         errors.minLat = "Minimum latitude is invalid"
-    } else if (lat && (lat > 90 || isNaN(lat))) {
+    }
+    if (maxLat && (maxLat > 90 || maxLat < -90 || isNaN(maxLat))) {
         errors.maxLat = "Maximum latitude is invalid"
     }
-    if (lng && (lng < -180 || isNaN(lng))) {
-        errors.minLng = "Maximum longitude is invalid"
-    } else if (lng && (lng > 180 || isNaN(lng))) {
-        errors.maxLng = "Minimum longitude is invalid"
+    if (minLng && (minLng < -180 || minLng > 180 || isNaN(minLng))) {
+        errors.minLng = "Minimum longitude is invalid"
     }
-    if (price && price < 0) {
+    if (maxLng && (maxLng > 180 || maxLng < -180 || isNaN(maxLng))) {
+        errors.maxLng = "Maximum longitude is invalid"
+    }
+    if (minPrice && minPrice < 0) {
         errors.minPrice = "Minimum price must be greater than or equal to 0"
+    }
+    if (maxPrice && maxPrice < 0) {
         errors.maxPrice = "Maximum price must be greater than or equal to 0"
     }
     if (Object.keys(errors).length) {
@@ -423,16 +432,42 @@ router.get('/', async (req, res, next) => {
     }
 
     const where = {}
+    minLat = Number.parseFloat(minLat)
+    maxLat = Number.parseFloat(maxLat)
 
-    if (lat) {
-        where.lat = lat
+    if (minLat && maxLat) {
+        where.lat = {[Op.between]: [minLat, maxLat]}
+    } else if (minLat) {
+        minLat = Number.parseFloat(minLat)
+        where.lat = {[Op.gte]: minLat}
+    } else if (maxLat) {
+        maxLat = Number.parseFloat(maxLat)
+        where.lat = {[Op.lte]: maxLat}
     }
-    if (lng) {
-        where.lng = lng
+    if (minLng && maxLng) {
+        minLng = Number.parseFloat(minLng)
+        maxLng = Number.parseFloat(maxLng)
+        where.lng = {[Op.between]: [minLng, maxLng]}
+    } else if (minLng) {
+        minLng = Number.parseFloat(minLng)
+        where.lng = {[Op.gte]: minLng}
+    } else if (maxLng) {
+        maxLng = Number.parseFloat(maxLng)
+        where.lng = {[Op.lte]: maxLng}
     }
-    if (price) {
-        where.price = price
+    if (minPrice && maxPrice) {
+        minPrice = Number.parseFloat(minPrice)
+        maxPrice = Number.parseFloat(maxPrice)
+        where.price = {[Op.between]: [minPrice, maxPrice]}
+    } else if (minPrice) {
+        minPrice = Number.parseFloat(minPrice)
+        where.price = {[Op.gte]: minPrice}
+    } else if (maxPrice) {
+        maxPrice = Number.parseFloat(maxPrice)
+        where.price = {[Op.lte]: maxPrice}
     }
+
+
 
 
     const pagination = {}

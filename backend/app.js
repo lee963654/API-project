@@ -60,8 +60,6 @@ app.use((_req, _res, next) => {
   // Process sequelize errors
 app.use((err, _req, _res, next) => {
     // check if error is a Sequelize error:
-    // console.log('this==========', err, "end=================")
-    // console.log('message=============', err.message)
     if (err instanceof ValidationError) {
       let errors = {};
       for (let error of err.errors) {
@@ -80,11 +78,11 @@ app.use((err, _req, res, _next) => {
     console.error(err);
 
     res.json({
-      // title: err.title || 'Server Error',
+      title: err.title || 'Server Error',
       message: err.message,
 
       errors: err.errors,
-      // stack: isProduction ? null : err.stack
+      stack: isProduction ? null : err.stack
     });
   });
 
