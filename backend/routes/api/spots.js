@@ -394,6 +394,12 @@ router.get('/', async (req, res, next) => {
     if (!size) size = 20
     page = parseInt(page)
     size = parseInt(size)
+    minLat = Number.parseFloat(minLat)
+    maxLat = Number.parseFloat(maxLat)
+    minLng = Number.parseFloat(minLng)
+    maxLng = Number.parseFloat(maxLng)
+    minPrice = Number.parseFloat(minPrice)
+    maxPrice = Number.parseFloat(maxPrice)
 
 
     if (page && (page < 1 || isNaN(page) || page > 10)) {
@@ -428,43 +434,29 @@ router.get('/', async (req, res, next) => {
     }
 
     const where = {}
-    minLat = Number.parseFloat(minLat)
-    maxLat = Number.parseFloat(maxLat)
+
 
     if (minLat && maxLat) {
         where.lat = {[Op.between]: [minLat, maxLat]}
     } else if (minLat) {
-        minLat = Number.parseFloat(minLat)
         where.lat = {[Op.gte]: minLat}
     } else if (maxLat) {
-        maxLat = Number.parseFloat(maxLat)
         where.lat = {[Op.lte]: maxLat}
     }
     if (minLng && maxLng) {
-        minLng = Number.parseFloat(minLng)
-        maxLng = Number.parseFloat(maxLng)
         where.lng = {[Op.between]: [minLng, maxLng]}
     } else if (minLng) {
-        minLng = Number.parseFloat(minLng)
         where.lng = {[Op.gte]: minLng}
     } else if (maxLng) {
-        maxLng = Number.parseFloat(maxLng)
         where.lng = {[Op.lte]: maxLng}
     }
     if (minPrice && maxPrice) {
-        minPrice = Number.parseFloat(minPrice)
-        maxPrice = Number.parseFloat(maxPrice)
         where.price = {[Op.between]: [minPrice, maxPrice]}
     } else if (minPrice) {
-        minPrice = Number.parseFloat(minPrice)
         where.price = {[Op.gte]: minPrice}
     } else if (maxPrice) {
-        maxPrice = Number.parseFloat(maxPrice)
         where.price = {[Op.lte]: maxPrice}
     }
-
-
-
 
     const pagination = {}
 
@@ -475,88 +467,122 @@ router.get('/', async (req, res, next) => {
 
 
 
+    const result = []
 
-
-// TESTING =======================================
-    // const spots = await Spot.findAll({
-
-    // })
-
-    // for (let spot of spots) {
-    //     console.log(await spot.getSpotImages())
-    //     spot = spot.toJSON()
-
-    // }
-
-    // return res.json(spots)
-// TESTING ==========================================
-
-
-
-const spots = await Spot.findAll({
-    where: where,
-    ...pagination
-});
-
-    let spotsList = []
-    let stars = 0
-    let count = 0
-
-
+    const spots = await Spot.findAll({
+        where: where,
+        ...pagination
+    })
 
     for (let spot of spots) {
-        spotsList.push(spot.toJSON())
-    }
+        const prevImg = await spot.getSpotImages({
+            where: {
+                preview: true
+            }
+        })
 
-    for (let spot of spotsList) {
-        const findImage = await SpotImage.findAll({
+        const stars = await spot.getReviews()
+
+        const numStar = await Review.sum('stars', {
             where: {
                 spotId: spot.id
             }
         })
 
-        const findStars = await Review.findAll({
-            where: {
-                spotId: spot.id
-            }
-        })
 
-        for (let star of findStars) {
-            star.toJSON()
-            stars = stars + star.stars
-            count = count + 1
-        }
+        spot = spot.toJSON()
 
-        for (let image of findImage) {
-            image.toJSON()
-            if (image.preview) {
-                spot.previewImage = image.url
-            }
-
-        }
-
-
-        if (!spot.previewImage) {
-            spot.previewImage = "No Image Available"
-        }
-
-        if (count > 0) {
-            spot.avgRating = stars / count
-            stars = 0
-            count = 0
+        if (!stars.length) {
+            spot.avgRating = "No rating available"
         } else {
-            spot.avgRating = "No Rating Available"
-            stars = 0
-            count = 0
+            spot.avgRating = numStar / stars.length
         }
+
+        if (prevImg.length) {
+            spot.previewImage = prevImg[0].url
+        } else {
+            spot.previewImage = "No image available"
+        }
+
+        result.push(spot)
     }
 
 
     return res.json({
-        Spots: spotsList,
+        Spots: result,
         page: page || 1,
         size,
     })
+
+
+
+
+// WORKING CODE BELOW DO NOT DELETE========================================
+// const spots = await Spot.findAll({
+//     where: where,
+//     ...pagination
+// });
+
+//     let spotsList = []
+//     let stars = 0
+//     let count = 0
+
+
+
+//     for (let spot of spots) {
+//         spotsList.push(spot.toJSON())
+//     }
+
+//     for (let spot of spotsList) {
+//         const findImage = await SpotImage.findAll({
+//             where: {
+//                 spotId: spot.id
+//             }
+//         })
+
+//         const findStars = await Review.findAll({
+//             where: {
+//                 spotId: spot.id
+//             }
+//         })
+
+//         for (let star of findStars) {
+//             star.toJSON()
+//             stars = stars + star.stars
+//             count = count + 1
+//         }
+
+//         for (let image of findImage) {
+//             image.toJSON()
+//             if (image.preview) {
+//                 spot.previewImage = image.url
+//             }
+
+//         }
+
+
+//         if (!spot.previewImage) {
+//             spot.previewImage = "No Image Available"
+//         }
+
+//         if (count > 0) {
+//             spot.avgRating = stars / count
+//             stars = 0
+//             count = 0
+//         } else {
+//             spot.avgRating = "No Rating Available"
+//             stars = 0
+//             count = 0
+//         }
+//     }
+
+
+//     return res.json({
+//         Spots: spotsList,
+//         page: page || 1,
+//         size,
+//     })
+// WORKING CODE ABOVE DO NOT DELETE ========================================
 })
 
 // Get all Spots owned by the Current User
