@@ -386,7 +386,7 @@ router.get('/:spotId/reviews', async(req, res, next) => {
 router.get('/', async (req, res, next) => {
     const errors = {}
 
-    const spotImages = await SpotImage.findAll();
+
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
 
 
@@ -468,38 +468,40 @@ router.get('/', async (req, res, next) => {
 
 
     const result = []
-
+    // Find all spots
     const spots = await Spot.findAll({
         where: where,
         ...pagination
     })
-
+    // iterate through each spot
     for (let spot of spots) {
+        // getting all spot images that have a preview property of true that are attached to the current spot
         const prevImg = await spot.getSpotImages({
             where: {
                 preview: true
             }
         })
-
-        const stars = await spot.getReviews()
-
+        // getting all reviews attached to the current spot
+        const reviews = await spot.getReviews()
+        // getting the sum of all the stars in the stars column of each review attached to the spot
         const numStar = await Review.sum('stars', {
             where: {
                 spotId: spot.id
             }
         })
 
-
+        // turning the spot into a toJSON() object in order to add key value pairs
         spot = spot.toJSON()
-
-        if (!stars.length) {
+        // if reviews has no length
+        if (!reviews.length) {
             spot.avgRating = "No rating available"
         } else {
-            spot.avgRating = numStar / stars.length
+            // if reviews has length
+            spot.avgRating = numStar / reviews.length
         }
-
+        // if prevImg has length, we are randomly indexing into a prevImg to show that url in the spot object.
         if (prevImg.length) {
-            spot.previewImage = prevImg[0].url
+            spot.previewImage = prevImg[Math.floor(Math.random() * prevImg.length)].url
         } else {
             spot.previewImage = "No image available"
         }
@@ -587,137 +589,212 @@ router.get('/', async (req, res, next) => {
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
-    console.log(req.user.id)
-    let userSpot = []
-    let count = 0
-    let stars = 0
 
-    const spot = await Spot.findAll({
+    const result = [];
+    // finding all spots that are attached to the req.user, Steps are pretty much the same as find all spots.
+    const spots = await Spot.findAll({
         where: {
             ownerId: req.user.id
         }
     })
 
-    spot.forEach((ele) => {
-        userSpot.push(ele.toJSON())
-    })
-
-    for (let ele of userSpot) {
-        const userStar = await Review.findAll({
+    for (let spot of spots) {
+        const img = await spot.getSpotImages({
             where: {
-                spotId: ele.id
+                preview: true
             }
         })
-        const previewImage = await SpotImage.findAll({
+        const reviews = await spot.getReviews();
+        const numStars = await Review.sum('stars', {
             where: {
-                spotId: ele.id
+                spotId: spot.id
             }
-        })
-        for (let image of previewImage) {
-            image.toJSON()
-            if (image.preview) {
-                ele.previewImage = image.url
-            }
-            // } else {
-            //     ele.previewImage = "No Image Available"
-            // }
-        }
-        for (let star of userStar) {
-            star.toJSON()
-            stars = stars + star.stars
-            count = count + 1
-        }
+        });
 
-        if (count > 0) {
-            ele.avgRating = stars / count
-            count = 0
-            stars = 0
-        } else {
-            ele.avgRating = "No Rating Available"
-        }
+        spot = spot.toJSON();
 
-        if (!ele.previewImage) ele.previewImage = "No Image Available"
+        if (img.length) {
+            spot.previewImage = img[Math.floor(Math.random() * img.length)].url;
+        } else spot.previewImage = "No image available";
+        if (reviews.length) {
+            spot.avgRating = numStars / reviews.length;
+        } else spot.avgRating = "No rating available";
 
+        result.push(spot);
     }
 
     return res.json({
-        Spots: userSpot
+        Spots: result
     })
+
+    // WORKING CODE DO NOT DELETE==================================================
+    // let userSpot = []
+    // let count = 0
+    // let stars = 0
+
+    // const spot = await Spot.findAll({
+    //     where: {
+    //         ownerId: req.user.id
+    //     }
+    // })
+
+    // spot.forEach((ele) => {
+    //     userSpot.push(ele.toJSON())
+    // })
+
+    // for (let ele of userSpot) {
+    //     const userStar = await Review.findAll({
+    //         where: {
+    //             spotId: ele.id
+    //         }
+    //     })
+    //     const previewImage = await SpotImage.findAll({
+    //         where: {
+    //             spotId: ele.id
+    //         }
+    //     })
+    //     for (let image of previewImage) {
+    //         image.toJSON()
+    //         if (image.preview) {
+    //             ele.previewImage = image.url
+    //         }
+
+    //     }
+    //     for (let star of userStar) {
+    //         star.toJSON()
+    //         stars = stars + star.stars
+    //         count = count + 1
+    //     }
+
+    //     if (count > 0) {
+    //         ele.avgRating = stars / count
+    //         count = 0
+    //         stars = 0
+    //     } else {
+    //         ele.avgRating = "No Rating Available"
+    //     }
+
+    //     if (!ele.previewImage) ele.previewImage = "No Image Available"
+
+    // }
+
+    // return res.json({
+    //     Spots: userSpot
+    // })
+    // WORKING CODE DO NOT DELETE=======================================================
 })
 
 // Get details of a spot from an id
 router.get('/:spotId', async (req, res, next) => {
-
-    let spotArr = []
-
-    const spot = await Spot.findAll({
-        where: {
-            id: req.params.spotId
-        },
-        include: [
-            {
-                model: SpotImage,
-                attributes: ['id', 'url', 'preview']
-            },
-            {
-                model: User,
-                as: 'Owner',
-                attributes: ['id', 'firstName', 'lastName']
-            }
-        ]
-
-    })
-
-    const numReviews = await Review.findAll({
-        where: {
-            spotId: req.params.spotId
-        }
-    })
-
-
-
-    // console.log("length=========", numReviews.length)
-
-    spot.forEach((ele) => {
-        spotArr.push(ele.toJSON())
-    })
-
-    let reviews = 0
-    let count = 0
-    let stars = 0
-
-    for (let spot of spotArr) {
-        for (let review of numReviews) {
-            if (review) {
-                reviews = reviews + 1
-                stars = stars + review.stars
-                count = count + 1
-            }
-        }
-        spot.numReviews = reviews
-        reviews = 0
-
-        if (count) {
-            spot.avgStarRating = stars / count
-            count = 0
-            stars = 0
-        } else {
-            spot.aveStarRating = "No Rating Available"
-        }
-
-    }
-
-
-
-    console.log(spot)
-    if (!spot.length) {
+    // find a spot with a specific id
+    let spot = await Spot.findByPk(req.params.spotId)
+    // error handling if there is no spot with that specific id
+    if (!spot) {
         const err = new Error("Spot couldn't be found")
         err.status = 404
         return next(err)
     }
+    // getting all the spot images attached to this spot
+    const spotImages = await spot.getSpotImages({
+        attributes: ['id', 'url', 'preview']
+    })
+    // getting the owner of this spot
+    let owner = await User.findByPk(spot.ownerId, {
+        attributes: ['id', 'firstName', 'lastName']
+    })
+    // getting all reviews attached to this spot
+    const reviews = await spot.getReviews()
+    // getting the sum of the stars from the reviews attached to this spot
+    const stars = await Review.sum('stars', {
+        where: {
+            spotId: spot.id
+        }
+    })
+    // toJSON() spot and owner to change them to POJO to manipulate them
+    spot = spot.toJSON()
+    owner = owner.toJSON()
+    const images = []
+    // iterate through spotImages and toJSON() each and then push each result into an array
+    spotImages.forEach((image) => {
+        images.push(image.toJSON())
+    })
+    // adding key value pairs to spot
+    spot.SpotImages = images
+    spot.Owner = owner
+    spot.numReviews = reviews.length
+    if (!stars) {
+        spot.avgStarRating = "No star rating available"
+    } else spot.avgStarRating = stars / reviews.length
+
+    return res.json(spot)
+
+    // WORKING CODE DO NOT DELETE=====================================================
+    // let spotArr = []
+
+    // const spot = await Spot.findAll({
+    //     where: {
+    //         id: req.params.spotId
+    //     },
+    //     include: [
+    //         {
+    //             model: SpotImage,
+    //             attributes: ['id', 'url', 'preview']
+    //         },
+    //         {
+    //             model: User,
+    //             as: 'Owner',
+    //             attributes: ['id', 'firstName', 'lastName']
+    //         }
+    //     ]
+
+    // })
+
+    // const numReviews = await Review.findAll({
+    //     where: {
+    //         spotId: req.params.spotId
+    //     }
+    // })
 
 
-    return res.json(spotArr[0])
+    // spot.forEach((ele) => {
+    //     spotArr.push(ele.toJSON())
+    // })
+
+    // let reviews = 0
+    // let count = 0
+    // let stars = 0
+
+    // for (let spot of spotArr) {
+    //     for (let review of numReviews) {
+    //         if (review) {
+    //             reviews = reviews + 1
+    //             stars = stars + review.stars
+    //             count = count + 1
+    //         }
+    //     }
+    //     spot.numReviews = reviews
+    //     reviews = 0
+
+    //     if (count) {
+    //         spot.avgStarRating = stars / count
+    //         count = 0
+    //         stars = 0
+    //     } else {
+    //         spot.aveStarRating = "No Rating Available"
+    //     }
+
+    // }
+
+
+    // if (!spot.length) {
+    //     const err = new Error("Spot couldn't be found")
+    //     err.status = 404
+    //     return next(err)
+    // }
+
+
+    // return res.json(spotArr[0])
+    // WORKING CODE DO NOT DELETE=======================================================
 })
 
 
