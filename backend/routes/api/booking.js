@@ -198,6 +198,12 @@ router.delete('/:bookingId', requireAuth, async(req, res, next) => {
         return next(err)
     }
 
+    // if (Date.parse(new Date()) > Date.parse(deleteBooking.startDate) && Date.parse(new Date()) > Date.parse(deleteBooking.endDate)) {
+    //     const err = new Error("Past bookings cannot be deleted")
+    //     err.status = 403
+    //     return next(err)
+    // }
+
     await deleteBooking.destroy()
 
     return res.json({
