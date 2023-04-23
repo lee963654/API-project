@@ -589,7 +589,7 @@ router.get('/current', requireAuth, async (req, res) => {
         })
         for (let image of previewImage) {
             image.toJSON()
-            if (ele.preview) {
+            if (image.preview) {
                 ele.previewImage = image.url
             }
             // } else {
