@@ -7,6 +7,10 @@ const { check } = require("express-validator");
 
 const { Spot, SpotImage, Review, Booking, User } = require('../../db/models');
 
+// TESTING for add image to a spot based on the spot id
+// const { spotCheck } = require("../../utils/error-check")
+// TESTING for add image to a spot based on the spot id
+
 const router = express.Router();
 
 
@@ -842,7 +846,9 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
             id: req.params.spotId
         }
     })
+    // spotCheck(currentSpot, next)
 
+    // TESTING DO NOT DELETE============== spotCheck and authorizationCheck
     if (!currentSpot) {
         const err = new Error("Spot couldn't be found")
         err.status = 404
@@ -854,6 +860,9 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
         err.status = 403
         return next(err)
     }
+    // TESTING DO NOT DELETE================= spotCheck and authorizationCheck
+
+
 
     const newImage = await SpotImage.create({
         spotId: req.params.spotId,
