@@ -24,7 +24,7 @@ router.delete('/:imageId', requireAuth, async(req, res, next) => {
     }
 
     const review = await deleteReviewImage.getReview()
-    console.log(review.toJSON())
+    // console.log(review.toJSON())
 
     if (req.user.id !== review.toJSON().userId) {
         const err = new Error('forbidden')

@@ -561,7 +561,7 @@ const spots = await Spot.findAll({
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
-    console.log(req.user.id)
+    // console.log(req.user.id)
     let userSpot = []
     let count = 0
     let stars = 0
@@ -683,7 +683,7 @@ router.get('/:spotId', async (req, res, next) => {
 
 
 
-    console.log(spot)
+    // console.log(spot)
     if (!spot.length) {
         const err = new Error("Spot couldn't be found")
         err.status = 404
