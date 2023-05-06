@@ -21,42 +21,127 @@ module.exports = {
    await queryInterface.bulkInsert(options, [
     {
       spotId: 1,
-      url: 'www.new.org',
+      url: 'https://i.imgur.com/6PAP9Of.jpeg',
       preview: true,
     },
     {
       spotId: 2,
-      url: 'www.new1.org',
+      url: 'https://i.imgur.com/g3zN0Dq.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 2,
+      url: 'https://i.imgur.com/8Fp7b72.jpeg',
+      preview: false,
+    },
+    {
+      spotId: 2,
+      url: 'https://i.imgur.com/tCqGQhj.jpeg',
+      preview: false,
+    },
+    {
+      spotId: 2,
+      url: 'https://i.imgur.com/N5GoyFl.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 2,
+      url: 'https://i.imgur.com/maaIzQ7.jpeg',
       preview: true,
     },
     {
       spotId: 3,
-      url: 'www.new2.org',
-      preview: false,
+      url: 'https://i.imgur.com/f1us1v3.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 3,
+      url: 'https://i.imgur.com/dJrtWu8.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 3,
+      url: 'https://i.imgur.com/S9EQGZH.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 3,
+      url: 'https://i.imgur.com/3K9VTea.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 3,
+      url: 'https://i.imgur.com/5SbNY3v.jpeg',
+      preview: true,
     },
     {
       spotId: 4,
-      url: 'www.new3.org',
+      url: 'https://i.imgur.com/6PAP9Of.jpeg',
       preview: false,
     },
     {
       spotId: 5,
-      url: 'www.new4.org',
+      url: 'https://i.imgur.com/tgjhiBW.jpeg',
       preview: true,
     },
     {
       spotId: 6,
-      url: 'www.new5.org',
+      url: 'https://i.imgur.com/RfbyX4m.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 6,
+      url: 'https://i.imgur.com/joGjlLF.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 6,
+      url: 'https://i.imgur.com/PZaPKDa.jpeg',
+      preview: false,
+    },
+    {
+      spotId: 7,
+      url: 'https://i.imgur.com/iimiVyE.jpeg',
+      preview: false,
+    },
+    {
+      spotId: 7,
+      url: 'https://i.imgur.com/HdYhJ9b.jpeg',
+      preview: false,
+    },
+    {
+      spotId: 7,
+      url: 'https://i.imgur.com/po7ZyiF.jpeg',
       preview: true,
     },
     {
       spotId: 7,
-      url: 'www.new6.org',
+      url: 'https://i.imgur.com/lv6dMZG.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 8,
+      url: 'https://i.imgur.com/XHHEDFW.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 8,
+      url: 'https://i.imgur.com/40jI1jU.jpeg',
       preview: false,
     },
     {
       spotId: 8,
-      url: 'www.new7.org',
+      url: 'https://i.imgur.com/tKgPeBb.jpeg',
+      preview: false,
+    },
+    {
+      spotId: 8,
+      url: 'https://i.imgur.com/EwVp3Ot.jpeg',
+      preview: false,
+    },
+    {
+      spotId: 8,
+      url: 'https://i.imgur.com/nXvg72H.jpeg',
       preview: true,
     },
    ])
