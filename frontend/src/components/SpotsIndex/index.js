@@ -8,23 +8,17 @@ export default function SpotsIndex () {
 
     const spots = useSelector(state => state.spots.allSpots)
 
-    console.log("spots===", spots)
-    console.log("value of spots", Object.values(spots))
-
-
     useEffect(() => {
         dispatch(spotsActions.allSpotsThunk())
 
       }, [dispatch]);
 
-    // if (!spots) return null
 
-    return (
+    const result = []
 
-        <div>
-            {Object.values(spots) && Object.values(spots).map(spot => {
-            return (
-            <div key={spot.id}>
+    Object.values(spots).forEach(spot => {
+            result.push(
+            <div key={spot.id} className="spot-information">
             <img src={spot.previewImage} style={{width: 400, height: 400}} alt="spot-images" />
                 <div>
                 <p>{spot.city}</p>
@@ -32,11 +26,16 @@ export default function SpotsIndex () {
                 <p>{spot.avgRating}</p>
                 </div>
                 <div>{spot.price} night</div>
-            </div>
+            </div>)
+      })
 
-        )
-      })}
-      </div>
+
+
+    return (
+
+        <div className="spot-info-container">
+            {result && result}
+        </div>
 
     )
 }
