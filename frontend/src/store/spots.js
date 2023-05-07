@@ -26,16 +26,22 @@ export const allSpotsThunk = () => async (dispatch) => {
 
 // REDUCER
 
-const initialState = { spots: { allSpots: {}, singleSpot: {} } }
+// const initialState = { spots: { allSpots: {}, singleSpot: {} } }
+const initialState = { allSpots: {}, singleSpot: {}}
 
 export default function spotsReducer (state = initialState, action) {
     switch(action.type) {
         case ALL_SPOTS: {
-            const newState = {...state}
-            action.spots.Spots.forEach(spot => {
-                newState.spots.allSpots[spot.id] = spot
-            })
+            // const newState = { spots: {...state.spots}, allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot}}
+            // action.spots.Spots.forEach(spot => {
+            //     newState.spots.allSpots[spot.id] = spot
+            // })
 
+            // return newState
+            const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot}}
+            action.spots.Spots.forEach(spot => {
+                newState.allSpots[spot.id] = spot
+            })
             return newState
         }
         default: {

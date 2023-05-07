@@ -5,13 +5,19 @@ import "./Spots.css"
 
 export default function SpotsIndex () {
     const dispatch = useDispatch();
-    const spots = useSelector((state) => state.spots.spots.allSpots)
-    console.log("spots is going through", spots)
+
+    const spots = useSelector(state => state.spots.allSpots)
+
+    console.log("spots===", spots)
+    console.log("value of spots", Object.values(spots))
+
 
     useEffect(() => {
         dispatch(spotsActions.allSpotsThunk())
 
       }, [dispatch]);
+
+    // if (!spots) return null
 
     return (
 
@@ -27,8 +33,10 @@ export default function SpotsIndex () {
                 </div>
                 <div>{spot.price} night</div>
             </div>
+
         )
       })}
       </div>
+
     )
 }

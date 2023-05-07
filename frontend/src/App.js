@@ -25,7 +25,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded &&
       <Switch>
-        <Route exact path="/" component={SpotsIndex}></Route>
+        <Route exact path="/">
+          <SpotsIndex />
+        </Route>
       </Switch>}
 
     </>
