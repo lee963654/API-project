@@ -1,4 +1,5 @@
 import React, {useEffect} from "react"
+import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import * as spotsActions from "../../store/spots"
 import "./Spots.css"
@@ -19,6 +20,7 @@ export default function SpotsIndex () {
 
     Object.values(spots).forEach(spot => {
             result.push(
+            <Link key={spot.id} to={`/${spot.id}`}>
             <div key={spot.id} className="spot-information">
             <img src={spot.previewImage} style={{width: 400, height: 400}} alt="spot-images" />
                 <div>
@@ -27,7 +29,8 @@ export default function SpotsIndex () {
                 <p>{spot.avgRating}</p>
                 </div>
                 <div>{spot.price} night</div>
-            </div>)
+            </div>
+            </Link>)
       })
 
 
