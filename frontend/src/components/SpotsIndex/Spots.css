@@ -1,0 +1,19 @@
+.spot-info-container {
+    border: 1px black solid;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.spots {
+    border: 1px red solid;
+    width: fit-content;
+    padding: 10px 20px;
+
+
+}
+
+.spot-info {
+    display: flex;
+
+}

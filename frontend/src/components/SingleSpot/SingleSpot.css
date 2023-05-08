@@ -1,0 +1,26 @@
+.single-spot-container {
+    border: 1px black solid;
+    max-width: 1000px;
+
+
+}
+
+.description-container {
+    border: 1px red solid;
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-info {
+    border: 1px green solid;
+
+}
+
+.price-star-rev {
+    border: 1px blue solid;
+    display: flex;
+}
+
+.bottom-review-info {
+    display: flex;
+}

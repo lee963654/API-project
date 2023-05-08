@@ -57,7 +57,7 @@ export default function SingleSpot () {
     if(!spot) return null
 
     return (
-        <div>
+        <div className="single-spot-container">
             <h2>{spot.name}</h2>
             <p>{spot.city}, {spot.state}, {spot.country}</p>
             <div>
@@ -65,21 +65,26 @@ export default function SingleSpot () {
                     return <img key={image.id} src={image.url} alt="spot-images" style={{width: 400, height: 400}}></img>
                 })}
             </div>
-            <div>
-                <div>
+            <div className="description-container">
+                <div className="name-description">
                     <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
                     <p>{spot.description}</p>
                 </div>
-                <div>
-                    <h2>{spot.price}</h2>
-                    <h3>{spot.avgStarRating}</h3>
-                    <h3>{spot.numReviews} review(s)</h3>
-                    <button>Reserve</button>
+                <div className="price-info">
+                    <div className="price-star-rev">
+                        <h2>{spot.price}</h2>
+                        <h3>{spot.avgStarRating}</h3>
+                        <h3>{spot.numReviews} review(s)</h3>
+                    </div>
+                    <div className="reserve-button">
+                        <button>Reserve</button>
+                    </div>
                 </div>
             </div>
             <div>
-                <h2>{spot.avgStarRating}</h2>
-                <h2>{spot.numReviews} review(s)</h2>
+                <div className="bottom-review-info">
+                    <h2>StarIcon {spot.avgStarRating} : {spot.numReviews} review(s)</h2>
+                </div>
                 <div key={spot.id}>
                     {currentSpotReviewsArr && currentSpotReviewsArr}
                 </div>

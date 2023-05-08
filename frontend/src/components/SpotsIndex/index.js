@@ -21,9 +21,9 @@ export default function SpotsIndex () {
     Object.values(spots).forEach(spot => {
             result.push(
             <Link key={spot.id} to={`/${spot.id}`}>
-            <div key={spot.id} className="spot-information">
-            <img src={spot.previewImage} style={{width: 400, height: 400}} alt="spot-images" />
-                <div>
+            <div key={spot.id} className="spots">
+            <img src={spot.previewImage} style={{width: 350, height: 350}} alt="spot-images" />
+                <div className="spot-info">
                 <p>{spot.city}</p>
                 <p>{spot.state}</p>
                 <p>{spot.avgRating}</p>
