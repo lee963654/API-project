@@ -3,6 +3,7 @@
 const ALL_SPOTS = "spots/allSpots";
 const SINGLE_SPOT = "spots/singleSpot"
 const SPOTS_REVIEW = "spots/spotsReview"
+const CREATE_SPOT = "spots/createSpot"
 
 
 
@@ -24,6 +25,13 @@ const singleSpot = (spot) => {
 const spotsReview = (spot) => {
     return {
         type: SPOTS_REVIEW,
+        spot,
+    }
+}
+
+const createSpot = (spot) => {
+    return {
+        type: CREATE_SPOT,
         spot,
     }
 }
@@ -50,7 +58,7 @@ export const singleSpotThunk = (spotId) => async (dispatch) => {
     }
 }
 
-// THIS MAY NOT WORK REMEMBER TO FIX
+
 export const singleSpotReviewThunk = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}/reviews`)
     if (response.ok) {
@@ -59,7 +67,18 @@ export const singleSpotReviewThunk = (spotId) => async (dispatch) => {
         dispatch(spotsReview(spotReview))
     }
 }
-//===========================================
+
+export const createSpotThunk = (report) => async (dispatch) => {
+    const response = await fetch("/api/spots", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(report),
+    })
+    if (response.ok) {
+        const newSpot = await response.json()
+        dispatch(createSpot(newSpot))
+    }
+}
 
 
 
@@ -112,7 +131,11 @@ export default function spotsReducer (state = initialState, action) {
             // console.log("newState======", newState)
             return newState
         }
-
+        case CREATE_SPOT: {
+            const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot, review: {...state.singleSpot.review}}}
+            newState.allSpots[action.spot.id] = action.spot
+            return newState
+        }
         default: {
             return state
         }
