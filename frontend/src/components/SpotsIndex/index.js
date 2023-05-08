@@ -7,6 +7,7 @@ export default function SpotsIndex () {
     const dispatch = useDispatch();
 
     const spots = useSelector(state => state.spots.allSpots)
+    console.log(spots)
 
     useEffect(() => {
         dispatch(spotsActions.allSpotsThunk())

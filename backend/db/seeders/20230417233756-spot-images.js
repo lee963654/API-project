@@ -77,7 +77,7 @@ module.exports = {
     {
       spotId: 4,
       url: 'https://i.imgur.com/6PAP9Of.jpeg',
-      preview: false,
+      preview: true,
     },
     {
       spotId: 5,
@@ -142,6 +142,16 @@ module.exports = {
     {
       spotId: 8,
       url: 'https://i.imgur.com/nXvg72H.jpeg',
+      preview: true,
+    },
+    {
+      spotId: 9,
+      url: "https://as1.ftcdn.net/v2/jpg/00/06/31/10/1000_F_6311088_HNXoesQXuLgOYbc7KyRyb9veUtWvUfFc.jpg",
+      preview: true
+    },
+    {
+      spotId: 10,
+      url: 'https://previews.123rf.com/images/bialasiewicz/bialasiewicz1309/bialasiewicz130900493/22296180-view-of-the-facade-of-a-fabulous-mansion.jpg',
       preview: true,
     },
    ])
