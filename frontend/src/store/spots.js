@@ -5,6 +5,7 @@ const SINGLE_SPOT = "spots/singleSpot"
 const SPOTS_REVIEW = "spots/spotsReview"
 
 
+
 // ACTIONS
 const allSpots = (spots) => {
     return {
@@ -26,6 +27,7 @@ const spotsReview = (spot) => {
         spot,
     }
 }
+
 
 
 
@@ -58,6 +60,7 @@ export const singleSpotReviewThunk = (spotId) => async (dispatch) => {
     }
 }
 //===========================================
+
 
 
 
@@ -100,14 +103,16 @@ export default function spotsReducer (state = initialState, action) {
         }
         case SPOTS_REVIEW: {
             const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot, review: {...state.singleSpot.review}}}
-            console.log("action=====", action)
+            // console.log("action=====", action)
             action.spot.Reviews.forEach(review => {
-                console.log("review==========", review)
+                // console.log("review========", review)
+
                 newState.singleSpot.review[review.id] = review
             })
-            console.log(newState)
+            // console.log("newState======", newState)
             return newState
         }
+
         default: {
             return state
         }

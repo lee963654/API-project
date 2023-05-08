@@ -10,18 +10,48 @@ export default function SingleSpot () {
     const { spotId } = useParams()
 
     const spot = useSelector((state) => state.spots.singleSpot ? state.spots.singleSpot[spotId] : null)
-    // const spotReview = useSelector((state) => state.spots.singleSpot.review ? state.spots.singleSpot.review[spotId] : null)
+
     const spotReviews = useSelector(state => state.spots.singleSpot.review)
 
     const spotReviewsArr = Object.values(spotReviews)
-    console.log(spotReviewsArr)
 
-    // console.log("spotreview==========", (spotReview))
+
+
+
+    const currentSpotReviewsArr = []
+    // spotReviewsArr.forEach((review) => {
+    //     console.log("review========", review)
+    //     console.log("current spotId====", spotId)
+    //     if (review.spotId === spotId) currentSpotReviewsArr.push(
+    //         <div>
+    //             <p>{review.User.firstName}</p>
+    //             <p>{review.createdAt}</p>
+    //             <p>{review.review}</p>
+    //         </div>
+    //     )
+    // })
+    for (let review of spotReviewsArr) {
+
+        if (review.spotId === parseInt(spotId)) {
+            currentSpotReviewsArr.push(
+            <div>
+                <p>{review.User.firstName}</p>
+                <p>{review.createdAt}</p>
+                <p>{review.review}</p>
+             </div>
+            )
+        }
+
+    }
+
 
 
     useEffect(() => {
         dispatch(singleSpotThunk(spotId));
+
         dispatch(singleSpotReviewThunk(spotId))
+
+
       }, [dispatch, spotId]);
 
     if(!spot) return null
@@ -51,15 +81,7 @@ export default function SingleSpot () {
                 <h2>{spot.avgStarRating}</h2>
                 <h2>{spot.numReviews} review(s)</h2>
                 <div key={spot.id}>
-                    {spotReviewsArr.map(review => {
-                        return (
-                        <>
-                            <p>{review.User.firstName}</p>
-                            <p>{review.createdAt}</p>
-                            <p>{review.review}</p>
-                        </>
-                        )
-                    })}
+                    {currentSpotReviewsArr && currentSpotReviewsArr}
                 </div>
             </div>
         </div>
