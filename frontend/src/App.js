@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import SpotsIndex from "./components/SpotsIndex";
 import SingleSpot from "./components/SingleSpot";
 import CreateSpot from "./components/CreateSpot";
+import UserSpot from "./components/UserSpot";
 
 
 
@@ -33,9 +34,13 @@ function App() {
         <Route exact path="/new">
           <CreateSpot />
         </Route>
+        <Route exact path="/current">
+          <UserSpot />
+        </Route>
         <Route exact path="/:spotId">
           <SingleSpot />
         </Route>
+
 
       </Switch>}
 

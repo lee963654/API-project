@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { createSpotThunk } from '../../store/spots';
+
+import { addPreviewImageThunk, createSpotThunk } from '../../store/spots';
 
 export default function CreateSpotForm ({ report, formType }) {
     const history = useHistory();
@@ -97,7 +98,8 @@ export default function CreateSpotForm ({ report, formType }) {
     const handleSubmit = async (e) => {
       e.preventDefault();
 
-      report = { ...report, address: address, city: city, state: state, country: country, name: name, description: description, price: price };
+    //   report = { ...report, address: address, city: city, state: state, country: country, name: name, description: description, price: price };
+      const newSpot = { ...report, address: address, city: city, state: state, country: country, name: name, description: description, price: price };
     //   if (formType === 'Update Report') {
     //     const editedReport = await dispatch(updateReport(report));
     //     report = editedReport;
@@ -105,14 +107,29 @@ export default function CreateSpotForm ({ report, formType }) {
     //     const newReport = await dispatch(createReport(report));
     //     report = newReport;
     //   }
+    const urlImages = []
+    urlImages.push(previewUrl)
+    if (secondUrl) urlImages.push(secondUrl)
+    if (thirdUrl) urlImages.push(thirdUrl)
+    if (fourthUrl) urlImages.push(fourthUrl)
+    if (fifthUrl) urlImages.push(fifthUrl)
 
-        console.log("errors outside the if block", errors)
+
     if (Object.values(errors).length) {
         console.log("errors", errors)
         setValidate(true)
     } else {
         setValidate(false)
-        console.log("report", report)
+        dispatch(createSpotThunk(newSpot, previewUrl))
+
+
+        // urlImages.forEach((url) => {
+        //     dispatch(addPreviewImageThunk())
+        // })
+
+
+
+
 
     }
 
