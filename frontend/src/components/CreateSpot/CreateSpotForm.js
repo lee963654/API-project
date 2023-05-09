@@ -14,14 +14,26 @@ export default function CreateSpotForm ({ report, formType }) {
     const [name, setName] = useState(report?.name)
     const [description, setDescription] = useState(report?.description)
     const [price, setPrice] = useState(report?.price)
+    const [previewUrl, setPreviewUrl] = useState("")
+
+    const [secondUrl, setSecondUrl] = useState("")
+    const [thirdUrl, setThirdUrl] = useState("")
+    const [fourthUrl, setFourthUrl] = useState("")
+    const [fifthUrl, setFifthUrl] = useState("")
+
     // const [lat, setLat] = useState(report?.lat)
     // const [lng, setLng] = useState(report?.lng)
-
+    const [validate, setValidate] = useState(false)
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
+    const err = {}
+
+    function imageCheck (url) {
+        return /\.(jpg|jpeg|png)$/.test(url);
+      }
 
     useEffect(() => {
-        const err = {}
+        // const err = {}
 
         if (country.length <= 0) {
             const countryError = "Country is required"
@@ -51,9 +63,36 @@ export default function CreateSpotForm ({ report, formType }) {
             const priceError = "Price is required"
             err.priceError = priceError
         }
+        if (previewUrl.length <= 0) {
+            const imageError = "Preview image is required"
+            err.imageError = imageError
+        }
+        if (!imageCheck(previewUrl)) {
+            const imageUrlError = "Image URL must end in .png, .jpg, or .jpeg"
+            err.imageUrlError = imageUrlError
+        }
+        if (secondUrl.length > 0 && !imageCheck(secondUrl)) {
+            const secondError = "Image URL must end in .png, .jpg, or .jpeg"
+            err.secondError = secondError
+        }
+        if (thirdUrl.length > 0 && !imageCheck(thirdUrl)) {
+            const thirdError = "Image URL must end in .png, .jpg, or .jpeg"
+            err.thirdError = thirdError
+        }
+        if (fourthUrl.length > 0 && !imageCheck(fourthUrl)) {
+            const fourthError = "Image URL must end in .png, .jpg, or .jpeg"
+            err.fourthError = fourthError
+        }
+        if (fifthUrl.length > 0 && !imageCheck(fifthUrl)) {
+            const fifthError = "Image URL must end in .png, .jpg, or .jpeg"
+            err.fifthError = fifthError
+        }
 
         setErrors(err)
-    }, [country, address, city, state, description, name, price])
+    }, [country, address, city, state, description, name, price, previewUrl, secondUrl, thirdUrl, fourthUrl, fifthUrl])
+
+
+
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -67,21 +106,19 @@ export default function CreateSpotForm ({ report, formType }) {
     //     report = newReport;
     //   }
 
+        console.log("errors outside the if block", errors)
+    if (Object.values(errors).length) {
+        console.log("errors", errors)
+        setValidate(true)
+    } else {
+        setValidate(false)
+        console.log("report", report)
 
+    }
 
-        // if (formType === "Create a New Spot") {
-        //     const newSpot = await dispatch(createSpotThunk(report))
-        //     report = newSpot
-        // }
-
-      if (Object.values(errors).length === 0) {
-        setErrors({});
-        dispatch(createSpotThunk(report))
-        history.push("/")
-      }
     };
 
-    console.log(errors)
+
 
     return (
         <form onSubmit={handleSubmit}>
@@ -90,7 +127,7 @@ export default function CreateSpotForm ({ report, formType }) {
           <h3>Where's your place located?</h3>
           <h4>Guests will only get your exact address once they booked a reservation.</h4>
           <div className="errors">{}</div>
-            {errors.countryError && <p className="formErrors">{errors.countryError}</p>}
+            {validate && errors.countryError && <p className="formErrors">{errors.countryError}</p>}
           <label>
             <h3>Country</h3>
             <input
@@ -100,7 +137,7 @@ export default function CreateSpotForm ({ report, formType }) {
             />
           </label>
           <div className="errors">{}</div>
-            {errors.addressError && <p className="formErrors">{errors.addressError}</p>}
+            {validate && errors.addressError && <p className="formErrors">{errors.addressError}</p>}
           <label>
             <h3>Street Address</h3>
             <input
@@ -109,7 +146,7 @@ export default function CreateSpotForm ({ report, formType }) {
               onChange={(e) => setAddress(e.target.value)}
             />
           </label>
-            {errors.cityError && <p className="formErrors">{errors.cityError}</p>}
+            {validate && errors.cityError && <p className="formErrors">{errors.cityError}</p>}
           <label>
             <h3>City</h3>
             <input
@@ -118,7 +155,7 @@ export default function CreateSpotForm ({ report, formType }) {
               onChange={(e) => setCity(e.target.value)}
             />
           </label>
-            {errors.stateError && <p className="formErrors">{errors.stateError}</p>}
+            {validate && errors.stateError && <p className="formErrors">{errors.stateError}</p>}
           <label>
             <h3>State</h3>
             <input
@@ -141,7 +178,7 @@ export default function CreateSpotForm ({ report, formType }) {
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
-            {errors.descriptionError && <p className="formErrors">{errors.descriptionError}</p>}
+            {validate && errors.descriptionError && <p className="formErrors">{errors.descriptionError}</p>}
           </div>
           <div className ="title-container">
             <label>
@@ -153,7 +190,7 @@ export default function CreateSpotForm ({ report, formType }) {
                     onChange={(e) => setName(e.target.value)}
                 />
             </label>
-                {errors.nameError && <p className="formErrors">{errors.nameError}</p>}
+                {validate && errors.nameError && <p className="formErrors">{errors.nameError}</p>}
           </div>
           <div>
             <label>
@@ -165,7 +202,7 @@ export default function CreateSpotForm ({ report, formType }) {
                     onChange={e => setPrice(e.target.value)}
                 />
             </label>
-                {errors.priceError && <p className="formErrors">{errors.priceError}</p>}
+                {validate && errors.priceError && <p className="formErrors">{errors.priceError}</p>}
           </div>
           <div className="url-container">
             <label>
@@ -173,24 +210,37 @@ export default function CreateSpotForm ({ report, formType }) {
                 <h4>Submit a link to at least one photo to publish your spot.</h4>
                 <input
                     type="url"
-                    accept=".png, .jpg, .jpeg"
+
+                    placeholder="Preview Image URL"
+                    value={previewUrl}
+                    onChange={e => setPreviewUrl(e.target.value)}
                 />
+                {validate && errors.imageError && <p className="formErrors">{errors.imageError}</p>}
+                {validate && errors.imageUrlError && <p className="formErrors">{errors.imageUrlError}</p>}
                 <input
                     type="url"
-                    accept=".png, .jpg, .jpeg"
+                    value={secondUrl}
+                    onChange={e => setSecondUrl(e.target.value)}
                 />
+                {validate && errors.secondError && <p className="formErrors">{errors.secondError}</p>}
                 <input
                     type="url"
-                    accept=".png, .jpg, .jpeg"
+                    value={thirdUrl}
+                    onChange={e => setThirdUrl(e.target.value)}
                 />
+                {validate && errors.thirdError && <p className="formErrors">{errors.thirdError}</p>}
                 <input
                     type="url"
-                    accept=".png, .jpg, .jpeg"
+                    value={fourthUrl}
+                    onChange={e => setFourthUrl(e.target.value)}
                 />
+                {validate && errors.fourthError && <p className="formErrors">{errors.fourthError}</p>}
                 <input
                     type="url"
-                    accept=".png, .jpg, .jpeg"
+                    value={fifthUrl}
+                    onChange={e => setFifthUrl(e.target.value)}
                 />
+                {validate && errors.fifthError && <p className="formErrors">{errors.fifthError}</p>}
             </label>
           </div>
 
