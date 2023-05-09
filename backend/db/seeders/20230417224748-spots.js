@@ -133,8 +133,8 @@ module.exports = {
         city: "Cape May",
         state: 'New Jersey',
         country: 'USA',
-        lat: 54.241,
-        lng: 43.555,
+        // lat: 54.241,
+        // lng: 43.555,
         name: 'name10',
         description: 'abcd',
         price: 500

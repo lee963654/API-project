@@ -30,12 +30,13 @@ function App() {
         <Route exact path="/">
           <SpotsIndex />
         </Route>
-        <Route exact path="/:spotId">
-          <SingleSpot />
-        </Route>
         <Route exact path="/new">
           <CreateSpot />
         </Route>
+        <Route exact path="/:spotId">
+          <SingleSpot />
+        </Route>
+
       </Switch>}
 
     </>

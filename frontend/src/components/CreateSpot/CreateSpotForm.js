@@ -1,3 +1,204 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
+import { createSpotThunk } from '../../store/spots';
+
+export default function CreateSpotForm ({ report, formType }) {
+    const history = useHistory();
+
+    const [address, setAddress] = useState(report?.address)
+    const [city, setCity] = useState(report?.city)
+    const [state, setState] = useState(report?.state)
+    const [country, setCountry] = useState(report?.country)
+    const [name, setName] = useState(report?.name)
+    const [description, setDescription] = useState(report?.description)
+    const [price, setPrice] = useState(report?.price)
+    // const [lat, setLat] = useState(report?.lat)
+    // const [lng, setLng] = useState(report?.lng)
+
+    const [errors, setErrors] = useState({});
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const err = {}
+
+        if (country.length <= 0) {
+            const countryError = "Country is required"
+            err.countryError = countryError
+        }
+        if (address.length <= 0) {
+            const addressError = "Address is required"
+            err.addressError = addressError
+        }
+        if (city.length <=0) {
+            const cityError = "City is required"
+            err.cityError = cityError
+        }
+        if (state.length <=0) {
+            const stateError = "State is required"
+            err.stateError = stateError
+        }
+        if (description.length < 30) {
+            const descriptionError = "Description needs a minimum of 30 characters"
+            err.descriptionError = descriptionError
+        }
+        if (name.length <= 0) {
+            const nameError = "Name is required"
+            err.nameError = nameError
+        }
+        if (price <= 0) {
+            const priceError = "Price is required"
+            err.priceError = priceError
+        }
+
+        setErrors(err)
+    }, [country, address, city, state, description, name, price])
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      report = { ...report, address: address, city: city, state: state, country: country, name: name, description: description, price: price };
+    //   if (formType === 'Update Report') {
+    //     const editedReport = await dispatch(updateReport(report));
+    //     report = editedReport;
+    //   } else if (formType === 'Create Report') {
+    //     const newReport = await dispatch(createReport(report));
+    //     report = newReport;
+    //   }
+
+
+
+        // if (formType === "Create a New Spot") {
+        //     const newSpot = await dispatch(createSpotThunk(report))
+        //     report = newSpot
+        // }
+
+      if (Object.values(errors).length === 0) {
+        setErrors({});
+        dispatch(createSpotThunk(report))
+        history.push("/")
+      }
+    };
+
+    console.log(errors)
+
+    return (
+        <form onSubmit={handleSubmit}>
+
+          <h2>{formType}</h2>
+          <h3>Where's your place located?</h3>
+          <h4>Guests will only get your exact address once they booked a reservation.</h4>
+          <div className="errors">{}</div>
+            {errors.countryError && <p className="formErrors">{errors.countryError}</p>}
+          <label>
+            <h3>Country</h3>
+            <input
+              type="text"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            />
+          </label>
+          <div className="errors">{}</div>
+            {errors.addressError && <p className="formErrors">{errors.addressError}</p>}
+          <label>
+            <h3>Street Address</h3>
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </label>
+            {errors.cityError && <p className="formErrors">{errors.cityError}</p>}
+          <label>
+            <h3>City</h3>
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </label>
+            {errors.stateError && <p className="formErrors">{errors.stateError}</p>}
+          <label>
+            <h3>State</h3>
+            <input
+              type="text"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+            />
+          </label>
+
+          <div className="create-description-container">
+          <label>
+          <h3>Describe your place to guests</h3>
+          <h4>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h4>
+            <textarea
+              minLength="30"
+              rows="4"
+              cols="50"
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </label>
+            {errors.descriptionError && <p className="formErrors">{errors.descriptionError}</p>}
+          </div>
+          <div className ="title-container">
+            <label>
+                <h3>Create a title for your spot</h3>
+                <h4>Catch guests' attention with a spot title that highlights what makes your place special.</h4>
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </label>
+                {errors.nameError && <p className="formErrors">{errors.nameError}</p>}
+          </div>
+          <div>
+            <label>
+                <h3>Set a base price for your spot</h3>
+                <h4>Competitive pricing can help your listing stand out and rank higher in search results.</h4>
+                <input
+                    type="number"
+                    value={price}
+                    onChange={e => setPrice(e.target.value)}
+                />
+            </label>
+                {errors.priceError && <p className="formErrors">{errors.priceError}</p>}
+          </div>
+          <div className="url-container">
+            <label>
+                <h3>Liven up your spot with photos</h3>
+                <h4>Submit a link to at least one photo to publish your spot.</h4>
+                <input
+                    type="url"
+                    accept=".png, .jpg, .jpeg"
+                />
+                <input
+                    type="url"
+                    accept=".png, .jpg, .jpeg"
+                />
+                <input
+                    type="url"
+                    accept=".png, .jpg, .jpeg"
+                />
+                <input
+                    type="url"
+                    accept=".png, .jpg, .jpeg"
+                />
+                <input
+                    type="url"
+                    accept=".png, .jpg, .jpeg"
+                />
+            </label>
+          </div>
+
+          <button type="submit">Create Spot</button>
+        </form>
+      );
+
+
+}
+
+// disabled={!!Object.values(errors).length}
