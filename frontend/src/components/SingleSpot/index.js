@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux"
 import { singleSpotThunk } from "../../store/spots"
@@ -10,7 +10,9 @@ export default function SingleSpot () {
     const dispatch = useDispatch()
     const { spotId } = useParams()
 
-    const spot = useSelector((state) => state.spots.singleSpot ? state.spots.singleSpot[spotId] : null)
+
+
+    const spot = useSelector((state) => state.spots.singleSpot.spot ? state.spots.singleSpot.spot[spotId] : null)
     console.log("this is the spot=====", spot)
 
     const spotReviews = useSelector(state => state.reviews.Reviews)
@@ -38,6 +40,7 @@ export default function SingleSpot () {
       }, [dispatch, spotId]);
 
     if(!spot) return null
+    if (!spotReviews) return null
 
     return (
         <div className="single-spot-container">

@@ -22,6 +22,9 @@ export const singleSpotReviewThunk = (spotId) => async (dispatch) => {
         const spotReview = await response.json()
         console.log("response=======", response)
         dispatch(spotReviews(spotReview))
+    } else {
+        const errors = await response.json()
+        console.log("this is an error in the response", errors)
     }
 }
 
@@ -33,6 +36,7 @@ export default function reviewReducer (state = initialState, action) {
     switch(action.type) {
         case SPOT_REVIEWS: {
             const newState = {...state, Reviews: {}, ReviewImages: {...state.ReviewImages}}
+            console.log("this is the review newstate=====", newState)
             action.spotReviews.Reviews.forEach(review => {
                 newState.Reviews[review.id] = review
             })

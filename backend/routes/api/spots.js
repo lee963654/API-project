@@ -335,17 +335,19 @@ router.get('/:spotId/reviews', async(req, res, next) => {
         }
     })
 
-    if (!review.length && testSpot) {
-        const err = new Error("This spot has no reviews")
-        err.status = 404
-        return next(err)
-    }
 
-    if (!review.length) {
-        const err = new Error("Spot couldn't be found")
-        err.status = 404
-        return next(err)
-    }
+
+    // if (!review.length && testSpot) {
+    //     const err = new Error("This spot has no reviews")
+    //     err.status = 404
+    //     return next(err)
+    // }
+
+    // if (!review.length) {
+    //     const err = new Error("Spot couldn't be found")
+    //     err.status = 404
+    //     return next(err)
+    // }
 
     for (let ele of review) {
         const user = await ele.getUser()

@@ -123,19 +123,15 @@ export const userSpotsThunk = () => async (dispatch) => {
 // const initialState = { spots: { allSpots: {}, singleSpot: {} } }
 // const initialState = { allSpots: {}, singleSpot: {}}
 
-const initialState = { allSpots: {}, singleSpot: { spotImages: {}, Owner: {}}}
+// const initialState = { allSpots: {}, singleSpot: { spotImages: {}, Owner: {}}}  this one works
+const initialState = { allSpots: {}, singleSpot: { spot: {}, spotImages: {}, Owner: {}}}
 
 export default function spotsReducer (state = initialState, action) {
     switch(action.type) {
         case ALL_SPOTS: {
 
-            // const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot}}
-            // action.spots.Spots.forEach(spot => {
-            //     newState.allSpots[spot.id] = spot
-            // })
-            // return newState
-
-            const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
+            // const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
+            const newState = { ...state, allSpots: {...state.allSpots}}
             action.spots.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             })
@@ -150,19 +146,20 @@ export default function spotsReducer (state = initialState, action) {
 
             // return newState
 
-            const newState = { allSpots: {...state.allSpots}, singleSpot: { spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
-            newState.singleSpot[action.spot.id] = action.spot
+            const newState = { allSpots: {...state.allSpots}, singleSpot: { spot: {}, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
+            // newState.singleSpot[action.spot.id] = action.spot
+            newState.singleSpot.spot[action.spot.id] = action.spot
 
             return newState
         }
 
         case CREATE_SPOT: {
-            const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
+            const newState = { allSpots: {...state.allSpots}, singleSpot: { spot: {...state.singleSpot.spot}, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
             newState.allSpots[action.spot.id] = action.spot
             return newState
         }
         case USER_SPOT: {
-            const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot, spotImages: {...state.singleSpot.spotImages}, Owner: {}}}
+            const newState = { allSpots: {...state.allSpots}, singleSpot: { spot: {...state.singleSpot.spot} , spotImages: {...state.singleSpot.spotImages}, Owner: {}}}
 
 
             action.userSpots.Spots.forEach(spot => {
