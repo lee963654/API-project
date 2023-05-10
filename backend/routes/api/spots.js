@@ -773,11 +773,33 @@ router.put('/:spotId', requireAuth, validateCreateSpot, async(req, res, next) =>
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body
 
+    // const updateSpot = await Spot.findOne({
+    //     where: {
+    //         id: req.params.spotId
+    //     }
+    // })
+    // ABOVE WORKS
+
+
+
+    // THIS IS JUST A TEST
     const updateSpot = await Spot.findOne({
         where: {
             id: req.params.spotId
-        }
+        },
+        include: [
+            {
+                model: SpotImage,
+                attributes: ['id', 'url', 'preview']
+            },
+            {
+                model: User,
+                as: 'Owner',
+                attributes: ['id', 'firstName', 'lastName']
+            }
+        ]
     })
+
 
 
     if (!updateSpot) {

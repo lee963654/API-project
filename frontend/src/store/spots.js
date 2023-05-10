@@ -70,7 +70,7 @@ export const singleSpotThunk = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}`)
     if (response.ok) {
         const spot = await response.json()
-        console.log("this is the spot in the single spot thunk", spot)
+        // console.log("this is the spot in the single spot thunk", spot)
         dispatch(singleSpot(spot))
     }
 }
@@ -83,8 +83,12 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
     })
     if (response.ok) {
         const newUpdatedSpot = await response.json()
+
         console.log("this is the new updated spot in the thunk====", newUpdatedSpot)
         dispatch(updateSpot(newUpdatedSpot))
+    } else {
+        const error = await response.json()
+        console.log("problem in the updateSpotThunk", error)
     }
 }
 
@@ -131,7 +135,8 @@ export default function spotsReducer (state = initialState, action) {
         case ALL_SPOTS: {
 
             // const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
-            const newState = { ...state, allSpots: {...state.allSpots}}
+            // const newState = { ...state, allSpots: {...state.allSpots}}
+            const newState = { allSpots: {}, singleSpot: { spot: {...state.singleSpot.spot}, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
             action.spots.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             })
@@ -172,12 +177,12 @@ export default function spotsReducer (state = initialState, action) {
         }
         case UPDATE_SPOT: {
             // const newState = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
-            const newState = {...state}
-            console.log("this is the state in the store", state)
-            console.log("this is the newstate in the store", newState)
-            console.log("this is the action in the reducer", action)
+            const newState = { allSpots: {...state.allSpots}, singleSpot: { spot: {...state.singleSpot.spot}, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
+            // console.log("this is the state in the store", state)
+            // console.log("this is the newstate in the store", newState)
+            // console.log("this is the action in the reducer", action)
             newState.allSpots[action.spot.id] = action.spot
-            newState.singleSpot[action.spot.id] = action.spot
+            newState.singleSpot.spot[action.spot.id] = action.spot
             return newState
         }
         default: {

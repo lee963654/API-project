@@ -9,8 +9,8 @@ import { singleSpotThunk } from '../../store/spots';
 export default function EditSpot () {
     const { spotId } = useParams();
     const dispatch = useDispatch()
-    const editSpot = useSelector((state) => state.spots.singleSpot[spotId]);
-    console.log("this is the edit report========", editSpot)
+    const editSpot = useSelector((state) => state.spots.singleSpot.spot[spotId]);
+    // console.log("this is the edit report========", editSpot)
 
     useEffect(() => {
        dispatch(singleSpotThunk(spotId))
