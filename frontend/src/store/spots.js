@@ -101,7 +101,7 @@ export const createSpotThunk = (spot, urlData) => async (dispatch) => {
     if (response.ok) {
         const newSpot = await response.json()
         console.log("this is the newspot in the createspotthunk", newSpot)
-        console.log("this is the urldata in the createspotthunk", urlData)
+        // console.log("this is the urldata in the createspotthunk", urlData)
 
         // const addImage = await csrfFetch(`/api/spots/${newSpot.id}/images`)
         // urlData.forEach(async image => {
@@ -126,10 +126,20 @@ export const createSpotThunk = (spot, urlData) => async (dispatch) => {
             console.log("This is the image response in the loop", imageResponse)
         }
 
-
+        return newSpot
 
     }
 }
+
+// export const addSpotImageThunk = (spotId, images) => async (dispatch) => {
+//     for (let image of images) {
+//         const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify(image),
+//         })
+//     }
+// }
 
 export const userSpotsThunk = () => async (dispatch) => {
     const response = await csrfFetch("/api/spots/current")

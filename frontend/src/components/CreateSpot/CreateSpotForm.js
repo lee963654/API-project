@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-import { updateSpotThunk, createSpotThunk } from '../../store/spots';
+import { updateSpotThunk, createSpotThunk, addSpotImageThunk } from '../../store/spots';
 
 export default function CreateSpotForm ({ report, formType }) {
     const history = useHistory();
@@ -107,12 +107,13 @@ export default function CreateSpotForm ({ report, formType }) {
     //     const newReport = await dispatch(createReport(report));
     //     report = newReport;
     //   }
-    const urlImages = []
-    urlImages.push(previewUrl)
-    if (secondUrl) urlImages.push(secondUrl)
-    if (thirdUrl) urlImages.push(thirdUrl)
-    if (fourthUrl) urlImages.push(fourthUrl)
-    if (fifthUrl) urlImages.push(fifthUrl)
+    // const urlImages = []
+    // urlImages.push(previewUrl)
+    // if (secondUrl) urlImages.push(secondUrl)
+    // if (thirdUrl) urlImages.push(thirdUrl)
+    // if (fourthUrl) urlImages.push(fourthUrl)
+    // if (fifthUrl) urlImages.push(fifthUrl)
+    const urlImages = [{ url: previewUrl, preview: true}]
 
 
     if (Object.values(errors).length) {
@@ -124,24 +125,28 @@ export default function CreateSpotForm ({ report, formType }) {
           console.log("this is the edited report that will be dispatched to the updatespotthunk", newSpot)
           dispatch(updateSpotThunk(newSpot))
           history.push(`/${newSpot.id}`)
-        } else if (formType === "Create a New Spot") {
-          dispatch(createSpotThunk(newSpot, urlImages))
+        }
+        if (formType === "Create a New Spot") {
+          const result = await dispatch(createSpotThunk(newSpot, urlImages))
+          // dispatch(addSpotImageThunk(newSpot.id, urlImages))
           console.log("created a new spot", newSpot)
-          // history.push(`/${newSpot.id}`)
-          history.push('/')
+          console.log("the result of the spot after the createspotthunk", result)
+          history.push(`/${result.id}`)
+          // need to fix the history
+
         }
 
 
 
         // urlImages.forEach((url) => {
-        //     dispatch(addPreviewImageThunk())
-        // })
+          //     dispatch(addPreviewImageThunk())
+          // })
 
 
 
 
 
-    }
+        }
 
     };
 
