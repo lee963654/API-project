@@ -7,7 +7,7 @@ import SpotsIndex from "./components/SpotsIndex";
 import SingleSpot from "./components/SingleSpot";
 import CreateSpot from "./components/CreateSpot";
 import UserSpot from "./components/UserSpot";
-
+import EditSpot from "./components/EditSpot";
 
 
 
@@ -36,6 +36,9 @@ function App() {
         </Route>
         <Route exact path="/current">
           <UserSpot />
+        </Route>
+        <Route exact path="/edit/:spotId">
+          <EditSpot />
         </Route>
         <Route exact path="/:spotId">
           <SingleSpot />

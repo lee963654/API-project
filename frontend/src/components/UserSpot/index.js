@@ -36,7 +36,7 @@ export default function UserSpot () {
             </div>
             </Link>
                 <div>
-                    <button>Update</button>
+                    <Link to={`/edit/${spot.id}`}>Update</Link>
                     <button>Delete</button>
                 </div>
             </>

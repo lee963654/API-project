@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-import { addPreviewImageThunk, createSpotThunk } from '../../store/spots';
+import { updateSpotThunk, createSpotThunk } from '../../store/spots';
 
 export default function CreateSpotForm ({ report, formType }) {
     const history = useHistory();
@@ -120,7 +120,11 @@ export default function CreateSpotForm ({ report, formType }) {
         setValidate(true)
     } else {
         setValidate(false)
-        dispatch(createSpotThunk(newSpot, previewUrl))
+        if (formType === "Update Your Spot") {
+          dispatch(updateSpotThunk(newSpot))
+          history.push(`/${report.id}`)
+        }
+
 
 
         // urlImages.forEach((url) => {
