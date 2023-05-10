@@ -64,11 +64,11 @@ export default function CreateSpotForm ({ report, formType }) {
             const priceError = "Price is required"
             err.priceError = priceError
         }
-        if (previewUrl.length <= 0) {
+        if (previewUrl.length <= 0 && formType === "Create a New Spot") {
             const imageError = "Preview image is required"
             err.imageError = imageError
         }
-        if (!imageCheck(previewUrl)) {
+        if (!imageCheck(previewUrl) && formType === "Create a New Spot") {
             const imageUrlError = "Image URL must end in .png, .jpg, or .jpeg"
             err.imageUrlError = imageUrlError
         }
@@ -127,7 +127,8 @@ export default function CreateSpotForm ({ report, formType }) {
         } else if (formType === "Create a New Spot") {
           dispatch(createSpotThunk(newSpot, urlImages))
           console.log("created a new spot", newSpot)
-          history.push("/")
+          // history.push(`/${newSpot.id}`)
+          history.push('/')
         }
 
 
@@ -230,7 +231,7 @@ export default function CreateSpotForm ({ report, formType }) {
             </label>
                 {validate && errors.priceError && <p className="formErrors">{errors.priceError}</p>}
           </div>
-          {/* {formType === "Create a New Spot" && */}
+          {formType === "Create a New Spot" &&
           <div className="url-container">
             <label>
                 <h3>Liven up your spot with photos</h3>
@@ -270,7 +271,7 @@ export default function CreateSpotForm ({ report, formType }) {
                 {validate && errors.fifthError && <p className="formErrors">{errors.fifthError}</p>}
             </label>
           </div>
-          {/* } */}
+          }
           <button type="submit">Create Spot</button>
         </form>
       );

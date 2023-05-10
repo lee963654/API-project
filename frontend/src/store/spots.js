@@ -104,17 +104,28 @@ export const createSpotThunk = (spot, urlData) => async (dispatch) => {
         console.log("this is the urldata in the createspotthunk", urlData)
 
         // const addImage = await csrfFetch(`/api/spots/${newSpot.id}/images`)
-        urlData.forEach(async image => {  // DONT DO THIS
-            console.log("this is the image in the foreach", image)
-            const addImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+        // urlData.forEach(async image => {
+        //     console.log("this is the image in the foreach", image)
+        //     const addImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify(image),
+        //     })
+        //     console.log("this is the image after the fetch to be added", addImage)
+        // })
+        dispatch(createSpot(newSpot))
+        for (let i = 0; i < urlData.length; i++) {
+            console.log("we are in the loop")
+            const image = urlData[i]
+            console.log("this is the single image", image)
+            const imageResponse = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(image),
             })
-            console.log("this is the image after the fetch to be added", addImage)
-        })
+            console.log("This is the image response in the loop", imageResponse)
+        }
 
-        dispatch(createSpot(newSpot))
 
 
     }
