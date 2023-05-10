@@ -131,16 +131,6 @@ export const createSpotThunk = (spot, urlData) => async (dispatch) => {
     }
 }
 
-// export const addSpotImageThunk = (spotId, images) => async (dispatch) => {
-//     for (let image of images) {
-//         const response = await csrfFetch(`/api/spots/${spotId}/images`, {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify(image),
-//         })
-//     }
-// }
-
 export const userSpotsThunk = () => async (dispatch) => {
     const response = await csrfFetch("/api/spots/current")
     if (response.ok) {
@@ -150,9 +140,13 @@ export const userSpotsThunk = () => async (dispatch) => {
     }
 }
 
-// export const deleteSpotThunk = () => async (dispatch) => {
+export const deleteSpotThunk = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "DELETE",
+    })
+    dispatch(deleteSpot(spotId))
 
-// }
+}
 
 
 // REDUCER
@@ -216,6 +210,13 @@ export default function spotsReducer (state = initialState, action) {
             // console.log("this is the action in the reducer", action)
             newState.allSpots[action.spot.id] = action.spot
             newState.singleSpot.spot[action.spot.id] = action.spot
+            return newState
+        }
+        case DELETE_SPOT: {
+            const newState = { allSpots: {...state.allSpots}, singleSpot: { spot: {...state.singleSpot.spot}, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
+            delete newState.allSpots[action.spotId]
+            delete newState.singleSpot.spot[action.spotId]
+            delete newState.singleSpot.Owner[action.spotId]
             return newState
         }
         default: {

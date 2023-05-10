@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { userSpotsThunk } from "../../store/spots"
 import { Link } from "react-router-dom/cjs/react-router-dom.min"
 import "./UserSpot.css"
+import OpenModalButton from "../OpenModalButton"
+import DeleteSpotModal from "../DeleteSpotModal"
 
 export default function UserSpot () {
     const dispatch = useDispatch()
@@ -23,9 +25,9 @@ export default function UserSpot () {
     const userSpotArr = []
     userSpotsValues.forEach(spot => {
         userSpotArr.push(
-            <>
-            <Link key={spot.id} to={`/${spot.id}`}>
+
             <div key={spot.id} className="spots">
+            <Link key={spot.id} to={`/${spot.id}`}>
             <img src={spot.previewImage} style={{width: 350, height: 350}} alt="spot-images" />
                 <div className="spot-info">
                 <p>{spot.city}</p>
@@ -33,13 +35,13 @@ export default function UserSpot () {
                 <p>{spot.avgRating}</p>
                 </div>
                 <div>{spot.price} night</div>
-            </div>
             </Link>
                 <div>
-                    <Link to={`/edit/${spot.id}`}>Update</Link>
-                    <button>Delete</button>
+                    <Link to={`/edit/${spot.id}`}><button>Update</button></Link>
+                    <OpenModalButton buttonText="Delete" modalComponent={<DeleteSpotModal spotId={spot.id}/>} />
                 </div>
-            </>
+            </div>
+
 
         )
     })

@@ -13,19 +13,19 @@ export default function SingleSpot () {
 
 
     const spot = useSelector((state) => state.spots.singleSpot.spot ? state.spots.singleSpot.spot[spotId] : null)
-    console.log("this is the spot=====", spot)
+
 
     const spotReviews = useSelector(state => state.reviews.Reviews)
-    console.log("this is the reviews====", spotReviews)
+
     const spotReviewsArr = []
     Object.values(spotReviews).forEach(review => {
 
         spotReviewsArr.push(
-            <>
+            <div className="user-reviews">
                 <h2>{review.User.firstName}</h2>
                 <h3>{review.createdAt}</h3>
                 <h3>{review.review}</h3>
-            </>
+            </div>
         )
     })
 
@@ -71,7 +71,7 @@ export default function SingleSpot () {
                 <div className="bottom-review-info">
                     <h2>StarIcon {spot.avgStarRating} : {spot.numReviews} review(s)</h2>
                 </div>
-                <div key={spot.id}>
+                <div key={spot.id} className="user-review-container">
                     {spotReviewsArr.length ? spotReviewsArr : <h3>No Reviews</h3>}
                 </div>
             </div>
