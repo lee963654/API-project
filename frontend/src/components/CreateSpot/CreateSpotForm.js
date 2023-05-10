@@ -121,11 +121,11 @@ export default function CreateSpotForm ({ report, formType }) {
     } else {
         setValidate(false)
         if (formType === "Update Your Spot") {
-          console.log("this is the edited report that is dispatched to the updatespotthunk", newSpot)
+          console.log("this is the edited report that will be dispatched to the updatespotthunk", newSpot)
           dispatch(updateSpotThunk(newSpot))
           history.push(`/${newSpot.id}`)
         } else if (formType === "Create a New Spot") {
-          dispatch(createSpotThunk(newSpot))
+          dispatch(createSpotThunk(newSpot, urlImages))
           console.log("created a new spot", newSpot)
           history.push("/")
         }
@@ -230,12 +230,13 @@ export default function CreateSpotForm ({ report, formType }) {
             </label>
                 {validate && errors.priceError && <p className="formErrors">{errors.priceError}</p>}
           </div>
+          {/* {formType === "Create a New Spot" && */}
           <div className="url-container">
             <label>
                 <h3>Liven up your spot with photos</h3>
                 <h4>Submit a link to at least one photo to publish your spot.</h4>
                 <input
-                    type="url"
+                    type="text"
 
                     placeholder="Preview Image URL"
                     value={previewUrl}
@@ -244,32 +245,32 @@ export default function CreateSpotForm ({ report, formType }) {
                 {validate && errors.imageError && <p className="formErrors">{errors.imageError}</p>}
                 {validate && errors.imageUrlError && <p className="formErrors">{errors.imageUrlError}</p>}
                 <input
-                    type="url"
+                    type="text"
                     value={secondUrl}
                     onChange={e => setSecondUrl(e.target.value)}
                 />
                 {validate && errors.secondError && <p className="formErrors">{errors.secondError}</p>}
                 <input
-                    type="url"
+                    type="text"
                     value={thirdUrl}
                     onChange={e => setThirdUrl(e.target.value)}
                 />
                 {validate && errors.thirdError && <p className="formErrors">{errors.thirdError}</p>}
                 <input
-                    type="url"
+                    type="text"
                     value={fourthUrl}
                     onChange={e => setFourthUrl(e.target.value)}
                 />
                 {validate && errors.fourthError && <p className="formErrors">{errors.fourthError}</p>}
                 <input
-                    type="url"
+                    type="text"
                     value={fifthUrl}
                     onChange={e => setFifthUrl(e.target.value)}
                 />
                 {validate && errors.fifthError && <p className="formErrors">{errors.fifthError}</p>}
             </label>
           </div>
-
+          {/* } */}
           <button type="submit">Create Spot</button>
         </form>
       );

@@ -84,7 +84,7 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
     if (response.ok) {
         const newUpdatedSpot = await response.json()
 
-        console.log("this is the new updated spot in the thunk====", newUpdatedSpot)
+        console.log("this is the new updated spot that is in the thunk====", newUpdatedSpot)
         dispatch(updateSpot(newUpdatedSpot))
     } else {
         const error = await response.json()
@@ -92,15 +92,27 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
     }
 }
 
-export const createSpotThunk = (report) => async (dispatch) => {
+export const createSpotThunk = (spot, urlData) => async (dispatch) => {
     const response = await csrfFetch("/api/spots", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(report),
+        body: JSON.stringify(spot),
     })
     if (response.ok) {
         const newSpot = await response.json()
+        console.log("this is the newspot in the createspotthunk", newSpot)
+        console.log("this is the urldata in the createspotthunk", urlData)
 
+        // const addImage = await csrfFetch(`/api/spots/${newSpot.id}/images`)
+        urlData.forEach(async image => {  // DONT DO THIS
+            console.log("this is the image in the foreach", image)
+            const addImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(image),
+            })
+            console.log("this is the image after the fetch to be added", addImage)
+        })
 
         dispatch(createSpot(newSpot))
 

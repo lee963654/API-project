@@ -826,7 +826,7 @@ router.put('/:spotId', requireAuth, validateCreateSpot, async(req, res, next) =>
     if (price !== undefined) updateSpot.price = price
 
 
-
+    await updateSpot.save()
     return res.json(updateSpot)
 
 })
