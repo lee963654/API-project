@@ -70,7 +70,7 @@ export const singleSpotThunk = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}`)
     if (response.ok) {
         const spot = await response.json()
-        // console.log("this is the spot in the single spot thunk", spot)
+        console.log("this is the spot in the single spot thunk", spot)
         dispatch(singleSpot(spot))
     }
 }
@@ -169,7 +169,7 @@ export default function spotsReducer (state = initialState, action) {
             const newState = { allSpots: {...state.allSpots}, singleSpot: { spot: {}, spotImages: {...state.singleSpot.spotImages}, Owner: {...state.singleSpot.Owner}}}
             // newState.singleSpot[action.spot.id] = action.spot
             newState.singleSpot.spot[action.spot.id] = action.spot
-
+            console.log("this is the newstate after the single spot thunk", newState)
             return newState
         }
 

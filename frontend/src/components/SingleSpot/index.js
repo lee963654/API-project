@@ -28,17 +28,17 @@ export default function SingleSpot() {
     console.log("This is the spot reviews", spotReviews)
     const spotReviewsArr = []
     Object.values(spotReviews).forEach(review => {
-        // console.log("this is the review in the foreach", review)
-        // console.log("this is the review user in the foreach", review.User.id)
-        // if (review.User.id === currentUserId) setHasReview(true)
-
+        console.log("This is the review", review)
+        if (review.User) {
         spotReviewsArr.push(
             <div className="user-reviews">
                 <h2>{review.User.firstName}</h2>
                 <h3>{review.createdAt.slice(0, 7)}</h3>
                 <h3>{review.review}</h3>
+                {review.userId === currentUserId && <div><button>Delete</button><button>Update</button></div>}
             </div>
         )
+        }
     })
 
 
@@ -46,14 +46,18 @@ export default function SingleSpot() {
     useEffect(() => {
         dispatch(singleSpotThunk(spotId));
 
-        dispatch(singleSpotReviewThunk(spotId))
+        // dispatch(singleSpotReviewThunk(spotId))
 
-        Object.values(spotReviews).forEach(review => {
-            if (review.User.id === currentUserId) setHasReview(true)
-        })
+        // Object.values(spotReviews).forEach(review => {
+        //     if (review.User.id === currentUserId) setHasReview(true)
+        // })
 
 
     }, [dispatch, spotId]);
+
+    useEffect(() => {
+        dispatch(singleSpotReviewThunk(spotId))
+    }, [dispatch, spotId, spot])
 
     if (!spot) return null
     if (!spotReviews) return null

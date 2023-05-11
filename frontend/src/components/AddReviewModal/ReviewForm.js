@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addReviewThunk } from '../../store/reviews';
+import { addReviewThunk, singleSpotReviewThunk } from '../../store/reviews';
 
 import "./ReviewForm.css"
 
@@ -27,7 +27,8 @@ export default function ReviewForm({ currentReview, spotId, closeModal, reviewTy
         console.log("in the handleSubmit")
         const newReview = { ...currentReview, review: review, stars: activeStars}
         console.log("the newly made review", newReview)
-        return dispatch(addReviewThunk(spotId, newReview)).then(history.push("/")).then(closeModal)
+        return dispatch(addReviewThunk(spotId, newReview)).then(dispatch(singleSpotReviewThunk(spotId))).then(history.push(`/${spotId}`)).then(closeModal)
+
     }
 
     return (
