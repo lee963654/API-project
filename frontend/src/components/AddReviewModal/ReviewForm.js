@@ -16,24 +16,49 @@ export default function ReviewForm({ currentReview, spotId, closeModal, reviewTy
     const [stars, setStars] = useState(currentReview.stars)
     const [activeStars, setActiveStars] = useState(stars)
 
-
+    const [validate, setValidate] = useState(false)
+    const [errors, setErrors] = useState({});
 
     // useEffect(() => {
     //     setActiveStars(stars);
     //   }, [stars]);
 
+    useEffect(() => {
+
+    })
+
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log("in the handleSubmit")
-        const newReview = { ...currentReview, review: review, stars: activeStars}
-        console.log("the newly made review", newReview)
-        return dispatch(addReviewThunk(spotId, newReview)).then(dispatch(singleSpotReviewThunk(spotId))).then(history.push(`/${spotId}`)).then(closeModal)
+
+        setErrors({}) // testing
+
+            const newReview = { ...currentReview, review: review, stars: activeStars}
+
+            // THIS WORKS
+            return dispatch(addReviewThunk(spotId, newReview)).then(async() => {
+                await dispatch(singleSpotReviewThunk(spotId))
+            }).then(history.push(`/${spotId}`)).then(closeModal)
+
+
+
+            // return dispatch(addReviewThunk(spotId, newReview)).then(async() => {
+            //     await dispatch(singleSpotReviewThunk(spotId))
+            // }).then(history.push(`/${spotId}`)).then(closeModal).catch(async (res) => {
+            //     const data = await res.json();
+            //     console.log(data)
+            //     if (data && data.errors) {
+            //       setErrors(data.errors.stars);
+            //       console.log("these are the errors", errors)
+            //     }
+            //   });
 
     }
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
+            {errors && <p>{errors.stars}</p>}
             {reviewType === "new" && <h1>How was your stay?</h1>}
             <textarea
                 minLength="10"

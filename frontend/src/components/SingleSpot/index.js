@@ -5,6 +5,7 @@ import { singleSpotThunk } from "../../store/spots"
 import { singleSpotReviewThunk } from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton";
 import AddReportModal from "../AddReviewModal";
+import DeleteReviewModal from "../DeleteReviewModal";
 import "./SingleSpot.css"
 
 
@@ -25,17 +26,19 @@ export default function SingleSpot() {
 
 
     const spotReviews = useSelector(state => state.reviews.Reviews)
-    console.log("This is the spot reviews", spotReviews)
+
     const spotReviewsArr = []
     Object.values(spotReviews).forEach(review => {
         console.log("This is the review", review)
+
+        console.log(hasReview)
         if (review.User) {
         spotReviewsArr.push(
             <div className="user-reviews">
                 <h2>{review.User.firstName}</h2>
                 <h3>{review.createdAt.slice(0, 7)}</h3>
                 <h3>{review.review}</h3>
-                {review.userId === currentUserId && <div><button>Delete</button><button>Update</button></div>}
+                {review.userId === currentUserId && <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal reviewId={review.id}/>}/>}<button>Update</button></div>}
             </div>
         )
         }

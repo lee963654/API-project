@@ -109,7 +109,7 @@ export default function CreateSpotForm({ report, formType }) {
 
 
     if (Object.values(errors).length) {
-      console.log("errors", errors)
+
       setValidate(true)
     } else {
       setValidate(false)

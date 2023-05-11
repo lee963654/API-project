@@ -20,10 +20,10 @@ const addReview = (spotReview) => {
     }
 }
 
-const deleteReview = (review) => {
+const deleteReview = (reviewId) => {
     return {
         type: DELETE_REVIEW,
-        review
+        reviewId
     }
 }
 
@@ -56,7 +56,10 @@ export const addReviewThunk = (spotId, review) => async (dispatch) => {
 }
 
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
-    const response = await csrfFetch(`/`)
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: "DELETE",
+    })
+    dispatch(deleteReview(reviewId))
 }
 
 
@@ -66,7 +69,7 @@ const initialState = { Reviews: {}, ReviewImages: {}}
 export default function reviewReducer (state = initialState, action) {
     switch(action.type) {
         case SPOT_REVIEWS: {
-            const newState = {...state, Reviews: {}, ReviewImages: {...state.ReviewImages}, UserReviews: {...state.UserReviews}}
+            const newState = {...state, Reviews: {}, ReviewImages: {...state.ReviewImages}}
             console.log("this is the review newstate=====", newState)
             console.log("this is the review action", action.spotReviews)
             action.spotReviews.Reviews.forEach(review => {
@@ -78,11 +81,16 @@ export default function reviewReducer (state = initialState, action) {
             // console.log("this is the reviews action", action.spotReview)
         }
         case ADD_REVIEW: {
-            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}, UserReviews: {...state.UserReviews}}
+            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}}
             newState.Reviews[action.spotReview.id] = action.spotReview
             console.log("this is the newState in the add review thunk", newState)
             return newState
             // THIS MAY BE WRONG
+        }
+        case DELETE_REVIEW: {
+            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}}
+            delete newState.Reviews[action.reviewId]
+            return newState
         }
         default: {
             return state

@@ -24,6 +24,7 @@ function LoginFormModal() {
         if (data && data.errors) {
           setErrors(data.errors);
         }
+
       });
   };
 
