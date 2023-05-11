@@ -12,24 +12,25 @@ export default function SingleSpot() {
     const dispatch = useDispatch()
     const { spotId } = useParams()
 
-
+    const [hasReview, setHasReview] = useState(false)
 
     // const spot = useSelector((state) => state.spots.singleSpot.spot ? state.spots.singleSpot.spot[spotId] : null)
     const spot = useSelector((state) => state.spots.singleSpot.spot ? state.spots.singleSpot.spot[spotId] : null)
     console.log("this is the spot", spot)
     const currentUserId = useSelector(state => state.session.user.id)
-    console.log("this is the user", currentUserId)
-    const userSpot = useSelector(state => state.spots.singleSpot.spot[spotId])
-    console.log("this is the spotId", userSpot)
+
+
 
 
 
 
     const spotReviews = useSelector(state => state.reviews.Reviews)
-
+    console.log("This is the spot reviews", spotReviews)
     const spotReviewsArr = []
     Object.values(spotReviews).forEach(review => {
-
+        // console.log("this is the review in the foreach", review)
+        // console.log("this is the review user in the foreach", review.User.id)
+        // if (review.User.id === currentUserId) setHasReview(true)
 
         spotReviewsArr.push(
             <div className="user-reviews">
@@ -46,6 +47,10 @@ export default function SingleSpot() {
         dispatch(singleSpotThunk(spotId));
 
         dispatch(singleSpotReviewThunk(spotId))
+
+        Object.values(spotReviews).forEach(review => {
+            if (review.User.id === currentUserId) setHasReview(true)
+        })
 
 
     }, [dispatch, spotId]);
@@ -83,7 +88,7 @@ export default function SingleSpot() {
                     <h2>StarIcon {spot.avgStarRating} : {spot.numReviews} review(s)</h2>
                 </div>
                 <div key={spot.id} className="user-review-container">
-                    {<OpenModalButton buttonText="Post Your Review" modalComponent={<AddReportModal spotId={spotId} />}/>}
+                    {spot.ownerId !== currentUserId && <OpenModalButton buttonText="Post Your Review" modalComponent={<AddReportModal spotId={spotId} />}/>}
                     {spotReviewsArr.length ? spotReviewsArr : <h3>Be the first to post a review!</h3>}
                 </div>
             </div>

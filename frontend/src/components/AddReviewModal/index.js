@@ -7,13 +7,13 @@ export default function AddReportModal ({spotId}) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
 
-    const review = {
-        description: "",
+    const spotReview = {
+        review: "",
         stars: 0,
     }
 
     return (
-        <ReviewForm review={review} reviewType="new" closeModal={closeModal} spotId={spotId}/>
+        <ReviewForm currentReview={spotReview} reviewType="new" closeModal={closeModal} spotId={spotId}/>
 
     )
 }
