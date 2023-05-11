@@ -100,19 +100,7 @@ export const createSpotThunk = (spot, urlData) => async (dispatch) => {
     })
     if (response.ok) {
         const newSpot = await response.json()
-        console.log("this is the newspot in the createspotthunk", newSpot)
-        // console.log("this is the urldata in the createspotthunk", urlData)
 
-        // const addImage = await csrfFetch(`/api/spots/${newSpot.id}/images`)
-        // urlData.forEach(async image => {
-        //     console.log("this is the image in the foreach", image)
-        //     const addImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify(image),
-        //     })
-        //     console.log("this is the image after the fetch to be added", addImage)
-        // })
         dispatch(createSpot(newSpot))
         for (let i = 0; i < urlData.length; i++) {
             console.log("we are in the loop")

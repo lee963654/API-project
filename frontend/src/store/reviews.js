@@ -28,11 +28,11 @@ export const singleSpotReviewThunk = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}/reviews`)
     if (response.ok) {
         const spotReview = await response.json()
-        console.log("this is the response in the singlespotreviewthunk", response)
+
         dispatch(spotReviews(spotReview))
     } else {
         const errors = await response.json()
-        console.log("this is an error in the response", errors)
+
     }
 }
 
