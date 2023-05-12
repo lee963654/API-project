@@ -45,47 +45,95 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+
+    <div className="profile-container">
+      <button className="profile-button" onClick={openMenu}>
+        <i className="fa-sharp fa-solid fa-bars fa-lg"></i> <i className="fas fa-user-circle fa-lg" />
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <div className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>Hello, {user.firstName}</li>
+          <div>
+            <div className="user-logged-in">Hello, {user.firstName}</div>
             {/* <li>{user.firstName} {user.lastName}</li> */}
-            <li>{user.email}</li>
-            <li>
-              <NavLink exact to="/current">Manage Spots</NavLink>
-            </li>
-            <li>
-              <NavLink exact to="/reviews">Manage Reviews</NavLink>
-            </li>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
-          </>
+            <div className="user-logged-in">{user.email}</div>
+            <div className="user-logged-in">
+              <NavLink className="profile-link" exact to="/current">Manage Spots</NavLink>
+            </div>
+            <div className="user-logged-in">
+              <NavLink className="profile-link" exact to="/reviews">Manage Reviews</NavLink>
+            </div>
+            <div className="logout-container">
+              <button className="logout-button" onClick={logout}>Log Out</button>
+            </div>
+          </div>
         ) : (
-          <>
+          <div>
+            <div className="no-user-container">
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
+            </div>
+            <div className="no-user-container no-user-middle">
             <OpenModalMenuItem
               itemText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
+            </div>
+            <div className="no-user-container">
             <OpenModalMenuItem
               itemText="Demo User"
               onItemClick={closeMenu}
               modalComponent={<DemoUser />}
             />
-          </>
+            </div>
+          </div>
         )}
-      </ul>
-    </>
+      </div>
+    </div>
+    // <>
+    //   <button className="profile-button" onClick={openMenu}>
+    //     <i className="fa-sharp fa-solid fa-bars fa-lg"></i> <i className="fas fa-user-circle fa-lg" />
+    //   </button>
+    //   <ul className={ulClassName} ref={ulRef}>
+    //     {user ? (
+    //       <>
+    //         <li>Hello, {user.firstName}</li>
+    //         {/* <li>{user.firstName} {user.lastName}</li> */}
+    //         <li>{user.email}</li>
+    //         <li>
+    //           <NavLink exact to="/current">Manage Spots</NavLink>
+    //         </li>
+    //         <li>
+    //           <NavLink exact to="/reviews">Manage Reviews</NavLink>
+    //         </li>
+    //         <li>
+    //           <button onClick={logout}>Log Out</button>
+    //         </li>
+    //       </>
+    //     ) : (
+    //       <>
+    //         <OpenModalMenuItem
+    //           itemText="Log In"
+    //           onItemClick={closeMenu}
+    //           modalComponent={<LoginFormModal />}
+    //         />
+    //         <OpenModalMenuItem
+    //           itemText="Sign Up"
+    //           onItemClick={closeMenu}
+    //           modalComponent={<SignupFormModal />}
+    //         />
+    //         <OpenModalMenuItem
+    //           itemText="Demo User"
+    //           onItemClick={closeMenu}
+    //           modalComponent={<DemoUser />}
+    //         />
+    //       </>
+    //     )}
+    //   </ul>
+    // </>
   );
 }
 

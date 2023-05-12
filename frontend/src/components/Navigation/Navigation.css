@@ -1,3 +1,111 @@
+.create-and-profile {
+    display: flex;
+    margin-right: 2rem;
+
+    height: 4rem;
+    align-items: center;
+}
+
+.create-spot {
+    font-size: 20px;
+    color: rgb(4, 151, 127);
+    font-weight: bold;
+}
+
+.header{
+    font-family: "Garamond", sans-serif;
+    margin-left: 2rem;
+    align-items: center;
+}
+
+.header-container {
+    border: 1px black solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+    width: 100%;
+}
+
 .hidden {
-    display: none
+    display: none;
+}
+
+.header-links {
+    text-decoration: none;
+}
+
+.login-container {
+    text-decoration: none;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bolder;
+    color: rgb(226, 50, 19);
+}
+
+.logout-button {
+    width: 4.5rem;
+    height: 2.25rem;
+    border-radius: 3.5rem;
+    cursor: pointer;
+    margin-bottom: .75rem;
+}
+
+.logout-container {
+    display: flex;
+    justify-content: center;
+}
+
+.no-user-container {
+    margin: .75rem 0rem;
+}
+
+/* .no-user-middle {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-top: 1rem;
+} */
+
+.profile-button {
+    height: 2.5rem;
+    width: 4rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+}
+
+.profile-container {
+    position: relative;
+}
+
+.profile-dropdown {
+    border: 2px solid black;
+    border-radius: .65rem;
+    position: absolute;
+    top: 3rem;
+    right: .1rem;
+    width: 10rem;
+    align-content: center;
+}
+
+.profile-link {
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
+
+.profile-list-item {
+    list-style-type: none;
+    cursor: pointer;
+    font-size: 1.15rem;
+    margin-left: 1rem;
+}
+
+.user-logged-in {
+
+    font-size: 1.15rem;
+    margin-left: 1rem;
+    margin-top: .75rem;
+    margin-bottom: .75rem;
 }
