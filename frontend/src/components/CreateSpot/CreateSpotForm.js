@@ -123,7 +123,7 @@ export default function CreateSpotForm({ report, formType }) {
 
         console.log("created a new spot", newSpot)
         console.log("the result of the spot after the createspotthunk", result)
-        history.push(`/${result.id}`)
+        await history.push(`/${result.id}`)
 
 
       }
