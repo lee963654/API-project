@@ -173,6 +173,8 @@ router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
     if (review !== undefined) editReview.review = review
     if (stars !== undefined) editReview.stars = stars
 
+    await editReview.save()
+
     return res.json(editReview)
 
 

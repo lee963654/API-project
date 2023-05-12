@@ -13,7 +13,7 @@ export default function AddReportModal ({spotId}) {
     }
 
     return (
-        <ReviewForm currentReview={spotReview} reviewType="new" closeModal={closeModal} spotId={spotId}/>
+        <ReviewForm currentReview={spotReview} reviewType="new" closeModal={closeModal} addReportSpotId={spotId}/>
 
     )
 }

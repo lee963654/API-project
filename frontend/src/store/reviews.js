@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const SPOT_REVIEWS = "reviews/getReviews"
 const ADD_REVIEW = "reviews/addReview"
 const DELETE_REVIEW = "reviews/deleteReview"
+const UPDATE_REVIEW = "reviews/updateReview"
 
 
 
@@ -24,6 +25,13 @@ const deleteReview = (reviewId) => {
     return {
         type: DELETE_REVIEW,
         reviewId
+    }
+}
+
+const updateReview = (review) => {
+    return {
+        type: UPDATE_REVIEW,
+        review
     }
 }
 
@@ -62,6 +70,18 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
     dispatch(deleteReview(reviewId))
 }
 
+export const updateReviewThunk = (review) => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/${review.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(review),
+    })
+    if (response.ok) {
+        const updatedReview = await response.json()
+        dispatch(updateReview(updatedReview))
+    }
+}
+
 
 
 const initialState = { Reviews: {}, ReviewImages: {}}
@@ -90,6 +110,11 @@ export default function reviewReducer (state = initialState, action) {
         case DELETE_REVIEW: {
             const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}}
             delete newState.Reviews[action.reviewId]
+            return newState
+        }
+        case UPDATE_REVIEW: {
+            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}}
+            newState.Reviews[action.review.id] = action.review
             return newState
         }
         default: {
