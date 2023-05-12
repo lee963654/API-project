@@ -21,7 +21,7 @@ export default function SingleSpot() {
     console.log("this is the spot", spot)
     const currentUserId = useSelector(state => state.session.user.id)
 
-
+    if (!currentUserId) return null
     console.log("this is the hasReview checker", hasReview)
 
 
