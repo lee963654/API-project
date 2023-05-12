@@ -1,7 +1,7 @@
 import React from "react"
 import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal"
-import { deleteReviewThunk } from "../../store/reviews"
+import { deleteReviewThunk, userReviewsThunk } from "../../store/reviews"
 
 export default function DeleteReviewModal ({reviewId}) {
     const dispatch = useDispatch()
@@ -10,7 +10,7 @@ export default function DeleteReviewModal ({reviewId}) {
     const handleDelete = (e) => {
         e.preventDefault()
         console.log(reviewId)
-        return dispatch(deleteReviewThunk(reviewId)).then(closeModal)
+        return dispatch(deleteReviewThunk(reviewId)).then(async () => {await dispatch(userReviewsThunk())}).then(closeModal)
     }
 
     return (

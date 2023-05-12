@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addReviewThunk, singleSpotReviewThunk, updateReviewThunk } from '../../store/reviews';
+import { addReviewThunk, singleSpotReviewThunk, updateReviewThunk, userReviewsThunk } from '../../store/reviews';
 
 import "./ReviewForm.css"
 
@@ -42,7 +42,7 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
         }).then(history.push(`/${addReportSpotId}`)).then(closeModal)
         }
         if (reviewType === "edit") {
-            return dispatch(updateReviewThunk(newReview)).then(async () => { await dispatch(singleSpotReviewThunk(editSpotId))}).then(history.push(`/${editSpotId}`)).then(closeModal)
+            return dispatch(updateReviewThunk(newReview)).then(async () => { await dispatch(singleSpotReviewThunk(editSpotId))}).then(async () => {await dispatch(userReviewsThunk())}).then(history.push(`/${editSpotId}`)).then(closeModal)
         }
 
     }
