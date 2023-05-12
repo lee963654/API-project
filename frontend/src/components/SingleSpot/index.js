@@ -17,44 +17,31 @@ export default function SingleSpot() {
     const [hasReview, setHasReview] = useState(false)
 
     // const spot = useSelector((state) => state.spots.singleSpot.spot ? state.spots.singleSpot.spot[spotId] : null)
-    const spot = useSelector((state) => state.spots.singleSpot.spot ? state.spots.singleSpot.spot[spotId] : null)
-    console.log("this is the spot", spot)
-    const currentUserId = useSelector(state => state.session.user.id)
+    const spot = useSelector((state) => state?.spots?.singleSpot?.spot ? state.spots.singleSpot.spot[spotId] : null)
+    const currentUserId = useSelector(state => state.session.user ? state.session.user.id : null)
 
-    if (!currentUserId) return null
-    console.log("this is the hasReview checker", hasReview)
-
-
-
-    const spotReviews = useSelector(state => state.reviews.Reviews)
+    const spotReviews = useSelector(state => state?.reviews?.Reviews)
 
     const spotReviewsArr = []
     Object.values(spotReviews).forEach(review => {
-        console.log("This is the review", review)
 
-        console.log("this is the hasreview checker in the reviews foreach", hasReview)
         if (review.User) {
-        spotReviewsArr.push(
-            <div className="user-reviews">
-                <h2>{review.User.firstName}</h2>
-                <h3>{review.createdAt.slice(0, 7)}</h3>
-                <h3>{review.review}</h3>
-                {review.userId === currentUserId && <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal reviewId={review.id}/>}/>}{<OpenModalButton buttonText="Update" modalComponent={<EditReviewModal editSpotId={spotId} />} />}</div>}
-            </div>
-        )
+            spotReviewsArr.push(
+                <div className="user-reviews">
+                    <h2>{review.User.firstName}</h2>
+                    <h3>{review.createdAt.slice(0, 7)}</h3>
+                    <h3>{review.review}</h3>
+                    {review.userId === currentUserId && <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditReviewModal editSpotId={spotId} />} />}</div>}
+                </div>
+            )
         }
     })
 
-
+    console.log("this is the spot===", spot)
 
     useEffect(() => {
         dispatch(singleSpotThunk(spotId));
 
-        // dispatch(singleSpotReviewThunk(spotId))
-
-        // Object.values(spotReviews).forEach(review => {
-        //     if (review.User.id === currentUserId) setHasReview(true)
-        // })
 
 
     }, [dispatch, spotId]);
@@ -63,6 +50,7 @@ export default function SingleSpot() {
         dispatch(singleSpotReviewThunk(spotId))
     }, [dispatch, spotId, spot])
 
+    // if (!currentUserId) return null
     if (!spot) return null
     if (!spotReviews) return null
 
@@ -83,8 +71,8 @@ export default function SingleSpot() {
                 <div className="price-info">
                     <div className="price-star-rev">
                         <h2>{spot.price}</h2>
-                        <h3>{(spot.avgStarRating).toFixed(2)}</h3>
-                        <h3>{spot.numReviews} review(s)</h3>
+                        <h3>{spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</h3>
+                        {spot.numReviews === 1 ? <h3>{spot.numReviews} review</h3> : <h3>{spot.numReviews} reviews</h3>}
                     </div>
                     <div className="reserve-button">
                         <button>Reserve</button>
@@ -93,10 +81,11 @@ export default function SingleSpot() {
             </div>
             <div>
                 <div className="bottom-review-info">
-                    <h2>StarIcon {(spot.avgStarRating).toFixed(2)} : {spot.numReviews} review(s)</h2>
+                    <h2>StarIcon {spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</h2>
+                    {spot.numReviews === 1 ? <h2>{spot.numReviews} review</h2> : <h2>{spot.numReviews} reviews</h2>}
                 </div>
                 <div key={spot.id} className="user-review-container">
-                    {spot.ownerId !== currentUserId && <OpenModalButton buttonText="Post Your Review" modalComponent={<AddReportModal spotId={spotId} />}/>}
+                    {currentUserId && (spot.ownerId !== currentUserId) && <OpenModalButton buttonText="Post Your Review" modalComponent={<AddReportModal spotId={spotId} />} />}
                     {spotReviewsArr.length ? spotReviewsArr : <h3>Be the first to post a review!</h3>}
                 </div>
             </div>
