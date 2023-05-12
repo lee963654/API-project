@@ -99,7 +99,7 @@ export default function CreateSpotForm({ report, formType }) {
     e.preventDefault();
 
 
-    const newSpot = { ...report, address: address, city: city, state: state, country: country, name: name, description: description, price: price };
+    const newSpot = { ...report, address: address, city: city, state: state, country: country, name: name, description: description, price: price, lat: 1, lng: 1 };
 
     const urlImages = [{ url: previewUrl, preview: true }]
     if (secondUrl) urlImages.push({ url: secondUrl, preview: false })
