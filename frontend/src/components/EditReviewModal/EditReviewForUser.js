@@ -7,8 +7,8 @@ export default function EditUserReviews ({reviewId, editSpotId}) {
     const {closeModal} = useModal()
 
     const userReview = useSelector(state => state.reviews.UserReviews ? state.reviews.UserReviews[reviewId] : null)
-    console.log("This is the reviewId WE WANT", reviewId)
-    console.log("This is the user review WE WANT", userReview)
+    // console.log("This is the reviewId WE WANT", reviewId)
+    // console.log("This is the user review WE WANT", userReview)
 
     return (
         <ReviewForm currentReview={userReview} closeModal={closeModal} reviewType="edit" editSpotId={editSpotId} />

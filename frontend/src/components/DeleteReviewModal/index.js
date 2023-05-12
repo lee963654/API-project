@@ -1,16 +1,18 @@
 import React from "react"
 import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal"
-import { deleteReviewThunk, userReviewsThunk } from "../../store/reviews"
+import { deleteReviewThunk, userReviewsThunk, singleSpotReviewThunk } from "../../store/reviews"
+import { singleSpotThunk } from "../../store/spots"
 
-export default function DeleteReviewModal ({reviewId}) {
+
+export default function DeleteReviewModal ({reviewId, spotId}) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
 
     const handleDelete = (e) => {
         e.preventDefault()
         console.log(reviewId)
-        return dispatch(deleteReviewThunk(reviewId)).then(async () => {await dispatch(userReviewsThunk())}).then(closeModal)
+        return dispatch(deleteReviewThunk(reviewId)).then(async () => {await dispatch(userReviewsThunk())}).then(async () => {await dispatch(singleSpotThunk(spotId))}).then(async () => {await dispatch(singleSpotReviewThunk(spotId))}).then(closeModal)
     }
 
     return (

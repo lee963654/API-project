@@ -31,7 +31,7 @@ export default function SingleSpot() {
                     <h2>{review.User.firstName}</h2>
                     <h3>{review.createdAt.slice(0, 7)}</h3>
                     <h3>{review.review}</h3>
-                    {review.userId === currentUserId && <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditReviewModal editSpotId={spotId} />} />}</div>}
+                    {review.userId === currentUserId && <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal spotId={spotId} reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditReviewModal editSpotId={spotId} />} />}</div>}
                 </div>
             )
         }

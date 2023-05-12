@@ -1,7 +1,8 @@
 import React from "react"
 import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal"
-import { deleteSpotThunk } from "../../store/spots"
+import { deleteSpotThunk, singleSpotThunk } from "../../store/spots"
+import { singleSpotReviewThunk } from "../../store/reviews"
 
 export default function DeleteSpotModal ({spotId}) {
 
@@ -10,7 +11,7 @@ export default function DeleteSpotModal ({spotId}) {
 
     const handleDelete = (e) => {
         e.preventDefault()
-        return dispatch(deleteSpotThunk(spotId)).then(closeModal)
+        return dispatch(deleteSpotThunk(spotId)).then(async () => {await dispatch(singleSpotThunk(spotId))}).then(async () => {await dispatch(singleSpotReviewThunk(spotId))}).then(closeModal)
     }
 
     return (

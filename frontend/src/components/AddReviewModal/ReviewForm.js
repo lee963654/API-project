@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addReviewThunk, singleSpotReviewThunk, updateReviewThunk, userReviewsThunk } from '../../store/reviews';
 
 import "./ReviewForm.css"
+import { singleSpotThunk } from '../../store/spots';
 
 
 
@@ -39,16 +40,16 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
         if (reviewType === "new") {
         return dispatch(addReviewThunk(addReportSpotId, newReview)).then(async () => {
             await dispatch(singleSpotReviewThunk(addReportSpotId))
-        }).then(history.push(`/${addReportSpotId}`)).then(closeModal)
+        }).then(async () => {await dispatch(singleSpotThunk(addReportSpotId))}).then(history.push(`/${addReportSpotId}`)).then(closeModal)
         }
         if (reviewType === "edit") {
-            return dispatch(updateReviewThunk(newReview)).then(async () => { await dispatch(singleSpotReviewThunk(editSpotId))}).then(async () => {await dispatch(userReviewsThunk())}).then(history.push(`/${editSpotId}`)).then(closeModal)
+            return dispatch(updateReviewThunk(newReview)).then(async () => { await dispatch(singleSpotReviewThunk(editSpotId))}).then(async () => {await dispatch(userReviewsThunk())}).then(async () => {await dispatch(singleSpotThunk(editSpotId))}).then(history.push(`/${editSpotId}`)).then(closeModal)
         }
 
     }
-    useEffect(() => {
-        console.log("tracking stars", stars)
-    }, [stars])
+    // useEffect(() => {
+
+    // }, [stars])
 
 
     return (
