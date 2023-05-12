@@ -21,32 +21,32 @@ module.exports = {
    await queryInterface.bulkInsert(options, [
     {
       spotId: 1,
-      url: 'https://i.imgur.com/6PAP9Of.jpeg',
+      url: 'https://t3.ftcdn.net/jpg/02/66/26/92/360_F_266269223_voOEkuIoS51yrL5G2Lw01OnqQQx9qBUb.jpg',
       preview: true,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/g3zN0Dq.jpeg',
+      url: 'https://assets.onepropertee.com/576x441/listing_images/73fa845b-2b49-4bc3-ba18-b08732415c25.pzpXDGRCDtGbozEf8.jpeg',
       preview: true,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/8Fp7b72.jpeg',
+      url: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/The_Mansion_.jpg',
       preview: false,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/tCqGQhj.jpeg',
+      url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Dolce_Hayes_Mansion_at_dusk_%28cropped%29.jpg',
       preview: false,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/N5GoyFl.jpeg',
+      url: 'https://www.hayesmansion.com/site/assets/files/4802/san_jose_accommodations.500x500.jpeg',
       preview: true,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/maaIzQ7.jpeg',
+      url: 'https://www.shutterstock.com/image-photo/san-california-september-19-2019-260nw-1553756591.jpg',
       preview: true,
     },
     {
