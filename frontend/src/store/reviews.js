@@ -4,6 +4,7 @@ const SPOT_REVIEWS = "reviews/getReviews"
 const ADD_REVIEW = "reviews/addReview"
 const DELETE_REVIEW = "reviews/deleteReview"
 const UPDATE_REVIEW = "reviews/updateReview"
+const USER_REVIEWS = "reviews/userReviews"
 
 
 
@@ -32,6 +33,13 @@ const updateReview = (review) => {
     return {
         type: UPDATE_REVIEW,
         review
+    }
+}
+
+const userReviews = (reviews) => {
+    return {
+        type: USER_REVIEWS,
+        reviews
     }
 }
 
@@ -82,16 +90,23 @@ export const updateReviewThunk = (review) => async (dispatch) => {
     }
 }
 
+export const userReviewsThunk = () => async (dispatch) => {
+    const response = await csrfFetch("/api/reviews/current")
+    if (response.ok) {
+        const allUserReviews = await response.json()
+        dispatch(userReviews(allUserReviews))
+    }
+}
 
 
-const initialState = { Reviews: {}, ReviewImages: {}}
+
+const initialState = { Reviews: {}, ReviewImages: {}, UserReviews: {}}
 
 export default function reviewReducer (state = initialState, action) {
     switch(action.type) {
         case SPOT_REVIEWS: {
-            const newState = {...state, Reviews: {}, ReviewImages: {...state.ReviewImages}}
-            console.log("this is the review newstate=====", newState)
-            console.log("this is the review action", action.spotReviews)
+            const newState = {...state, Reviews: {}, ReviewImages: {...state.ReviewImages}, UserReviews: {...state.UserReviews}}
+
             action.spotReviews.Reviews.forEach(review => {
                 newState.Reviews[review.id] = review
             })
@@ -101,20 +116,28 @@ export default function reviewReducer (state = initialState, action) {
             // console.log("this is the reviews action", action.spotReview)
         }
         case ADD_REVIEW: {
-            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}}
+            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}, UserReviews: {...state.UserReviews}}
             newState.Reviews[action.spotReview.id] = action.spotReview
-            console.log("this is the newState in the add review thunk", newState)
+
             return newState
             // THIS MAY BE WRONG
         }
         case DELETE_REVIEW: {
-            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}}
+            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}, UserReviews: {...state.UserReviews}}
             delete newState.Reviews[action.reviewId]
             return newState
         }
         case UPDATE_REVIEW: {
-            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}}
+            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}, UserReviews: {...state.UserReviews}}
             newState.Reviews[action.review.id] = action.review
+            return newState
+        }
+        case USER_REVIEWS: {
+            const newState = {...state, Reviews: {...state.Reviews}, ReviewImages: {...state.ReviewImages}, UserReviews: {}}
+            console.log("this is the action", action.reviews.Reviews)
+            action.reviews.Reviews.forEach(review => {
+                newState.UserReviews[review.id] = review
+            })
             return newState
         }
         default: {

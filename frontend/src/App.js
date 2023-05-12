@@ -8,6 +8,7 @@ import SingleSpot from "./components/SingleSpot";
 import CreateSpot from "./components/CreateSpot";
 import UserSpot from "./components/UserSpot";
 import EditSpot from "./components/EditSpot";
+import UserReviews from "./components/UserReviews";
 
 
 
@@ -36,6 +37,9 @@ function App() {
         </Route>
         <Route exact path="/current">
           <UserSpot />
+        </Route>
+        <Route exact path="/reviews">
+          <UserReviews />
         </Route>
         <Route exact path="/edit/:spotId">
           <EditSpot />

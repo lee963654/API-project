@@ -1,0 +1,43 @@
+import React, { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
+import { userReviewsThunk } from "../../store/reviews"
+import OpenModalButton from "../OpenModalButton"
+import DeleteReviewModal from "../DeleteReviewModal"
+import EditReviewModal from "../EditReviewModal"
+
+
+export default function UserReviews() {
+
+    const dispatch = useDispatch()
+    const userReviews = useSelector(state => state?.reviews?.UserReviews)
+    console.log("these are the user reviews", userReviews)
+
+    const reviewList = []
+
+    Object.values(userReviews).forEach(review => {
+        console.log("this is each review", review)
+        reviewList.push(
+            <div className="each-review">
+                <h2>{review.Spot.name}</h2>
+                <h3>{review.createdAt.slice(0, 7)}</h3>
+                <h3>{review.review}</h3>
+                <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditReviewModal editSpotId="reviews" />} />}</div>
+            </div>
+        )
+
+    })
+
+    useEffect(() => {
+        dispatch(userReviewsThunk())
+    }, [dispatch])
+
+    return (
+        <div className="user-reviews-container">
+            <h1>Manage Reviews</h1>
+            <div className="review-section">
+                {reviewList.length ? reviewList : <h1>No Reviews</h1>}
+            </div>
+        </div>
+    )
+}

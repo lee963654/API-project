@@ -7,9 +7,16 @@ import ReviewForm from '../AddReviewModal/ReviewForm';
 
 
 export default function EditReviewModal ({editSpotId}) {
+
+
+
     const dispatch = useDispatch()
     const { closeModal } = useModal()
+
+
+
     const review = useSelector(state => state.reviews.Reviews)
+    console.log("this is the reviews NOT THE VALUES", review)
     const user = useSelector(state => state.session)
     const reviewValuesOnly = Object.values(review)
     console.log("these are all the reviews++++++", reviewValuesOnly)
@@ -30,6 +37,10 @@ export default function EditReviewModal ({editSpotId}) {
     }
 
     console.log("THIS IS THE REVIEW WE WANT", realTargetReview)
+
+    // useEffect(() => {
+
+    // })
 
     // console.log("THIS IS THE REVIEW WE WANT", targetReview)
     // useEffect(() => {

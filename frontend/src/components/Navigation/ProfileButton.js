@@ -58,6 +58,9 @@ function ProfileButton({ user }) {
               <NavLink exact to="/current">Manage Spots</NavLink>
             </li>
             <li>
+              <NavLink exact to="/reviews">Manage Reviews</NavLink>
+            </li>
+            <li>
               <button onClick={logout}>Log Out</button>
             </li>
           </>
