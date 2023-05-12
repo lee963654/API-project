@@ -23,7 +23,7 @@ export default function UserReviews() {
                 <h2>{review.Spot.name}</h2>
                 <h3>{review.createdAt.slice(0, 7)}</h3>
                 <h3>{review.review}</h3>
-                <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditUserReviews reviewId={review.id} editSpotId="reviews" />} />}</div>
+                <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditUserReviews reviewId={review.id} editSpotId="reviews" userReviewSpotName={review.Spot.name} />} />}</div>
             </div>
         )
 

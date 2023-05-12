@@ -32,6 +32,7 @@ function SignupFormModal() {
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) {
+            console.log("WE ARE IN THE SIGN UP ERRORS DATA", data)
             setErrors(data.errors);
           }
         });
@@ -42,8 +43,16 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div className="signup-container">
       <h1>Sign Up</h1>
+      {errors.email && <p>{errors.email}</p>}
+      {errors.username && <p>{errors.username}</p>}
+      {errors.firstName && <p>{errors.firstName}</p>}
+      {errors.lastName && <p>{errors.lastName}</p>}
+      {errors.password && <p>{errors.password}</p>}
+      {errors.confirmPassword && (
+          <p>{errors.confirmPassword}</p>
+        )}
       <form onSubmit={handleSubmit}>
         <label>
           Email
@@ -54,7 +63,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {/* {errors.email && <p>{errors.email}</p>} */}
         <label>
           Username
           <input
@@ -64,7 +73,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {/* {errors.username && <p>{errors.username}</p>} */}
         <label>
           First Name
           <input
@@ -74,7 +83,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {/* {errors.firstName && <p>{errors.firstName}</p>} */}
         <label>
           Last Name
           <input
@@ -84,7 +93,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        {/* {errors.lastName && <p>{errors.lastName}</p>} */}
         <label>
           Password
           <input
@@ -94,7 +103,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {/* {errors.password && <p>{errors.password}</p>} */}
         <label>
           Confirm Password
           <input
@@ -104,12 +113,12 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && (
+        {/* {errors.confirmPassword && (
           <p>{errors.confirmPassword}</p>
-        )}
+        )} */}
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

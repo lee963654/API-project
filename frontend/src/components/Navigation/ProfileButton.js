@@ -6,6 +6,7 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import DemoUser from "../DemoUser/DemoUser";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>Hello, {user.username}</li>
+            <li>Hello, {user.firstName}</li>
             {/* <li>{user.firstName} {user.lastName}</li> */}
             <li>{user.email}</li>
             <li>
@@ -75,6 +76,11 @@ function ProfileButton({ user }) {
               itemText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
+            />
+            <OpenModalMenuItem
+              itemText="Demo User"
+              onItemClick={closeMenu}
+              modalComponent={<DemoUser />}
             />
           </>
         )}

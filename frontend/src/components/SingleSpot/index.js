@@ -37,7 +37,11 @@ export default function SingleSpot() {
         }
     })
 
-    console.log("this is the spot===", spot)
+
+
+
+
+    // console.log("this is the spot=========", spot.SpotImages)
 
     useEffect(() => {
         dispatch(singleSpotThunk(spotId));
@@ -54,14 +58,32 @@ export default function SingleSpot() {
     if (!spot) return null
     if (!spotReviews) return null
 
+    const spotImagesArr = [...spot.SpotImages]
+    console.log("SPOT IMAGES ARR", spotImagesArr)
+    const test = []
+    for (let image of spotImagesArr) {
+
+        test.push(image.url)
+    }
+    console.log("THIS IS THE TEST ARR", test)
+
+
+
     return (
         <div className="single-spot-container">
             <h2>{spot.name}</h2>
             <p>{spot.city}, {spot.state}, {spot.country}</p>
             <div>
-                {spot.SpotImages ? spot.SpotImages.map((image) => {
+                {/* {spot.SpotImages ? spot.SpotImages.map((image) => {
                     return <img key={image.id} src={image.url} alt="spot-images" style={{ width: 400, height: 400 }}></img>
-                }) : <h3>No Image Available</h3>}
+                }) : <h3>No Image Available</h3>} */}
+                <div><img src={test[0]} style={{ width: 400, height: 400 }}></img></div>
+                <div>
+                {test[1] ? <img src={test[1]} alt="spot-images" style={{ width: 400, height: 400 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 400, height: 400 }}></img>}
+                {test[2] ? <img src={test[2]} alt="spot-images" style={{ width: 400, height: 400 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 400, height: 400 }}></img>}
+                {test[3] ? <img src={test[3]} alt="spot-images" style={{ width: 400, height: 400 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 400, height: 400 }}></img>}
+                {test[4] ? <img src={test[4]} alt="spot-images" style={{ width: 400, height: 400 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 400, height: 400 }}></img>}
+                </div>
             </div>
             <div className="description-container">
                 <div className="name-description">

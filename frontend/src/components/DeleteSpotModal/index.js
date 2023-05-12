@@ -11,9 +11,9 @@ export default function DeleteSpotModal ({spotId}) {
 
     const handleDelete = (e) => {
         e.preventDefault()
-        return dispatch(deleteSpotThunk(spotId)).then(async () => {await dispatch(singleSpotThunk(spotId))}).then(async () => {await dispatch(singleSpotReviewThunk(spotId))}).then(closeModal)
+        return dispatch(deleteSpotThunk(spotId)).then(async () => {await dispatch(singleSpotThunk(spotId))}).then(closeModal)
     }
-
+    // .then(async () => {await dispatch(singleSpotReviewThunk(spotId))})
     return (
         <div>
             <h2>Confirm Delete</h2>

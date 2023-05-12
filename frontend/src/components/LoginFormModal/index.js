@@ -21,16 +21,21 @@ function LoginFormModal() {
       .then(history.push("/"))
       .catch(async (res) => {
         const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
+        console.log("THIS IS THE RES", data)
+        // if (data && data.errors) {
+        //   setErrors(data.errors);
+        // }
+        if (data) {
+          setErrors(data)
         }
 
       });
   };
-
+  console.log("THESE ARE THE ERRORS OBJECT", errors)
   return (
     <>
       <h1>Log In</h1>
+      {errors.message && <p>{errors.message}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           Username or Email
@@ -53,7 +58,7 @@ function LoginFormModal() {
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button type="submit">Log In</button>
+        <button type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
       </form>
     </>
   );

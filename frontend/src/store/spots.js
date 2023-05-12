@@ -70,7 +70,7 @@ export const singleSpotThunk = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}`)
     if (response.ok) {
         const spot = await response.json()
-        console.log("this is the spot in the single spot thunk", spot)
+        // console.log("this is the spot in the single spot thunk", spot)
         dispatch(singleSpot(spot))
     }
 }
@@ -84,11 +84,11 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
     if (response.ok) {
         const newUpdatedSpot = await response.json()
 
-        console.log("this is the new updated spot that is in the thunk====", newUpdatedSpot)
+        // console.log("this is the new updated spot that is in the thunk====", newUpdatedSpot)
         dispatch(updateSpot(newUpdatedSpot))
     } else {
         const error = await response.json()
-        console.log("problem in the updateSpotThunk", error)
+        // console.log("problem in the updateSpotThunk", error)
     }
 }
 
@@ -111,7 +111,7 @@ export const createSpotThunk = (spot, urlData) => async (dispatch) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(image),
             })
-            console.log("This is the image response in the loop", imageResponse)
+            // console.log("This is the image response in the loop", imageResponse)
         }
 
         return newSpot

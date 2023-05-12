@@ -8,7 +8,7 @@ import { singleSpotThunk } from '../../store/spots';
 
 
 
-export default function ReviewForm({ currentReview, addReportSpotId, closeModal, reviewType, editSpotId }) {
+export default function ReviewForm({ currentReview, addReportSpotId, closeModal, reviewType, editSpotId, userReviewSpotName }) {
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -24,26 +24,54 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
     //     setActiveStars(stars);
     //   }, [stars]);
 
+    const err = {}
+
+    const userHasReview = useSelector(state => state.reviews.Reviews)
+    console.log("trying to check if user already has review", Object.values(userHasReview))
+    const currentUser = useSelector(state => state.session.user ? state.session.user.id : null)
+    console.log("trying to find the current user", currentUser)
+
+    const spotName = useSelector(state => state.spots.allSpots ? state.spots.allSpots[editSpotId] : null)
+    // console.log('THIS IS THE SPOTNAME', spotName.name)
+    // console.log("THIS IS THE SPOTID", editSpotId)
+    // console.log("THIS IS TEH SPOTNAME", spotName)
+    // console.log("THIS IS THE USERREVIEWSPOTNAME", userReviewSpotName)
+
     useEffect(() => {
 
-    })
+        if (stars === 0) {
+            err.stars = "Must pick a star rating"
+        }
+        for (let review of Object.values(userHasReview)) {
+            if (review.userId === currentUser) {
+                err.hasReview = "Review already exists for this spot"
+            }
+        }
+        setErrors(err)
+
+    }, [stars, userHasReview])
+
+    console.log("THERES ARE THE ERRORS", errors)
 
     console.log("this is the edit spot id THAT WE WANT", editSpotId)
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        setErrors({}) // testing
+
 
         const newReview = { ...currentReview, review: review, stars: stars }
 
-        // THIS WORKS
-        if (reviewType === "new") {
+        if (Object.values(errors).length) {
+            setValidate(true)
+        }
+
+        if (reviewType === "new" && validate === false) {
         return dispatch(addReviewThunk(addReportSpotId, newReview)).then(async () => {
             await dispatch(singleSpotReviewThunk(addReportSpotId))
-        }).then(async () => {await dispatch(singleSpotThunk(addReportSpotId))}).then(history.push(`/${addReportSpotId}`)).then(closeModal)
+        }).then(async () => {await dispatch(singleSpotThunk(addReportSpotId))}).then(() => history.push(`/${addReportSpotId}`)).then(closeModal)
         }
-        if (reviewType === "edit") {
-            return dispatch(updateReviewThunk(newReview)).then(async () => { await dispatch(singleSpotReviewThunk(editSpotId))}).then(async () => {await dispatch(userReviewsThunk())}).then(async () => {await dispatch(singleSpotThunk(editSpotId))}).then(history.push(`/${editSpotId}`)).then(closeModal)
+        if (reviewType === "edit" && validate === false) {
+            return dispatch(updateReviewThunk(newReview)).then(async () => { await dispatch(singleSpotReviewThunk(editSpotId))}).then(async () => {await dispatch(userReviewsThunk())}).then(async () => {await dispatch(singleSpotThunk(editSpotId))}).then(() => history.push(`/${editSpotId}`)).then(closeModal)
         }
 
     }
@@ -55,9 +83,11 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                {errors && <p>{errors.stars}</p>}
+                {errors.stars && validate && <h3>{errors.stars}</h3> }
+                {errors.hasReview && validate && <h3>{errors.hasReview}</h3> }
                 {reviewType === "new" && <h1>How was your stay?</h1>}
-                {reviewType === "edit" && <h1>How was your stay at change this later?</h1>}
+                {reviewType === "edit" && spotName && <h1>How was your stay at {spotName ? spotName.name : null}</h1>}
+                {reviewType === "edit" && userReviewSpotName && <h1>How was your stay at {userReviewSpotName}</h1>}
                 <textarea
                     minLength="10"
                     rows="4"
