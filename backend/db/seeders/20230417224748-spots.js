@@ -27,8 +27,8 @@ module.exports = {
         country: 'USA',
         lat: 50.654567845,
         lng: -40.787243453,
-        name: 'name1',
-        description: 'abcd',
+        name: 'The Granary, Rustic Modern Barn Conversion',
+        description: 'Grade II listed barn conversion with charming spacious double bedroom and ensuite shower room. Located in historic village of Lindfield.',
         price: 5055
       },
       {
@@ -39,8 +39,8 @@ module.exports = {
         country: 'USA',
         lat: 50.7853423453,
         lng: 4.7478373,
-        name: 'name2',
-        description: 'abcd',
+        name: 'Cheerful 1-bedroom in a townhouse with parking',
+        description: 'This unique place has a style all its own. A very quiet homely house with a modern contemporary style. 25 mins to downtown Ottawa.',
         price: 5005
       },
       {
@@ -51,8 +51,8 @@ module.exports = {
         country: 'USA',
         lat: 50.4354,
         lng: 40.873,
-        name: 'name3',
-        description: 'abcd',
+        name: 'Stuart Manor Bed and Breakfast',
+        description: 'Welcome to Stuart Manor, a mid-1800s Brick Italianate Home constructed by John Stuart, an early Cumberland County Judge. The home was fully restored 2016-2019. This home features 5 guest rooms, each with a private bath, high speed wi-fi, daily breakfast and well appointed, luxurious rooms.',
         price: 500000
       },
       {
@@ -63,8 +63,8 @@ module.exports = {
         country: 'USA',
         lat: 55.4,
         lng: 40.457,
-        name: 'name4',
-        description: 'abcd',
+        name: 'Artsy Room & Bathroom in the ByWard Market',
+        description: 'Bright bedroom with private bathroom. It has a closet, desk & comfy chair, and storage area. It hosts one guest only.',
         price: 5000
       },
       {
@@ -75,8 +75,8 @@ module.exports = {
         country: 'USA',
         lat: 5.4563,
         lng: 4.75345,
-        name: 'name5',
-        description: 'abcd',
+        name: 'Guesthouse Bedroom 1/Private Parking',
+        description: 'Welcome to your 1874 mansion in the city, with off-street parking on premises!',
         price: 500
       },
       {

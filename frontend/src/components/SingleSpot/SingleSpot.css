@@ -1,14 +1,35 @@
-.single-spot-container {
-    border: 1px black solid;
-    max-width: 1000px;
+/* .bottom-left-image {
 
 
+} */
+
+.bottom-review-info {
+    display: flex;
+}
+
+.bottom-right-image {
+    border: 1px solid rgb(110, 34, 47);
+    border-bottom-right-radius: 1rem;
 }
 
 .description-container {
     border: 1px red solid;
     display: flex;
     justify-content: space-between;
+}
+
+.image-container {
+    display: flex;
+}
+
+.main-image {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.main-image-container {
+    border: 1px solid yellow;
+
 }
 
 .price-info {
@@ -21,6 +42,31 @@
     display: flex;
 }
 
-.bottom-review-info {
+.single-spot {
+    border: 1px solid orange;
+    width: 1000px;
+}
+
+.single-spot-container {
+    border: 1px black solid;
     display: flex;
+    justify-content: center;
+}
+
+.support-image-container {
+    border: 1px brown solid;
+    /* display: flex;
+    flex-wrap: wrap;
+    gap: 7px; */
+    /* margin-left: .5rem; */
+
+}
+
+/* .top-left-image {
+
+} */
+
+.top-right-image {
+    border-top-right-radius: 1rem;
+
 }
