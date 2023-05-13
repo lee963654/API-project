@@ -21,15 +21,19 @@ export default function SpotsIndex() {
     Object.values(spots).forEach(spot => {
         result.push(
             <div className="allspots-container">
-                <Link key={spot.id} to={`/${spot.id}`}>
+                <Link className="allspots-link" key={spot.id} to={`/${spot.id}`}>
                     <div key={spot.id} className="spots">
-                        <img src={spot.previewImage} style={{ width: 350, height: 350 }} alt="spot-images" />
+                        <img className="spot-image" src={spot.previewImage} style={{ width: 250, height: 250 }} alt="spot-images" />
                         <div className="spot-info">
-                            <p>{spot.city}</p>
-                            <p>{spot.state}</p>
-                            <p>{spot.avgRating}</p>
+                            <div>
+                                <p className="info">{spot.city}, {spot.state}</p>
+                            </div>
+                            <div className="allspots-rating-container">
+                                {/* <p className="info">{spot.avgRating}</p> */}
+                                {spot.avgRating === "No Rating Available" ? <p className="info">No Rating</p> : <p className="info"><i class="fa-sharp fa-solid fa-star"></i>{spot.avgRating}</p>}
+                            </div>
                         </div>
-                        <div>{spot.price} night</div>
+                        <div className="info">{spot.price} night</div>
                     </div>
                 </Link>
             </div>
@@ -41,7 +45,9 @@ export default function SpotsIndex() {
     return (
 
         <div className="spot-info-container">
+            <div className="inside-spot-info">
             {result && result}
+            </div>
         </div>
 
     )

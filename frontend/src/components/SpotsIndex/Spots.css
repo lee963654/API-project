@@ -1,8 +1,24 @@
-.spot-info-container {
-    border: 1px black solid;
+.allspots-link {
+    text-decoration: none;
+}
+
+.info {
+    color: black;
+}
+
+.inside-spot-info {
     display: flex;
     flex-wrap: wrap;
+    width: 75%;
+}
+
+.spot-info-container {
+    border: 1px rgb(92, 9, 170) solid;
+    display: flex;
     justify-content: center;
+
+    width: 100%;
+    margin-top: 6rem;
 }
 
 .spots {
@@ -13,7 +29,12 @@
 
 }
 
+.spot-image {
+    border-radius: 1rem;
+}
+
 .spot-info {
     display: flex;
+    justify-content: space-between;
 
 }
