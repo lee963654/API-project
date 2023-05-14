@@ -114,15 +114,14 @@ export default function CreateSpotForm({ report, formType }) {
     } else {
       setValidate(false)
       if (formType === "Update Your Spot") {
-        console.log("this is the edited report that will be dispatched to the updatespotthunk", newSpot)
+
         dispatch(updateSpotThunk(newSpot))
         history.push(`/${newSpot.id}`)
       }
       if (formType === "Create a New Spot") {
         const result = await dispatch(createSpotThunk(newSpot, urlImages))
 
-        console.log("created a new spot", newSpot)
-        console.log("the result of the spot after the createspotthunk", result)
+
         await history.push(`/${result.id}`)
 
 

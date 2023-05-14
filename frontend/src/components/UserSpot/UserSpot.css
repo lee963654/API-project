@@ -13,3 +13,23 @@
     width: 14rem;
     margin-left: 1rem;
 }
+
+.user-spot-heading {
+    font-size: 30px;
+    margin-bottom: .5rem;
+}
+
+.user-spot-heading-container {
+    margin-top: 2rem;
+    margin-left: 14.5rem;
+
+}
+
+.user-spot-create-button {
+    box-shadow: 2px 2px 1px black;
+    background-color: rgb(243, 113, 113);
+    color: white;
+    cursor: pointer;
+    height: 1.5rem;
+    width: 9rem;
+}

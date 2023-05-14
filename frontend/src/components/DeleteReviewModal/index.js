@@ -11,7 +11,7 @@ export default function DeleteReviewModal ({reviewId, spotId}) {
 
     const handleDelete = (e) => {
         e.preventDefault()
-        console.log(reviewId)
+
         return dispatch(deleteReviewThunk(reviewId)).then(async () => {await dispatch(userReviewsThunk())}).then(async () => {await dispatch(singleSpotThunk(spotId))}).then(async () => {await dispatch(singleSpotReviewThunk(spotId))}).then(closeModal)
     }
 

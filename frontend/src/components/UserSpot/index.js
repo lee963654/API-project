@@ -1,14 +1,14 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { userSpotsThunk } from "../../store/spots"
-import { Link } from "react-router-dom/cjs/react-router-dom.min"
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import "./UserSpot.css"
 import OpenModalButton from "../OpenModalButton"
 import DeleteSpotModal from "../DeleteSpotModal"
 
 export default function UserSpot() {
     const dispatch = useDispatch()
-
+    const history = useHistory()
     const userSpots = useSelector(state => state.spots.singleSpot.Owner)
     const userSpotsValues = Object.values(userSpots)
 
@@ -78,9 +78,16 @@ export default function UserSpot() {
 
 
     return (
-        <div className="spot-info-container">
-            <div className="inside-spot-info">
-                {userSpotArr && userSpotArr}
+        <div>
+            <div className="user-spot-heading-container">
+                <div className="user-spot-heading">Manage Your Spots</div>
+                <button className="user-spot-create-button" onClick={() => history.push("/new")}>Create a New Spot</button>
+            </div>
+            <div className="spot-info-container">
+
+                <div className="inside-spot-info">
+                    {userSpotArr && userSpotArr}
+                </div>
             </div>
         </div>
     )
