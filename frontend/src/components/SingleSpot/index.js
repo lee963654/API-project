@@ -30,7 +30,7 @@ export default function SingleSpot() {
     const dispatch = useDispatch()
     const { spotId } = useParams()
 
-    const [hasReview, setHasReview] = useState(false)
+    // const [hasReview, setHasReview] = useState(false)
 
     // const spot = useSelector((state) => state.spots.singleSpot.spot ? state.spots.singleSpot.spot[spotId] : null)
     const spot = useSelector((state) => state?.spots?.singleSpot?.spot ? state.spots.singleSpot.spot[spotId] : null)
@@ -43,6 +43,10 @@ export default function SingleSpot() {
 //TESTING TESTING
 
 
+
+console.log("THIS IS THE CURRENT USER", currentUserId)
+console.log("THESE ARE THE SPOTREVIEWS", spotReviews)
+
 const testReviews = Object.values(spotReviews)
 
 
@@ -50,6 +54,11 @@ const orderReviews = testReviews.sort((a, b) => new Date(b.createdAt) - new Date
 
     const spotReviewsArr = []
     orderReviews.forEach(review => {
+        console.log("THIS IS THE REVIEW IN THE FOREACH", review)
+
+        //testing
+        // if (review.userId === currentUserId) setHasReview(true)
+        //testing
 
         if (review.User) {
             spotReviewsArr.push(
@@ -66,6 +75,12 @@ const orderReviews = testReviews.sort((a, b) => new Date(b.createdAt) - new Date
 //TESTING TESTING
 
 
+
+let hasReview;
+
+for (let review of orderReviews) {
+    if (review.userId === currentUserId) hasReview = "hasReview"
+}
 
 
 
@@ -174,7 +189,7 @@ const orderReviews = testReviews.sort((a, b) => new Date(b.createdAt) - new Date
                         {spot.numReviews === 1 ? <h2 className="bottom-review">{spot.numReviews} review</h2> : <h2 className="bottom-review">{spot.numReviews} reviews</h2>}
                     </div>
                     <div key={spot.id} className="user-review-container">
-                        {currentUserId && (spot.ownerId !== currentUserId) && <OpenModalButton buttonText="Post Your Review" modalComponent={<AddReportModal spotId={spotId} />} />}
+                        {currentUserId && (spot.ownerId !== currentUserId) && (hasReview !== "hasReview") && <OpenModalButton buttonText="Post Your Review" modalComponent={<AddReportModal spotId={spotId} />} />}
                         {spotReviewsArr.length ? spotReviewsArr : <h3>Be the first to post a review!</h3>}
                     </div>
                 </div>

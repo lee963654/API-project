@@ -1,6 +1,24 @@
+.demo-user-button {
+    /* margin-top: 1rem;
+    background-color: transparent;
+    width: 6rem; */
+    height: 40px;
+    box-shadow: 2px 2px 1px black;
+    background-color: rgb(243, 113, 113);
+    color: white;
+    width: 20rem;
+    margin-top: 1rem;
+}
+
+.demo-user-container {
+    display: flex;
+    justify-content: center;
+}
+
 .input-field {
     width: 19.5rem;
     margin: .5rem 0rem;
+    height: 1.25rem;
 }
 
 .login-button {
@@ -8,6 +26,7 @@
     box-shadow: 2px 2px 1px gray;
     background-color: gray(243, 113, 113);
     color: gray;
+    margin-top: 1rem;
 }
 
 .login-button-enable {
@@ -15,27 +34,37 @@
     box-shadow: 2px 2px 1px black;
     background-color: rgb(243, 113, 113);
     color: white;
+    margin-top: 1rem;
 }
 
 .login-form-container {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
+
     width: 20rem;
-    height: 10rem;
+    height: 13rem;
+    justify-content: stretch;
 }
 
 .login-modal-container {
-    height: 20rem;
+    height: 19rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
-    width: 25rem;
 
+    width: 23rem;
 }
 
-.no-user-container {
+.login-modal-container-error {
+    height: 22rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 23rem;
+}
+
+/* .no-user-container {
     display: flex;
     justify-content: center;
-}
+} */

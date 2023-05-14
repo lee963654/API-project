@@ -1,0 +1,17 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.form-section {
+    width: 1000px;
+    border: 1px solid purple;
+}
+
+.create-submit-button {
+    height: 40px;
+    width: 20rem;
+    box-shadow: 2px 2px 1px black;
+    background-color: rgb(243, 113, 113);
+    color: white;
+}

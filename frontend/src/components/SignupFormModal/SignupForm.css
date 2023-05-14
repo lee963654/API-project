@@ -1,0 +1,72 @@
+.errors {
+    color: red;
+    text-align: center;
+}
+
+/* .errors-container {
+
+} */
+
+.form {
+
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.signup-button {
+    height: 40px;
+    width: 20rem;
+    box-shadow: 2px 2px 1px gray;
+    background-color: gray(243, 113, 113);
+    color: gray;
+
+}
+
+.signup-button-enable {
+    height: 40px;
+    width: 20rem;
+    box-shadow: 2px 2px 1px black;
+    background-color: rgb(243, 113, 113);
+    color: white;
+
+}
+
+.signup-container {
+    height: 25rem;
+    width: 23rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.signup-container-error {
+    height: 28rem;
+    width: 23rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signup-container-error-two {
+    height: 30rem;
+    width: 23rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signup-container-error-three {
+    height: 32rem;
+    width: 23rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signup-label {
+    width: 19.5rem;
+    height: 1.25rem;
+}

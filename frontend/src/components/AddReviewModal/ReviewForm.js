@@ -37,19 +37,19 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
     // console.log("THIS IS TEH SPOTNAME", spotName)
     // console.log("THIS IS THE USERREVIEWSPOTNAME", userReviewSpotName)
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (stars === 0) {
-            err.stars = "Must pick a star rating"
-        }
-        for (let review of Object.values(userHasReview)) {
-            if (review.userId === currentUser) {
-                err.hasReview = "Review already exists for this spot"
-            }
-        }
-        setErrors(err)
+    //     if (stars === 0) {
+    //         err.stars = "Must pick a star rating"
+    //     }
+    //     for (let review of Object.values(userHasReview)) {
+    //         if (review.userId === currentUser) {
+    //             err.hasReview = "Review already exists for this spot"
+    //         }
+    //     }
+    //     setErrors(err)
 
-    }, [stars, userHasReview])
+    // }, [stars, userHasReview, validate])
 
     console.log("THERES ARE THE ERRORS", errors)
 
@@ -57,9 +57,20 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-
+        setValidate(false)
 
         const newReview = { ...currentReview, review: review, stars: stars }
+
+        //test
+        // const test = {}
+        // console.log("THESE ARE THE STARS", stars)
+        // if (stars === 0) {
+        //     err.stars = "Must pick a star rating"
+        // }
+        // setErrors(err)
+        //test
+        console.log("THESE ARE THE ERRORS IN THE HANDLE SUBMIT", errors)
+        console.log("THIS IS THE VALIDATE", validate)
 
         if (Object.values(errors).length) {
             setValidate(true)
@@ -75,25 +86,49 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
         }
 
     }
+
+    useEffect(() => {
+
+        if (stars === 0) {
+            err.stars = "Must pick a star rating"
+        }
+        // for (let review of Object.values(userHasReview)) {
+        //     if (review.userId === currentUser) {
+        //         err.hasReview = "Review already exists for this spot"
+        //     }
+        // }
+        setErrors(err)
+
+    }, [stars, userHasReview, validate])
+
     // useEffect(() => {
 
     // }, [stars])
+    console.log("THESE ARE THE ERRORS", Object.values(errors))
 
+    const newReviewClass = "review-form-container"
+    const editReviewClass = "review-form-container-edit"
+    const newReviewClassError = "review-form-container-errors"
+    const editReviewClassError = "review-form-container-edit-errors"
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                {errors.stars && validate && <h3>{errors.stars}</h3> }
-                {errors.hasReview && validate && <h3>{errors.hasReview}</h3> }
+        // <div className="review-form-container">
+        // <div className={validate === true ? "review-form-container-errors" : "review-form-container"}>
+        <div className={(validate && reviewType === "new") ? newReviewClassError : (validate && reviewType === "edit") ? editReviewClassError : ((validate === false) && reviewType === "new") ? newReviewClass : editReviewClass}>
+            <form className="review-form" onSubmit={handleSubmit}>
                 {reviewType === "new" && <h1>How was your stay?</h1>}
                 {reviewType === "edit" && spotName && <h1>How was your stay at {spotName ? spotName.name : null}</h1>}
                 {reviewType === "edit" && userReviewSpotName && <h1>How was your stay at {userReviewSpotName}</h1>}
+                {errors.stars && validate && <p className="errors">{errors.stars}</p> }
+                {errors.hasReview && validate && <p className="errors">{errors.hasReview}</p> }
                 <textarea
+                    className="review-textarea"
                     minLength="10"
                     rows="4"
                     cols="50"
                     type="text"
                     placeholder="Description"
+
                     value={review}
                     onChange={(e) => setReview(e.target.value)}
                 />
@@ -147,7 +182,7 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
                     </div>
                     <div>Stars</div>
                 </div>
-                <button disabled={review.length < 10}>Submit Your Review</button>
+                <button className={review.length < 10 || stars === 0 ? "review-button" : "review-button-enable"} disabled={review.length < 10 || stars === 0}>Submit Your Review</button>
             </form>
         </div>
     )

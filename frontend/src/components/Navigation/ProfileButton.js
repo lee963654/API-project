@@ -7,6 +7,7 @@ import SignupFormModal from '../SignupFormModal';
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import DemoUser from "../DemoUser/DemoUser";
+import UserSpot from "../UserSpot";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -57,10 +58,13 @@ function ProfileButton({ user }) {
             {/* <li>{user.firstName} {user.lastName}</li> */}
             <div className="user-logged-in">{user.email}</div>
             <div className="user-logged-in">
-              <NavLink className="profile-link" exact to="/current">Manage Spots</NavLink>
+              {/* <NavLink className="profile-link" exact to="/current">Manage Spots</NavLink> */}
+              <NavLink onClick={() => {
+                closeMenu(); history.push("/current")
+              }} className="profile-link" exact to="/current">Manage Spots</NavLink>
             </div>
             <div className="user-logged-in">
-              <NavLink className="profile-link" exact to="/reviews">Manage Reviews</NavLink>
+              <NavLink onClick={() => {closeMenu(); history.push("/reviews")}} className="profile-link" exact to="/reviews">Manage Reviews</NavLink>
             </div>
             <div className="logout-container">
               <button className="logout-button" onClick={logout}>Log Out</button>
@@ -70,7 +74,6 @@ function ProfileButton({ user }) {
           <div>
             <div className="no-user-container">
             <OpenModalMenuItem
-
               itemText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}

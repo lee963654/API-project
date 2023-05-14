@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
+import "./CreateSpot.css"
 
 import { updateSpotThunk, createSpotThunk, addSpotImageThunk } from '../../store/spots';
 
@@ -137,158 +137,159 @@ export default function CreateSpotForm({ report, formType }) {
 
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
+        <form className="form-section" onSubmit={handleSubmit}>
+            <h2 className="form-header">{formType}</h2>
+            <div className="form-section-container">
+              <h3 className="description">Where's your place located?</h3>
+              <h4 className="description-text">Guests will only get your exact address once they booked a reservation.</h4>
+            </div>
+            <div className="form-section-container">
+              <div className="country-container">
+                <label>
+                  <div>Country {validate && errors.countryError && <span className="formErrors">{errors.countryError}</span>}</div>
+                  <input
+                    type="text"
+                    placeholder="Country"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className="address-container">
+                <label>
+                  <div>Street Address {validate && errors.addressError && <span className="formErrors">{errors.addressError}</span>}</div>
+                  <input
+                    type="text"
+                    placeholder="Address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className="city-container">
+                <label>
+                  <div>City {validate && errors.cityError && <span className="formErrors">{errors.cityError}</span>}</div>
+                  <input
+                    type="text"
+                    placeholder="City"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className="state-container">
+                <label>
+                  <div>State {validate && errors.stateError && <span className="formErrors">{errors.stateError}</span>}</div>
+                  <input
+                    type="text"
+                    placeholder="State"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                  />
+                </label>
+              </div>
+            </div>
 
-        <h2 className="form-header">{formType}</h2>
-        <div className="form-section-container">
-          <h3 className="description">Where's your place located?</h3>
-          <h4 className="description-text">Guests will only get your exact address once they booked a reservation.</h4>
-        </div>
-        <div className="form-section-container">
-          <div className="country-container">
-            <label>
-              <h3>Country {validate && errors.countryError && <span className="formErrors">{errors.countryError}</span>}</h3>
-              <input
-                type="text"
-                placeholder="Country"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-              />
-            </label>
-          </div>
-          <div className="address-container">
-            <label>
-              <h3>Street Address {validate && errors.addressError && <span className="formErrors">{errors.addressError}</span>}</h3>
-              <input
-                type="text"
-                placeholder="Address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </label>
-          </div>
-          <div className="city-container">
-            <label>
-              <h3>City {validate && errors.cityError && <span className="formErrors">{errors.cityError}</span>}</h3>
-              <input
-                type="text"
-                placeholder="City"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </label>
-          </div>
-          <div className="state-container">
-            <label>
-              <h3>State {validate && errors.stateError && <span className="formErrors">{errors.stateError}</span>}</h3>
-              <input
-                type="text"
-                placeholder="State"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-              />
-            </label>
-          </div>
-        </div>
+            <div className="form-section-container">
+              <label>
+                <h3 className="description">Describe your place to guests</h3>
+                <h4 className="description-text">Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h4>
+                <textarea
+                  minLength="30"
+                  rows="4"
+                  cols="50"
+                  type="text"
+                  placeholder="Description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                {validate && errors.descriptionError && <span className="formErrors">{errors.descriptionError}</span>}
+              </label>
+            </div>
+            <div className="form-section-container">
+              <label>
+                <h3 className="description">Create a title for your spot</h3>
+                <h4 className="description-text">Catch guests' attention with a spot title that highlights what makes your place special.</h4>
+                <input
+                  type="text"
+                  placeholder="Name of your spot"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                {validate && errors.nameError && <span className="formErrors">{errors.nameError}</span>}
+              </label>
+            </div>
+            <div className="form-section-container">
+              <label>
+                <h3 className="description">Set a base price for your spot</h3>
+                <h4 className="description-text">Competitive pricing can help your listing stand out and rank higher in search results.</h4>
+                <input
+                  type="number"
+                  placeholder="Price per night (USD)"
+                  value={price}
+                  onChange={e => setPrice(e.target.value)}
+                />
+                {validate && errors.priceError && <span className="formErrors">{errors.priceError}</span>}
+              </label>
+            </div>
+            {formType === "Create a New Spot" &&
+              <div className="form-section-container">
+                <label>
+                  <h3 className="description">Liven up your spot with photos</h3>
+                  <h4 className="description-text">Submit a link to at least one photo to publish your spot.</h4>
+                  <div className="single-url">
+                    <input
+                      type="text"
+                      placeholder="Preview Image URL"
+                      value={previewUrl}
+                      onChange={e => setPreviewUrl(e.target.value)}
+                    />
+                    {validate && errors.imageError && <span className="formErrors">{errors.imageError}</span>}
+                    {validate && errors.imageUrlError && <span className="formErrors">{errors.imageUrlError}</span>}
+                  </div>
+                  <div className="single-url">
+                    <input
+                      type="text"
+                      placeholder="Image URL"
+                      value={secondUrl}
+                      onChange={e => setSecondUrl(e.target.value)}
+                    />
+                    {validate && errors.secondError && <p className="formErrors">{errors.secondError}</p>}
+                  </div>
+                  <div className="single-url">
+                    <input
+                      type="text"
+                      placeholder="Image URL"
+                      value={thirdUrl}
+                      onChange={e => setThirdUrl(e.target.value)}
+                    />
+                    {validate && errors.thirdError && <p className="formErrors">{errors.thirdError}</p>}
+                  </div>
+                  <div className="single-url">
+                    <input
+                      type="text"
+                      placeholder="Image URL"
+                      value={fourthUrl}
+                      onChange={e => setFourthUrl(e.target.value)}
+                    />
+                    {validate && errors.fourthError && <p className="formErrors">{errors.fourthError}</p>}
+                  </div>
+                  <div className="single-url">
+                    <input
+                      type="text"
+                      placeholder="Image URL"
+                      value={fifthUrl}
+                      onChange={e => setFifthUrl(e.target.value)}
+                    />
+                    {validate && errors.fifthError && <p className="formErrors">{errors.fifthError}</p>}
+                  </div>
+                </label>
+              </div>
+            }
+            <button className="create-submit-button" type="submit">Create Spot</button>
 
-        <div className="form-section-container">
-          <label>
-            <h3 className="description">Describe your place to guests</h3>
-            <h4 className="description-text">Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h4>
-            <textarea
-              minLength="30"
-              rows="4"
-              cols="50"
-              type="text"
-              placeholder="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            {validate && errors.descriptionError && <span className="formErrors">{errors.descriptionError}</span>}
-          </label>
-        </div>
-        <div className="form-section-container">
-          <label>
-            <h3 className="description">Create a title for your spot</h3>
-            <h4 className="description-text">Catch guests' attention with a spot title that highlights what makes your place special.</h4>
-            <input
-              type="text"
-              placeholder="Name of your spot"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            {validate && errors.nameError && <span className="formErrors">{errors.nameError}</span>}
-          </label>
-        </div>
-        <div className="form-section-container">
-          <label>
-            <h3 className="description">Set a base price for your spot</h3>
-            <h4 className="description-text">Competitive pricing can help your listing stand out and rank higher in search results.</h4>
-            <input
-              type="number"
-              placeholder="Price per night (USD)"
-              value={price}
-              onChange={e => setPrice(e.target.value)}
-            />
-            {validate && errors.priceError && <span className="formErrors">{errors.priceError}</span>}
-          </label>
-        </div>
-        {formType === "Create a New Spot" &&
-          <div className="form-section-container">
-            <label>
-              <h3 className="description">Liven up your spot with photos</h3>
-              <h4 className="description-text">Submit a link to at least one photo to publish your spot.</h4>
-              <div className="single-url">
-                <input
-                  type="text"
-                  placeholder="Preview Image URL"
-                  value={previewUrl}
-                  onChange={e => setPreviewUrl(e.target.value)}
-                />
-                {validate && errors.imageError && <span className="formErrors">{errors.imageError}</span>}
-                {validate && errors.imageUrlError && <span className="formErrors">{errors.imageUrlError}</span>}
-              </div>
-              <div className="single-url">
-                <input
-                  type="text"
-                  placeholder="Image URL"
-                  value={secondUrl}
-                  onChange={e => setSecondUrl(e.target.value)}
-                />
-                {validate && errors.secondError && <p className="formErrors">{errors.secondError}</p>}
-              </div>
-              <div className="single-url">
-                <input
-                  type="text"
-                  placeholder="Image URL"
-                  value={thirdUrl}
-                  onChange={e => setThirdUrl(e.target.value)}
-                />
-                {validate && errors.thirdError && <p className="formErrors">{errors.thirdError}</p>}
-              </div>
-              <div className="single-url">
-                <input
-                  type="text"
-                  placeholder="Image URL"
-                  value={fourthUrl}
-                  onChange={e => setFourthUrl(e.target.value)}
-                />
-                {validate && errors.fourthError && <p className="formErrors">{errors.fourthError}</p>}
-              </div>
-              <div className="single-url">
-                <input
-                  type="text"
-                  placeholder="Image URL"
-                  value={fifthUrl}
-                  onChange={e => setFifthUrl(e.target.value)}
-                />
-                {validate && errors.fifthError && <p className="formErrors">{errors.fifthError}</p>}
-              </div>
-            </label>
-          </div>
-        }
-        <button type="submit">Create Spot</button>
-      </form>
+        </form>
+
     </div>
   );
 

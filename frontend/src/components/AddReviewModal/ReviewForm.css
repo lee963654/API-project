@@ -1,3 +1,53 @@
+.review-button {
+    height: 40px;
+    width: 18rem;
+    box-shadow: 2px 2px 1px gray;
+    background-color: gray(243, 113, 113);
+    color: gray;
+}
+
+.review-button-enable {
+    height: 40px;
+    width: 18rem;
+    box-shadow: 2px 2px 1px black;
+    background-color: rgb(243, 113, 113);
+    color: white;
+}
+
+.review-form {
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-form-container {
+    height: 21rem;
+    width: 21rem;
+}
+
+.review-form-container-edit {
+    height: 27.5rem;
+    width: 23rem;
+    text-align: center;
+}
+
+.review-form-container-errors {
+    height: 24rem;
+    width: 21rem;
+}
+
+.review-form-container-errors-update {
+    height: 28rem;
+    width: 21rem;
+}
+
+.review-textarea {
+    width: 18rem;
+    height: 8rem;
+    resize: none;
+}
+
 .stars-container .filled {
     color: rgb(226, 41, 8);
 }
@@ -8,4 +58,8 @@
 
 .stars-container {
     display: flex;
+    justify-content: space-around;
+    width: 8rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

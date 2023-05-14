@@ -15,11 +15,11 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-//MORE TESTING
-const demoUserLogin = () => {
-  return dispatch(sessionActions.login({credential: "Demo-lition", password: "password"})).then(()=> closeModal())
-}
-//MORE TESTING
+  //MORE TESTING
+  const demoUserLogin = () => {
+    return dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" })).then(() => closeModal())
+  }
+  //MORE TESTING
 
 
 
@@ -33,7 +33,7 @@ const demoUserLogin = () => {
       .then(history.push("/"))
       .catch(async (res) => {
         const data = await res.json();
-        console.log("THIS IS THE RES", data)
+
         // if (data && data.errors) {
         //   setErrors(data.errors);
         // }
@@ -43,11 +43,12 @@ const demoUserLogin = () => {
 
       });
   };
-  console.log("THESE ARE THE ERRORS OBJECT", errors)
+
   return (
-    <div className="login-modal-container">
+    // <div className="login-modal-container">
+    <div className={Object.values(errors).length ? "login-modal-container-error" : "login-modal-container"}>
       <h1>Log In</h1>
-      {errors.message && <p>{errors.message}</p>}
+      {errors.message && <p className="errors">{errors.message}</p>}
       <form onSubmit={handleSubmit} className="login-form-container">
         <label>
 
@@ -78,8 +79,9 @@ const demoUserLogin = () => {
         )}
         <button type="submit" className={(credential.length < 4 || password.length < 6) ? "login-button" : "login-button-enable"} disabled={credential.length < 4 || password.length < 6}>Log In</button>
 
-        <button onClick={() => demoUserLogin()}>Demo User</button>
-
+        <div className="demo-user-container">
+          <button className="demo-user-button" onClick={() => demoUserLogin()}>Demo User</button>
+        </div>
       </form>
     </div>
   );
