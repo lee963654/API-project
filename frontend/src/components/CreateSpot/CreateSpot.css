@@ -1,31 +1,135 @@
+.address-container {
+
+}
+
+.city-bar {
+    width: 15rem;
+}
+
+.city-container {
+    margin-right: .5rem;
+}
+
+.city-state-group {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.country-container {
+
+}
+
+.create-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.create-button-container-update {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+}
+
 .create-spot-textarea {
     resize: none;
+    /* margin-bottom: 1rem; */
+}
+
+.create-input-bar {
+    width: 24rem;
+    /* margin-bottom: 1rem; */
+}
+
+
+
+.create-submit-button {
+    height: 35px;
+    width: 10rem;
+    box-shadow: 2px 2px 1px black;
+    background-color: rgb(243, 113, 113);
+    color: white;
+    cursor: pointer;
+}
+
+.dollar-sign {
+    margin-right: .5rem;
 }
 
 .dollar-sign-container {
     display: flex;
+    /* margin-bottom: 1rem; */
 }
 
 .form-container {
     display: flex;
     justify-content: center;
+    min-width: 600px;
+    height: 90rem;
+}
+
+.form-container-update {
+    display: flex;
+    justify-content: center;
+    min-width: 600px;
+    height: 65rem;
+}
+
+.formErrors {
+    color: red;
 }
 
 .form-section {
     width: 1000px;
-    border: 1px solid purple;
+
 }
 
 .form-section-container {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    /* margin-top: 3rem;
+    margin-bottom: 3rem; */
+    /* height: 8rem; */
     border-bottom: 1px solid black;
 }
 
-.create-submit-button {
-    height: 40px;
-    width: 20rem;
-    box-shadow: 2px 2px 1px black;
-    background-color: rgb(243, 113, 113);
-    color: white;
+.form-section-container-description {
+    border-bottom: 1px solid black;
+    height: 15rem;
+}
+
+.form-section-container-title {
+    height: 8rem;
+    border-bottom: 1px solid black;
+}
+
+.form-section-container-url {
+    height: 28rem;
+}
+
+.location-container {
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.price-input-bar {
+    width: 23rem;
+}
+
+.state-bar {
+    width: 8rem;
+}
+
+.two-url-errors {
+    display: flex;
+    width: 30rem;
+    justify-content: space-between;
+}
+
+.url-container {
+    height: 16rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1px black solid;
+    padding-bottom: 2rem;
 }

@@ -136,40 +136,46 @@ export default function CreateSpotForm({ report, formType }) {
 
 
   return (
-    <div className="form-container">
-        <form className="form-section" onSubmit={handleSubmit}>
-            <h2 className="form-header">{formType}</h2>
-            <div className="form-section-container">
-              <h3 className="description">Where's your place located?</h3>
-              <h4 className="description-text">Guests will only get your exact address once they booked a reservation.</h4>
-            {/* </div>
+    // <div className="form-container">
+    <div className={formType === "Create a New Spot" ? "form-container" : "form-container-update"}>
+      <form className="form-section" onSubmit={handleSubmit}>
+        <h2 className="form-header">{formType}</h2>
+        <div className="form-section-container">
+          <h3 className="description">Where's your place located?</h3>
+          <h4 className="description-text">Guests will only get your exact address once they booked a reservation.</h4>
+          {/* </div>
             <div className="form-section-container"> */}
-              <div className="country-container">
-                <label>
-                  <div>Country {validate && errors.countryError && <span className="formErrors">{errors.countryError}</span>}</div>
-                  <input
-                    type="text"
-                    placeholder="Country"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div className="address-container">
-                <label>
-                  <div>Street Address {validate && errors.addressError && <span className="formErrors">{errors.addressError}</span>}</div>
-                  <input
-                    type="text"
-                    placeholder="Address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </label>
-              </div>
+          <div className="location-container">
+            <div className="country-container">
+              <label>
+                <div>Country {validate && errors.countryError && <span className="formErrors">{errors.countryError}</span>}</div>
+                <input
+                  className="create-input-bar"
+                  type="text"
+                  placeholder="Country"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                />
+              </label>
+            </div>
+            <div className="address-container">
+              <label>
+                <div>Street Address {validate && errors.addressError && <span className="formErrors">{errors.addressError}</span>}</div>
+                <input
+                  className="create-input-bar"
+                  type="text"
+                  placeholder="Address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </label>
+            </div>
+            <div className="city-state-group">
               <div className="city-container">
                 <label>
                   <div>City {validate && errors.cityError && <span className="formErrors">{errors.cityError}</span>}</div>
                   <input
+                    className="city-bar"
                     type="text"
                     placeholder="City"
                     value={city}
@@ -177,10 +183,12 @@ export default function CreateSpotForm({ report, formType }) {
                   />
                 </label>
               </div>
+
               <div className="state-container">
                 <label>
                   <div>State {validate && errors.stateError && <span className="formErrors">{errors.stateError}</span>}</div>
                   <input
+                    className="state-bar"
                     type="text"
                     placeholder="State"
                     value={state}
@@ -189,110 +197,125 @@ export default function CreateSpotForm({ report, formType }) {
                 </label>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div className="form-section-container">
-              <label>
-                <h3 className="description">Describe your place to guests</h3>
-                <h4 className="description-text">Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h4>
-                <textarea
-                  className="create-spot-textarea"
-                  minLength="30"
-                  rows="8"
-                  cols="50"
-                  type="text"
-                  placeholder="Description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-                {validate && errors.descriptionError && <span className="formErrors">{errors.descriptionError}</span>}
-              </label>
+        <div className="form-section-container-description">
+          <label>
+            <h3 className="description">Describe your place to guests</h3>
+            <h4 className="description-text">Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h4>
+            <textarea
+              className="create-spot-textarea"
+              minLength="30"
+              rows="8"
+              cols="50"
+              type="text"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            {validate && errors.descriptionError && <div className="formErrors">{errors.descriptionError}</div>}
+          </label>
+        </div>
+        <div className="form-section-container-title">
+          <label>
+            <h3 className="description">Create a title for your spot</h3>
+            <h4 className="description-text">Catch guests' attention with a spot title that highlights what makes your place special.</h4>
+            <input
+              className="create-input-bar"
+              type="text"
+              placeholder="Name of your spot"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            {validate && errors.nameError && <div className="formErrors">{errors.nameError}</div>}
+          </label>
+        </div>
+        <div className="form-section-container-title">
+          <label>
+            <h3 className="description">Set a base price for your spot</h3>
+            <h4 className="description-text">Competitive pricing can help your listing stand out and rank higher in search results.</h4>
+            <div className="dollar-sign-container">
+              <div className="dollar-sign"><i class="fa-sharp fa-solid fa-dollar-sign fa-lg"></i></div>
+              <input
+                className="price-input-bar"
+                type="number"
+                placeholder="Price per night (USD)"
+                value={price}
+                onChange={e => setPrice(e.target.value)}
+              />
             </div>
-            <div className="form-section-container">
-              <label>
-                <h3 className="description">Create a title for your spot</h3>
-                <h4 className="description-text">Catch guests' attention with a spot title that highlights what makes your place special.</h4>
-                <input
-                  type="text"
-                  placeholder="Name of your spot"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                {validate && errors.nameError && <span className="formErrors">{errors.nameError}</span>}
-              </label>
-            </div>
-            <div className="form-section-container">
-              <label>
-                <h3 className="description">Set a base price for your spot</h3>
-                <h4 className="description-text">Competitive pricing can help your listing stand out and rank higher in search results.</h4>
-                <div className="dollar-sign-container">
-                  <div>$</div>
-                <input
-                  type="number"
-                  placeholder="Price per night (USD)"
-                  value={price}
-                  onChange={e => setPrice(e.target.value)}
-                />
+            {validate && errors.priceError && <span className="formErrors">{errors.priceError}</span>}
+          </label>
+        </div>
+        {formType === "Create a New Spot" &&
+          <div className="form-section-container-url">
+            <label>
+              <h3 className="description">Liven up your spot with photos</h3>
+              <h4 className="description-text">Submit a link to at least one photo to publish your spot.</h4>
+              <div className="url-container">
+                <div className="single-url">
+                  <input
+                    className="create-input-bar"
+                    type="text"
+                    placeholder="Preview Image URL required"
+                    value={previewUrl}
+                    onChange={e => setPreviewUrl(e.target.value)}
+                  />
+                  <div className="two-url-errors">
+                    {validate && errors.imageError && <div className="formErrors">{errors.imageError}</div>}
+                    {validate && errors.imageUrlError && <div className="formErrors">{errors.imageUrlError}</div>}
+                  </div>
                 </div>
-                {validate && errors.priceError && <span className="formErrors">{errors.priceError}</span>}
-              </label>
-            </div>
-            {formType === "Create a New Spot" &&
-              <div className="form-section-container">
-                <label>
-                  <h3 className="description">Liven up your spot with photos</h3>
-                  <h4 className="description-text">Submit a link to at least one photo to publish your spot.</h4>
-                  <div className="single-url">
-                    <input
-                      type="text"
-                      placeholder="Preview Image URL"
-                      value={previewUrl}
-                      onChange={e => setPreviewUrl(e.target.value)}
-                    />
-                    {validate && errors.imageError && <span className="formErrors">{errors.imageError}</span>}
-                    {validate && errors.imageUrlError && <span className="formErrors">{errors.imageUrlError}</span>}
-                  </div>
-                  <div className="single-url">
-                    <input
-                      type="text"
-                      placeholder="Image URL"
-                      value={secondUrl}
-                      onChange={e => setSecondUrl(e.target.value)}
-                    />
-                    {validate && errors.secondError && <p className="formErrors">{errors.secondError}</p>}
-                  </div>
-                  <div className="single-url">
-                    <input
-                      type="text"
-                      placeholder="Image URL"
-                      value={thirdUrl}
-                      onChange={e => setThirdUrl(e.target.value)}
-                    />
-                    {validate && errors.thirdError && <p className="formErrors">{errors.thirdError}</p>}
-                  </div>
-                  <div className="single-url">
-                    <input
-                      type="text"
-                      placeholder="Image URL"
-                      value={fourthUrl}
-                      onChange={e => setFourthUrl(e.target.value)}
-                    />
-                    {validate && errors.fourthError && <p className="formErrors">{errors.fourthError}</p>}
-                  </div>
-                  <div className="single-url">
-                    <input
-                      type="text"
-                      placeholder="Image URL"
-                      value={fifthUrl}
-                      onChange={e => setFifthUrl(e.target.value)}
-                    />
-                    {validate && errors.fifthError && <p className="formErrors">{errors.fifthError}</p>}
-                  </div>
-                </label>
+                <div className="single-url">
+                  <input
+                    className="create-input-bar"
+                    type="text"
+                    placeholder="Image URL Optional"
+                    value={secondUrl}
+                    onChange={e => setSecondUrl(e.target.value)}
+                  />
+                  {validate && errors.secondError && <div className="formErrors">{errors.secondError}</div>}
+                </div>
+                <div className="single-url">
+                  <input
+                    className="create-input-bar"
+                    type="text"
+                    placeholder="Image URL Optional"
+                    value={thirdUrl}
+                    onChange={e => setThirdUrl(e.target.value)}
+                  />
+                  {validate && errors.thirdError && <div className="formErrors">{errors.thirdError}</div>}
+                </div>
+                <div className="single-url">
+                  <input
+                    className="create-input-bar"
+                    type="text"
+                    placeholder="Image URL Optional"
+                    value={fourthUrl}
+                    onChange={e => setFourthUrl(e.target.value)}
+                  />
+                  {validate && errors.fourthError && <div className="formErrors">{errors.fourthError}</div>}
+                </div>
+                <div className="single-url">
+                  <input
+                    className="create-input-bar"
+                    type="text"
+                    placeholder="Image URL Optional"
+                    value={fifthUrl}
+                    onChange={e => setFifthUrl(e.target.value)}
+                  />
+                  {validate && errors.fifthError && <div className="formErrors">{errors.fifthError}</div>}
+                </div>
               </div>
-            }
-            <button className="create-submit-button" type="submit">Create Spot</button>
-
-        </form>
+            </label>
+          </div>
+        }
+        {/* <div className="create-button-container"> */}
+        <div className={formType === "Create a New Spot" ? "create-button-container" : "create-button-container-update"}>
+          <button className="create-submit-button" type="submit">Create Spot</button>
+        </div>
+      </form>
 
     </div>
   );
