@@ -16,12 +16,23 @@ export default function DeleteReviewModal ({reviewId, spotId}) {
     }
 
     return (
-        <div>
+        // THIS WORKS
+        // <div className="delete-spot-container">
+        //     <h2>Confirm Delete</h2>
+        //     <h3>Are you sure you want to delete this review?</h3>
+        //     <div>
+        //         <button onClick={handleDelete}>Yes (Delete Review)</button>
+        //         <button onClick={closeModal}>No (Keep Review)</button>
+        //     </div>
+        // </div>
+        // THIS WORKS
+
+        <div className="delete-spot-container">
             <h2>Confirm Delete</h2>
-            <h3>Are you sure you want to delete this review?</h3>
-            <div>
-                <button onClick={handleDelete}>Yes (Delete Review)</button>
-                <button onClick={closeModal}>No (Keep Review)</button>
+            <div className="delete-spot-text">Are you sure you want to delete this review?</div>
+            <div className="delete-buttons">
+                <button className="delete-yes" onClick={handleDelete}>Yes (Delete Review)</button>
+                <button className="delete-no" onClick={closeModal}>No (Keep Review)</button>
             </div>
         </div>
     )

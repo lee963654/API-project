@@ -52,10 +52,12 @@
 
 .stars-container .filled {
     color: rgb(226, 41, 8);
+    cursor: pointer;
 }
 
 .stars-container .empty {
     color: rgb(240, 238, 235);
+    cursor: pointer;
 }
 
 .stars-container {

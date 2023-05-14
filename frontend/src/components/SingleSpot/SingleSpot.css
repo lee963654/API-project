@@ -46,6 +46,10 @@
     word-wrap: break-word;
 }
 
+.new-spot-no-rating {
+    margin-left: 5rem;
+}
+
 .price {
     font-size: 1.5rem;
 }

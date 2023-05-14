@@ -142,8 +142,8 @@ export default function CreateSpotForm({ report, formType }) {
             <div className="form-section-container">
               <h3 className="description">Where's your place located?</h3>
               <h4 className="description-text">Guests will only get your exact address once they booked a reservation.</h4>
-            </div>
-            <div className="form-section-container">
+            {/* </div>
+            <div className="form-section-container"> */}
               <div className="country-container">
                 <label>
                   <div>Country {validate && errors.countryError && <span className="formErrors">{errors.countryError}</span>}</div>
@@ -195,8 +195,9 @@ export default function CreateSpotForm({ report, formType }) {
                 <h3 className="description">Describe your place to guests</h3>
                 <h4 className="description-text">Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h4>
                 <textarea
+                  className="create-spot-textarea"
                   minLength="30"
-                  rows="4"
+                  rows="8"
                   cols="50"
                   type="text"
                   placeholder="Description"
@@ -223,12 +224,15 @@ export default function CreateSpotForm({ report, formType }) {
               <label>
                 <h3 className="description">Set a base price for your spot</h3>
                 <h4 className="description-text">Competitive pricing can help your listing stand out and rank higher in search results.</h4>
+                <div className="dollar-sign-container">
+                  <div>$</div>
                 <input
                   type="number"
                   placeholder="Price per night (USD)"
                   value={price}
                   onChange={e => setPrice(e.target.value)}
                 />
+                </div>
                 {validate && errors.priceError && <span className="formErrors">{errors.priceError}</span>}
               </label>
             </div>

@@ -174,8 +174,10 @@ for (let review of orderReviews) {
                         <div className="price-star-rev">
                             <p><span className="price">${spot.price}</span> night</p>
                             <div className="star-and-reviews">
-                                <p><i class="fa-sharp fa-solid fa-star"></i> {spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</p>
-                                {spot.numReviews === 1 ? <p>{spot.numReviews} review</p> : <p>{spot.numReviews} reviews</p>}
+                                {/* <p><i class="fa-sharp fa-solid fa-star"></i> {spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</p>
+                                {spot.numReviews === 1 ? <p>{spot.numReviews} review</p> : <p>{spot.numReviews} reviews</p>} */}
+                                {spot.avgStarRating > 0 ? <p><i class="fa-sharp fa-solid fa-star"></i> {spot.avgStarRating.toFixed(2)}</p> : null}
+                                {spot.numReviews > 1 ? <p>{spot.numReviews} reviews</p> : spot.numReviews === 1 ? <p>{spot.numReviews} review</p> : <p className="new-spot-no-rating"><i class="fa-sharp fa-solid fa-star"></i> New</p>}
                             </div>
                         </div>
                         <div className="reserve-button-container">
@@ -186,7 +188,8 @@ for (let review of orderReviews) {
                 <div className="bottom-review-container">
                     <div className="bottom-review-info">
                         <h2><i class="fa-sharp fa-solid fa-star fa-xl"></i> {spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</h2>
-                        {spot.numReviews === 1 ? <h2 className="bottom-review">{spot.numReviews} review</h2> : <h2 className="bottom-review">{spot.numReviews} reviews</h2>}
+                        {/* {spot.numReviews === 1 ? <h2 className="bottom-review">{spot.numReviews} review</h2> : <h2 className="bottom-review">{spot.numReviews} reviews</h2>} */}
+                        {spot.numReviews > 1 ? <h2 className="bottom-review">{spot.numReviews} reviews</h2> : spot.numReviews === 1 ? <h2 className="bottom-review">{spot.numReviews} review</h2> : <h2 classNmae="bottom-review">New</h2>}
                     </div>
                     <div key={spot.id} className="user-review-container">
                         {currentUserId && (spot.ownerId !== currentUserId) && (hasReview !== "hasReview") && <OpenModalButton buttonText="Post Your Review" modalComponent={<AddReportModal spotId={spotId} />} />}
