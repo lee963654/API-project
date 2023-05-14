@@ -1,0 +1,5 @@
+.user-reviews-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 13rem;
+}

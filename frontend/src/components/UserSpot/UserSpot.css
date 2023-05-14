@@ -1,0 +1,15 @@
+.user-update-button {
+    height: 1.5rem;
+    width: 6rem;
+    box-shadow: 2px 2px 1px black;
+    background-color: rgb(243, 113, 113);
+    color: white;
+    cursor: pointer;
+}
+
+.user-buttons-bottom {
+    display: flex;
+    justify-content: space-around;
+    width: 14rem;
+    margin-left: 1rem;
+}

@@ -1,8 +1,20 @@
 .post-review-button {
-    height: 1.5rem;
+    /* height: 1.5rem;
     width: 8rem;
     box-shadow: 2px 2px 1px black;
     background-color: rgb(243, 113, 113);
     color: white;
+    cursor: pointer; */
+
+    height: 1.5rem;
+    width: 6rem;
+    box-shadow: 2px 2px 1px black;
+    background-color: rgb(243, 113, 113);
+    color: white;
     cursor: pointer;
+}
+
+
+.post-review-button-test {
+
 }

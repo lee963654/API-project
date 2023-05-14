@@ -67,7 +67,7 @@ const orderReviews = testReviews.sort((a, b) => new Date(b.createdAt) - new Date
                     {/* <h4>{review.createdAt.slice(0, 7)}</h4> */}
                     <h4>{monthObj[review.createdAt.slice(5, 7)]} {review.createdAt.slice(0, 4)}</h4>
                     <p>{review.review}</p>
-                    {review.userId === currentUserId && <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal spotId={spotId} reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditReviewModal editSpotId={spotId} />} />}</div>}
+                    {review.userId === currentUserId && <div className="user-review-buttons">{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal spotId={spotId} reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditReviewModal editSpotId={spotId} />} />}</div>}
                 </div>
             )
         }
@@ -157,9 +157,9 @@ for (let review of orderReviews) {
                     {/* {spot.SpotImages ? spot.SpotImages.map((image) => {
                     return <img key={image.id} src={image.url} alt="spot-images" style={{ width: 400, height: 400 }}></img>
                 }) : <h3>No Image Available</h3>} */}
-                    <div className="main-image-container"><img className="main-image" src={test[0]} style={{ width: 494, height: 494 }}></img></div>
+                    <div className="main-image-container"><img alt="spot-img" className="main-image" src={test[0]} style={{ width: 494, height: 494 }}></img></div>
                     <div className="support-image-container">
-                        {test[1] ? <img className="top-left-image" src={test[1]} alt="spot-images" style={{ width: 242, height: 242 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 242, height: 242 }}></img>}
+                        {test[1] ? <img className="top-left-image" src={test[1]} alt="spot-images-one" style={{ width: 242, height: 242 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 242, height: 242 }}></img>}
                         {test[2] ? <img className="top-right-image" src={test[2]} alt="spot-images" style={{ width: 242, height: 242 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 242, height: 242 }}></img>}
                         {test[3] ? <img className="bottom-left-image" src={test[3]} alt="spot-images" style={{ width: 242, height: 242 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 242, height: 242 }}></img>}
                         {test[4] ? <img className="bottom-right-image" src={test[4]} alt="spot-images" style={{ width: 242, height: 242 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 242, height: 242 }}></img>}
