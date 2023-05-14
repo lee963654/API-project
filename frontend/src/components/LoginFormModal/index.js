@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import { useHistory } from "react-router-dom";
+
+
 
 function LoginFormModal() {
   const history = useHistory()
@@ -12,6 +14,16 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+
+//MORE TESTING
+const demoUserLogin = () => {
+  return dispatch(sessionActions.login({credential: "Demo-lition", password: "password"})).then(()=> closeModal())
+}
+//MORE TESTING
+
+
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,34 +45,43 @@ function LoginFormModal() {
   };
   console.log("THESE ARE THE ERRORS OBJECT", errors)
   return (
-    <>
+    <div className="login-modal-container">
       <h1>Log In</h1>
       {errors.message && <p>{errors.message}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="login-form-container">
         <label>
-          Username or Email
+
           <input
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
+            placeholder="Username or Email"
+            className="input-field"
           />
         </label>
         <label>
-          Password
+
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Password"
+            className="input-field"
           />
         </label>
+
+
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
+        <button type="submit" className={(credential.length < 4 || password.length < 6) ? "login-button" : "login-button-enable"} disabled={credential.length < 4 || password.length < 6}>Log In</button>
+
+        <button onClick={() => demoUserLogin()}>Demo User</button>
+
       </form>
-    </>
+    </div>
   );
 }
 

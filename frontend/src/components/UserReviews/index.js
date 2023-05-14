@@ -16,7 +16,16 @@ export default function UserReviews() {
 
     const reviewList = []
 
-    Object.values(userReviews).forEach(review => {
+
+
+
+//TESTING
+
+    const testReviews = Object.values(userReviews)
+    const orderReviews = testReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+
+
+    orderReviews.forEach(review => {
         console.log("this is each review", review)
         reviewList.push(
             <div className="each-review">
@@ -28,6 +37,30 @@ export default function UserReviews() {
         )
 
     })
+
+//TESTING
+
+
+
+
+
+
+    // THIS WORKS
+    // Object.values(userReviews).forEach(review => {
+    //     console.log("this is each review", review)
+    //     reviewList.push(
+    //         <div className="each-review">
+    //             <h2>{review.Spot.name}</h2>
+    //             <h3>{review.createdAt.slice(0, 7)}</h3>
+    //             <h3>{review.review}</h3>
+    //             <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditUserReviews reviewId={review.id} editSpotId="reviews" userReviewSpotName={review.Spot.name} />} />}</div>
+    //         </div>
+    //     )
+
+    // })
+    // THIS WORKS
+
+
 
     useEffect(() => {
         dispatch(userReviewsThunk())

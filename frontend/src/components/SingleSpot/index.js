@@ -38,9 +38,19 @@ export default function SingleSpot() {
 
     const spotReviews = useSelector(state => state?.reviews?.Reviews)
 
+
+
+//TESTING TESTING
+
+
+const testReviews = Object.values(spotReviews)
+
+
+const orderReviews = testReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+
     const spotReviewsArr = []
-    Object.values(spotReviews).forEach(review => {
-        console.log("Slicing the dates", review.createdAt)
+    orderReviews.forEach(review => {
+
         if (review.User) {
             spotReviewsArr.push(
                 <div className="user-reviews">
@@ -53,6 +63,43 @@ export default function SingleSpot() {
             )
         }
     })
+//TESTING TESTING
+
+
+
+
+
+
+
+
+
+
+
+    // THIS WORKS
+    // const spotReviewsArr = []
+    // Object.values(spotReviews).forEach(review => {
+    //     console.log("Slicing the dates", review.createdAt)
+    //     if (review.User) {
+    //         spotReviewsArr.push(
+    //             <div className="user-reviews">
+    //                 <h3>{review.User.firstName}</h3>
+    //                 {/* <h4>{review.createdAt.slice(0, 7)}</h4> */}
+    //                 <h4>{monthObj[review.createdAt.slice(5, 7)]} {review.createdAt.slice(0, 4)}</h4>
+    //                 <p>{review.review}</p>
+    //                 {review.userId === currentUserId && <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal spotId={spotId} reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditReviewModal editSpotId={spotId} />} />}</div>}
+    //             </div>
+    //         )
+    //     }
+    // })
+    // THIS WORKS
+
+
+
+
+
+
+
+
 
 
 
@@ -76,13 +123,13 @@ export default function SingleSpot() {
     if (!spotReviews) return null
 
     const spotImagesArr = [...spot.SpotImages]
-    console.log("SPOT IMAGES ARR", spotImagesArr)
+
     const test = []
     for (let image of spotImagesArr) {
 
         test.push(image.url)
     }
-    console.log("THIS IS THE TEST ARR", test)
+
 
 
 

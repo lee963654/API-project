@@ -1,0 +1,41 @@
+.input-field {
+    width: 19.5rem;
+    margin: .5rem 0rem;
+}
+
+.login-button {
+    height: 40px;
+    box-shadow: 2px 2px 1px gray;
+    background-color: gray(243, 113, 113);
+    color: gray;
+}
+
+.login-button-enable {
+    height: 40px;
+    box-shadow: 2px 2px 1px black;
+    background-color: rgb(243, 113, 113);
+    color: white;
+}
+
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+    width: 20rem;
+    height: 10rem;
+}
+
+.login-modal-container {
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    width: 25rem;
+
+}
+
+.no-user-container {
+    display: flex;
+    justify-content: center;
+}
