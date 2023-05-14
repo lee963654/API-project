@@ -11,6 +11,22 @@ import EditReviewModal from "../EditReviewModal";
 
 
 export default function SingleSpot() {
+
+    const monthObj = {
+        "01": "January",
+        "02": "February",
+        "03": "March",
+        "04": "April",
+        "05": "May",
+        "06": "June",
+        "07": "July",
+        "08": "August",
+        "09": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+    }
+
     const dispatch = useDispatch()
     const { spotId } = useParams()
 
@@ -24,13 +40,14 @@ export default function SingleSpot() {
 
     const spotReviewsArr = []
     Object.values(spotReviews).forEach(review => {
-
+        console.log("Slicing the dates", review.createdAt)
         if (review.User) {
             spotReviewsArr.push(
                 <div className="user-reviews">
-                    <h2>{review.User.firstName}</h2>
-                    <h3>{review.createdAt.slice(0, 7)}</h3>
-                    <h3>{review.review}</h3>
+                    <h3>{review.User.firstName}</h3>
+                    {/* <h4>{review.createdAt.slice(0, 7)}</h4> */}
+                    <h4>{monthObj[review.createdAt.slice(5, 7)]} {review.createdAt.slice(0, 4)}</h4>
+                    <p>{review.review}</p>
                     {review.userId === currentUserId && <div>{<OpenModalButton buttonText="Delete" modalComponent={<DeleteReviewModal spotId={spotId} reviewId={review.id} />} />}{<OpenModalButton buttonText="Update" modalComponent={<EditReviewModal editSpotId={spotId} />} />}</div>}
                 </div>
             )
@@ -72,18 +89,18 @@ export default function SingleSpot() {
     return (
         <div className="single-spot-container">
             <div className="single-spot">
-                <h2>{spot.name}</h2>
+                <h1>{spot.name}</h1>
                 <p>{spot.city}, {spot.state}, {spot.country}</p>
                 <div className="image-container">
                     {/* {spot.SpotImages ? spot.SpotImages.map((image) => {
                     return <img key={image.id} src={image.url} alt="spot-images" style={{ width: 400, height: 400 }}></img>
                 }) : <h3>No Image Available</h3>} */}
-                    <div className="main-image-container"><img className="main-image" src={test[0]} style={{ width: 500, height: 500 }}></img></div>
+                    <div className="main-image-container"><img className="main-image" src={test[0]} style={{ width: 494, height: 494 }}></img></div>
                     <div className="support-image-container">
-                        {test[1] ? <img className="top-left-image" src={test[1]} alt="spot-images" style={{ width: 240, height: 240 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 240, height: 240 }}></img>}
-                        {test[2] ? <img className="top-right-image" src={test[2]} alt="spot-images" style={{ width: 240, height: 240 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 240, height: 240 }}></img>}
-                        {test[3] ? <img className="bottom-left-image" src={test[3]} alt="spot-images" style={{ width: 240, height: 240 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 240, height: 250 }}></img>}
-                        {test[4] ? <img className="bottom-right-image" src={test[4]} alt="spot-images" style={{ width: 240, height: 240 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 240, height: 240 }}></img>}
+                        {test[1] ? <img className="top-left-image" src={test[1]} alt="spot-images" style={{ width: 242, height: 242 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 242, height: 242 }}></img>}
+                        {test[2] ? <img className="top-right-image" src={test[2]} alt="spot-images" style={{ width: 242, height: 242 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 242, height: 242 }}></img>}
+                        {test[3] ? <img className="bottom-left-image" src={test[3]} alt="spot-images" style={{ width: 242, height: 242 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 242, height: 242 }}></img>}
+                        {test[4] ? <img className="bottom-right-image" src={test[4]} alt="spot-images" style={{ width: 242, height: 242 }}></img> : <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" style={{ width: 242, height: 242 }}></img>}
                     </div>
                 </div>
                 <div className="description-container">
@@ -93,19 +110,21 @@ export default function SingleSpot() {
                     </div>
                     <div className="price-info">
                         <div className="price-star-rev">
-                            <h2>{spot.price}</h2>
-                            <h3>{spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</h3>
-                            {spot.numReviews === 1 ? <h3>{spot.numReviews} review</h3> : <h3>{spot.numReviews} reviews</h3>}
+                            <p><span className="price">${spot.price}</span> night</p>
+                            <div className="star-and-reviews">
+                                <p><i class="fa-sharp fa-solid fa-star"></i> {spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</p>
+                                {spot.numReviews === 1 ? <p>{spot.numReviews} review</p> : <p>{spot.numReviews} reviews</p>}
+                            </div>
                         </div>
-                        <div className="reserve-button">
-                            <button>Reserve</button>
+                        <div className="reserve-button-container">
+                            <button className="reserve-button" onClick={() => alert('Feature Coming Soon!')}>Reserve</button>
                         </div>
                     </div>
                 </div>
                 <div>
                     <div className="bottom-review-info">
-                        <h2>StarIcon {spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</h2>
-                        {spot.numReviews === 1 ? <h2>{spot.numReviews} review</h2> : <h2>{spot.numReviews} reviews</h2>}
+                        <h2><i class="fa-sharp fa-solid fa-star fa-xl"></i> {spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</h2>
+                        {spot.numReviews === 1 ? <h2 className="bottom-review">{spot.numReviews} review</h2> : <h2 className="bottom-review">{spot.numReviews} reviews</h2>}
                     </div>
                     <div key={spot.id} className="user-review-container">
                         {currentUserId && (spot.ownerId !== currentUserId) && <OpenModalButton buttonText="Post Your Review" modalComponent={<AddReportModal spotId={spotId} />} />}

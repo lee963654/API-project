@@ -3,19 +3,27 @@
 
 } */
 
+.bottom-review {
+    margin-left: 2rem;
+}
+
 .bottom-review-info {
     display: flex;
 }
 
 .bottom-right-image {
-    border: 1px solid rgb(110, 34, 47);
+
     border-bottom-right-radius: 1rem;
 }
 
 .description-container {
-    border: 1px red solid;
+
     display: flex;
     justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid black;
 }
 
 .image-container {
@@ -25,39 +33,76 @@
 .main-image {
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
+    margin-right: .65rem;
 }
 
 .main-image-container {
-    border: 1px solid yellow;
 
+
+}
+
+.name-description {
+
+    width: 600px;
+}
+
+.price {
+    font-size: 1.5rem;
 }
 
 .price-info {
-    border: 1px green solid;
-
+    border: 3px black solid;
+    width: 350px;
+    border-radius: .75rem;
+    height: 8rem;
 }
 
 .price-star-rev {
-    border: 1px blue solid;
+    /* border: 1px blue solid; */
     display: flex;
+    justify-content: space-around;
 }
 
-.single-spot {
-    border: 1px solid orange;
-    width: 1000px;
+.reserve-button {
+    width: 20rem;
+    height: 2.5rem;
+    background-color: rgb(243, 113, 113);
+    color: white;
+    box-shadow: 2px 2px 1px black;
+    cursor: pointer;
 }
 
-.single-spot-container {
-    border: 1px black solid;
+.reserve-button-container {
     display: flex;
     justify-content: center;
 }
 
+.single-spot {
+
+    max-width: 1000px;
+}
+
+.single-spot-container {
+
+    display: flex;
+    justify-content: center;
+}
+
+.star-and-reviews {
+    /* border: 1px solid lightcoral; */
+    display: flex;
+    justify-content: space-between;
+    width: 8.5rem;
+    margin-left: 5rem;
+    align-items: end;
+}
+
 .support-image-container {
-    border: 1px brown solid;
-    /* display: flex;
+
+    display: flex;
     flex-wrap: wrap;
-    gap: 7px; */
+    gap: 5px 11px;
+
     /* margin-left: .5rem; */
 
 }
@@ -69,4 +114,9 @@
 .top-right-image {
     border-top-right-radius: 1rem;
 
+}
+
+.user-reviews {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
 }

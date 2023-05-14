@@ -33,7 +33,7 @@ export default function SpotsIndex() {
                                 {spot.avgRating === "No Rating Available" ? <p className="info">No Rating</p> : <p className="info"><i class="fa-sharp fa-solid fa-star"></i>{spot.avgRating}</p>}
                             </div>
                         </div>
-                        <div className="info"><span className="spot-price">{spot.price}</span> night</div>
+                        <div className="info"><span className="spot-price">${spot.price}</span> night</div>
                     </div>
                 </Link>
             </div>
