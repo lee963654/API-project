@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal"
 import { deleteSpotThunk, singleSpotThunk } from "../../store/spots"
 import { singleSpotReviewThunk } from "../../store/reviews"
+import "./DeleteSpotModal.css"
 
 export default function DeleteSpotModal ({spotId}) {
 
@@ -15,12 +16,12 @@ export default function DeleteSpotModal ({spotId}) {
     }
     // .then(async () => {await dispatch(singleSpotReviewThunk(spotId))})
     return (
-        <div>
+        <div className="delete-spot-container">
             <h2>Confirm Delete</h2>
-            <h3>Are you sure you want to remove this spot from the listings?</h3>
-            <div>
-                <button onClick={handleDelete}>Yes (Delete Spot)</button>
-                <button onClick={closeModal}>No (Keep Spot)</button>
+            <div className="delete-spot-text">Are you sure you want to remove this spot from the listings?</div>
+            <div className="delete-buttons">
+                <button className="delete-yes" onClick={handleDelete}>Yes (Delete Spot)</button>
+                <button className="delete-no" onClick={closeModal}>No (Keep Spot)</button>
             </div>
         </div>
     )

@@ -4,6 +4,7 @@
     box-shadow: 2px 2px 1px gray;
     background-color: gray(243, 113, 113);
     color: gray;
+    cursor: pointer;;
 }
 
 .review-button-enable {
@@ -12,6 +13,7 @@
     box-shadow: 2px 2px 1px black;
     background-color: rgb(243, 113, 113);
     color: white;
+    cursor: pointer;
 }
 
 .review-form {
