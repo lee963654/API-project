@@ -17,12 +17,12 @@ function OpenModalButton({
   };
 
   // THIS WORKS
-  return <button className="post-review-button" onClick={onClick}>{buttonText}</button>;
+  // return <button className="post-review-button" onClick={onClick}>{buttonText}</button>;
   // THIS WORKS
 
-  // if (buttonText === "Post Your Review") {
-  //   return <button className="post-review-button-test" onClick={onClick}>{buttonText}</button>
-  // } else return <button className="post-review-button" onClick={onClick}>{buttonText}</button>
+  if (buttonText === "Post Your Review") {
+    return <button className="post-review-button-test" onClick={onClick}>{buttonText}</button>
+  } else return <button className="post-review-button" onClick={onClick}>{buttonText}</button>
 
 
 }
