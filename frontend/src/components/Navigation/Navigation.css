@@ -1,3 +1,10 @@
+.airbnb-logo {
+    font-size: 25px;
+    font-weight: bolder;
+    color: rgb(245, 98, 79);
+    cursor: pointer;
+}
+
 .create-and-profile {
     display: flex;
     margin-right: 2rem;
@@ -16,6 +23,7 @@
     font-family: "Garamond", sans-serif;
     margin-left: 2rem;
     align-items: center;
+    display: flex;
 }
 
 .header-container {
@@ -34,6 +42,13 @@
 .header-links {
     text-decoration: none;
 }
+
+
+
+/* .header-links .logo .active {
+    display: flex;
+    justify-content: center;
+} */
 
 .login-container {
     text-decoration: none;
