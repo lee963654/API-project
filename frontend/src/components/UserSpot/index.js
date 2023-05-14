@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { userSpotsThunk } from "../../store/spots"
 import { Link } from "react-router-dom/cjs/react-router-dom.min"
@@ -6,42 +6,45 @@ import "./UserSpot.css"
 import OpenModalButton from "../OpenModalButton"
 import DeleteSpotModal from "../DeleteSpotModal"
 
-export default function UserSpot () {
+export default function UserSpot() {
     const dispatch = useDispatch()
 
     const userSpots = useSelector(state => state.spots.singleSpot.Owner)
     const userSpotsValues = Object.values(userSpots)
 
 
-
-
-
     useEffect(() => {
         dispatch(userSpotsThunk());
 
 
-      }, [dispatch]);
+    }, [dispatch]);
+
+    // TEST
+    const sortedUserSpots = userSpotsValues.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    // TEST
 
     const userSpotArr = []
-    userSpotsValues.forEach(spot => {
+
+        sortedUserSpots.forEach(spot => {
         userSpotArr.push(
 
-            <div key={spot.id} className="spots">
-            <Link key={spot.id} to={`/${spot.id}`}>
-            <img src={spot.previewImage} style={{width: 350, height: 350}} alt="spot-images" />
-                <div className="spot-info">
-                <p>{spot.city}</p>
-                <p>{spot.state}</p>
-                <p>{spot.avgRating}</p>
-                </div>
-                <div>{spot.price} night</div>
-            </Link>
-                <div>
-                    <Link to={`/edit/${spot.id}`}><button>Update</button></Link>
-                    <OpenModalButton buttonText="Delete" modalComponent={<DeleteSpotModal spotId={spot.id}/>} />
-                </div>
+            <div className="allspots-container">
+                <Link className="allspots-link" key={spot.id} to={`/${spot.id}`} title={spot.name}>
+                    <div key={spot.id} className="spots">
+                        <img className="spot-image" src={spot.previewImage} style={{ width: 275, height: 275 }} alt="spot-images" />
+                        <div className="spot-info">
+                            <div>
+                                <p className="info">{spot.city}, {spot.state}</p>
+                            </div>
+                            <div className="allspots-rating-container">
+                                {/* <p className="info">{spot.avgRating}</p> */}
+                                {spot.avgRating === "No Rating Available" ? <p className="info">No Rating</p> : <p className="info"><i class="fa-sharp fa-solid fa-star"></i>{spot.avgRating}</p>}
+                            </div>
+                        </div>
+                        <div className="info"><span className="spot-price">${spot.price}</span> night</div>
+                    </div>
+                </Link>
             </div>
-
 
         )
     })
@@ -50,8 +53,10 @@ export default function UserSpot () {
 
 
     return (
-        <div className="user-spot-container">
-            {userSpotArr && userSpotArr}
+        <div className="spot-info-container">
+            <div className="inside-spot-info">
+                {userSpotArr && userSpotArr}
+            </div>
         </div>
     )
 

@@ -183,7 +183,7 @@ for (let review of orderReviews) {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className="bottom-review-container">
                     <div className="bottom-review-info">
                         <h2><i class="fa-sharp fa-solid fa-star fa-xl"></i> {spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</h2>
                         {spot.numReviews === 1 ? <h2 className="bottom-review">{spot.numReviews} review</h2> : <h2 className="bottom-review">{spot.numReviews} reviews</h2>}
