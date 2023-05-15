@@ -52,7 +52,7 @@ module.exports = {
         lat: 50.4354,
         lng: 40.873,
         name: 'Stuart Manor Bed and Breakfast',
-        description: 'Welcome to Stuart Manor, a mid-1800s Brick Italianate Home constructed by John Stuart, an early Cumberland County Judge. The home was fully restored 2016-2019. This home features 5 guest rooms, each with a private bath, high speed wi-fi, daily breakfast and well appointed, luxurious rooms.',
+        description: 'Welcome to Stuart Manor, a mid-1800s Brick Italianate Home constructed by John Stuart, an early Cumberland County Judge. The home was fully restored 2016-2019.',
         price: 167
       },
       {
@@ -88,7 +88,7 @@ module.exports = {
         lat: -50.7752,
         lng: -40.45378537,
         name: 'Antebellum, Romantic Rococo bedroom',
-        description: 'Historic Greek Revival, near the edge of the French Quarter. This beautiful home is dressed out in period style, ornamental plaster, marble fireplaces and antique furnishings. The crowning glory of this property is a gorgeous courtyard. Lush and private with fountains, ornamental fish pound and hot tub and beautiful gardens. Our rooms offer antique furnishing queen size beds free internet and private bathroom & mini fridge & coffee pot.',
+        description: 'Historic Greek Revival, near the edge of the French Quarter. ',
         price: 2300
       },
       {
@@ -112,7 +112,7 @@ module.exports = {
         lat: -40.4,
         lng: 40,
         name: 'Plush Victorian Bedroom on a Tree Alley - SOMA',
-        description: 'Golden Nugget is a small, gorgeous Victorian bedroom with a Queen size bed, Layla memory foam mattress (rated in top 3 best mattress brands), soft and comfortable bedding, sleep sound machine and multi-colored LED mood lighting (which can be set to any color) to provide a restful and cozy stay. Your room has a walk-in closet & dresser, a dedicated workspace with a Herman Miller Setu office chair, high speed fiberoptic internet (speeds up to 1GB), and Alexa (Echo Dot) to keep you company.',
+        description: 'Golden Nugget is a small, gorgeous Victorian bedroom with a Queen size bed, Layla memory foam mattress (rated in top 3 best mattress brands), soft and comfortable bedding.',
         price: 450
       },
       {
@@ -136,7 +136,7 @@ module.exports = {
         // lat: 54.241,
         // lng: 43.555,
         name: 'Beautiful friendly family home',
-        description: 'Lovely family home only a ten minute drive from the start of the West Highland Way and within easy reach of the city centre of Glasgow. We offer a comfortable double bedroom, a bathroom for the exclusive use of guests and a simple help yourself breakfast. Please note, we have another single room listed so the bathroom may sometimes be shared with another guest. You can ask about this at the time of booking.',
+        description: 'Lovely family home only a ten minute drive from the start of the West Highland Way and within easy reach of the city centre of Glasgow.',
         price: 650
       },
     ])
