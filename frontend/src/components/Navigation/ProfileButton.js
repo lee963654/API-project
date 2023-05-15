@@ -56,7 +56,8 @@ function ProfileButton({ user }) {
           <div>
             <div className="user-logged-in">Hello, {user.firstName}</div>
             {/* <li>{user.firstName} {user.lastName}</li> */}
-            <div className="user-logged-in">{user.email}</div>
+            {/* <div className="user-logged-in">{user.email}</div> */}
+            <div title={user.email} className="user-logged-in">{user.email.length > 15 ? user.email.slice(0, 15) + "..." : user.email}</div>
             <div className="user-logged-in">
               {/* <NavLink className="profile-link" exact to="/current">Manage Spots</NavLink> */}
               <NavLink onClick={() => {
