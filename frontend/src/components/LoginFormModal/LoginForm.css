@@ -28,6 +28,7 @@
     background-color: gray(243, 113, 113);
     color: gray;
     margin-top: 1rem;
+    cursor: pointer;
 }
 
 .login-button-enable {
