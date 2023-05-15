@@ -16,19 +16,18 @@ export default function EditReviewModal ({editSpotId}) {
 
 
     const review = useSelector(state => state.reviews.Reviews)
-    console.log("this is the reviews NOT THE VALUES", review)
+
     const user = useSelector(state => state.session)
     const reviewValuesOnly = Object.values(review)
-    console.log("these are all the reviews++++++", reviewValuesOnly)
+
 
     const userId = user.user.id
-    console.log("this is the userId", userId)
+
     const targetReview = review[userId]
-    console.log("this is the targetreview", targetReview)
+
 
     const spot = useSelector(state => state)
-    console.log("this is the current spot", spot)
-    console.log("this is the editspotid being passed down", editSpotId)
+
 
     let realTargetReview;
 
@@ -36,7 +35,7 @@ export default function EditReviewModal ({editSpotId}) {
         if (review.userId === userId) realTargetReview = review
     }
 
-    console.log("THIS IS THE REVIEW WE WANT", realTargetReview)
+
 
     // useEffect(() => {
 

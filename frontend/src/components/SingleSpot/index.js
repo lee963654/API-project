@@ -44,8 +44,7 @@ export default function SingleSpot() {
 
 
 
-console.log("THIS IS THE CURRENT USER", currentUserId)
-console.log("THESE ARE THE SPOTREVIEWS", spotReviews)
+
 
 const testReviews = Object.values(spotReviews)
 
@@ -54,7 +53,7 @@ const orderReviews = testReviews.sort((a, b) => new Date(b.createdAt) - new Date
 
     const spotReviewsArr = []
     orderReviews.forEach(review => {
-        console.log("THIS IS THE REVIEW IN THE FOREACH", review)
+
 
         //testing
         // if (review.userId === currentUserId) setHasReview(true)
