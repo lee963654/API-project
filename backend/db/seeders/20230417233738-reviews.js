@@ -32,25 +32,25 @@ module.exports = {
       stars: 3,
     },
     {
-      spotId: 2,
+      spotId: 3,
       userId: 1,
       review: 'Very friendly hosts! Beautiful house. Thank you for letting me stay at your place.',
       stars: 5,
     },
     {
-      spotId: 3,
+      spotId: 4,
       userId: 1,
       review: 'Beautiful home and welcoming space. The most important part of any stay for me is my sleep and the house was quiet and the bed was SO comfortable. Would definitely stay again.',
       stars: 1,
     },
     {
       spotId: 4,
-      userId: 2,
+      userId: 3,
       review: 'Your welcome to Christi-Anna place. The place is well indicated for your stay if you are looking for a quite place, clean and secure place where to sleep. I will go back there again if still available.',
       stars: 1,
     },
     {
-      spotId: 4,
+      spotId: 8,
       userId: 3,
       review: 'Christi-Anna and her husband were very friendly hosts. The room is nice, the shower is good, the washing machine/dryer are new and the kitchen has a large counter for those that like to cook. A Bodum French press is also provided for coffee brewing.',
       stars: 2,
@@ -68,7 +68,7 @@ module.exports = {
       stars: 3,
     },
     {
-      spotId: 6,
+      spotId: 5,
       userId: 2,
       review: 'Wonderful room, and lovely hosts. Would definitely consider revisiting!',
       stars: 3,
