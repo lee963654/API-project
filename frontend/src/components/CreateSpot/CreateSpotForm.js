@@ -209,7 +209,7 @@ export default function CreateSpotForm({ report, formType }) {
               rows="8"
               cols="50"
               type="text"
-              placeholder="Description"
+              placeholder="Please write at least 30 characters"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -257,7 +257,7 @@ export default function CreateSpotForm({ report, formType }) {
                   <input
                     className="create-input-bar"
                     type="text"
-                    placeholder="Preview Image URL required"
+                    placeholder="Preview Image URL"
                     value={previewUrl}
                     onChange={e => setPreviewUrl(e.target.value)}
                   />
@@ -270,7 +270,7 @@ export default function CreateSpotForm({ report, formType }) {
                   <input
                     className="create-input-bar"
                     type="text"
-                    placeholder="Image URL Optional"
+                    placeholder="Image URL"
                     value={secondUrl}
                     onChange={e => setSecondUrl(e.target.value)}
                   />
@@ -280,7 +280,7 @@ export default function CreateSpotForm({ report, formType }) {
                   <input
                     className="create-input-bar"
                     type="text"
-                    placeholder="Image URL Optional"
+                    placeholder="Image URL"
                     value={thirdUrl}
                     onChange={e => setThirdUrl(e.target.value)}
                   />
@@ -290,7 +290,7 @@ export default function CreateSpotForm({ report, formType }) {
                   <input
                     className="create-input-bar"
                     type="text"
-                    placeholder="Image URL Optional"
+                    placeholder="Image URL"
                     value={fourthUrl}
                     onChange={e => setFourthUrl(e.target.value)}
                   />
@@ -300,7 +300,7 @@ export default function CreateSpotForm({ report, formType }) {
                   <input
                     className="create-input-bar"
                     type="text"
-                    placeholder="Image URL Optional"
+                    placeholder="Image URL"
                     value={fifthUrl}
                     onChange={e => setFifthUrl(e.target.value)}
                   />
@@ -312,7 +312,7 @@ export default function CreateSpotForm({ report, formType }) {
         }
         {/* <div className="create-button-container"> */}
         <div className={formType === "Create a New Spot" ? "create-button-container" : "create-button-container-update"}>
-          <button className="create-submit-button" type="submit">Create Spot</button>
+          <button className="create-submit-button" type="submit">{formType === "Create a New Spot" ? "Create Spot" : "Update Your Spot"}</button>
         </div>
       </form>
 

@@ -4,6 +4,7 @@
 
 .bottom-review {
     margin-left: 2rem;
+    display: list-item;
 }
 
 .bottom-review-info {
@@ -79,6 +80,10 @@
 .reserve-button-container {
     display: flex;
     justify-content: center;
+}
+
+.review-list-item {
+    display: list-item;
 }
 
 .single-spot {

@@ -177,7 +177,7 @@ for (let review of orderReviews) {
                                 {/* <p><i class="fa-sharp fa-solid fa-star"></i> {spot.avgStarRating ? ((spot.avgStarRating).toFixed(2)) : null}</p>
                                 {spot.numReviews === 1 ? <p>{spot.numReviews} review</p> : <p>{spot.numReviews} reviews</p>} */}
                                 {spot.avgStarRating > 0 ? <p><i class="fa-sharp fa-solid fa-star"></i> {spot.avgStarRating.toFixed(2)}</p> : null}
-                                {spot.numReviews > 1 ? <p>{spot.numReviews} reviews</p> : spot.numReviews === 1 ? <p>{spot.numReviews} review</p> : <p className="new-spot-no-rating"><i class="fa-sharp fa-solid fa-star"></i> New</p>}
+                                {spot.numReviews > 1 ? <p className="review-list-item">{spot.numReviews} reviews</p> : spot.numReviews === 1 ? <p className="review-list-item">{spot.numReviews} review</p> : <p className="new-spot-no-rating"><i class="fa-sharp fa-solid fa-star"></i> New</p>}
                             </div>
                         </div>
                         <div className="reserve-button-container">

@@ -38,7 +38,7 @@ export default function SpotsIndex() {
                             </div>
                             <div className="allspots-rating-container">
                                 {/* <p className="info">{spot.avgRating}</p> */}
-                                {spot.avgRating === "No Rating Available" ? <p className="info">No Rating</p> : <p className="info"><i class="fa-sharp fa-solid fa-star"></i> {spot.avgRating.toFixed(2)}</p>}
+                                {spot.avgRating === "No Rating Available" ? <p className="info"><i class="fa-sharp fa-solid fa-star"></i> New</p> : <p className="info"><i class="fa-sharp fa-solid fa-star"></i> {spot.avgRating?.toFixed(2)}</p>}
                             </div>
                         </div>
                         <div className="info"><span className="spot-price">${spot.price}</span> night</div>
@@ -48,7 +48,9 @@ export default function SpotsIndex() {
         )
     })
 //TEST
-
+    if (!spots) return null
+    if (!testSpots) return null
+    if (!sortedSpots) return null
 
     return (
 

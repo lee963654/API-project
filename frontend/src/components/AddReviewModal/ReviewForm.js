@@ -127,7 +127,7 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
                     rows="4"
                     cols="50"
                     type="text"
-                    placeholder="Description"
+                    placeholder="Leave your review here..."
 
                     value={review}
                     onChange={(e) => setReview(e.target.value)}

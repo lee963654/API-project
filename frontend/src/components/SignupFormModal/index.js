@@ -133,7 +133,7 @@ function SignupFormModal() {
         {/* {errors.confirmPassword && (
           <p>{errors.confirmPassword}</p>
         )} */}
-        <button className={(email === "" || username === "" || firstName === "" || lastName === "" || password === "" || confirmPassword === "") ? "signup-button" : "signup-button-enable"} disabled={email === "" || username === "" || firstName === "" || lastName === "" || password === "" || confirmPassword === ""} type="submit">Sign Up</button>
+        <button className={(email === "" || username === "" || firstName === "" || lastName === "" || password === "" || confirmPassword === "" || username.length < 4 || password.length < 6) ? "signup-button" : "signup-button-enable"} disabled={email === "" || username === "" || firstName === "" || lastName === "" || password === "" || confirmPassword === "" || username.length < 4 || password.length < 6} type="submit">Sign Up</button>
       </form>
     </div>
   );
