@@ -152,7 +152,7 @@ for (let review of orderReviews) {
         <div className="single-spot-container">
             <div className="single-spot">
                 <h1>{spot.name}</h1>
-                <p>{spot.city}, {spot.state}, {spot.country}</p>
+                <h3>{spot.city}, {spot.state}, {spot.country}</h3>
                 <div className="image-container">
                     {/* {spot.SpotImages ? spot.SpotImages.map((image) => {
                     return <img key={image.id} src={image.url} alt="spot-images" style={{ width: 400, height: 400 }}></img>

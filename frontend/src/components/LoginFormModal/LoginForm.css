@@ -8,6 +8,7 @@
     color: white;
     width: 20rem;
     margin-top: 1rem;
+    cursor: pointer;
 }
 
 .demo-user-container {
@@ -35,6 +36,7 @@
     background-color: rgb(243, 113, 113);
     color: white;
     margin-top: 1rem;
+    cursor: pointer;
 }
 
 .login-form-container {
