@@ -59,7 +59,7 @@ module.exports = {
       spotId: 4,
       userId: 4,
       review: 'Everything was super! I recommend this apartment in Milan! Special thanks to Valentina for your hospitality!',
-      stars: 0,
+      stars: 2,
     },
     {
       spotId: 6,
