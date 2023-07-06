@@ -157,7 +157,6 @@ export default function CreateSpotForm({ report, formType }) {
                 />
               </label>
             </div>
-
             <div className="address-container">
               <label>
                 <div>Street Address {validate && errors.addressError && <span className="formErrors">{errors.addressError}</span>}</div>
