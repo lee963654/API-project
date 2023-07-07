@@ -69,8 +69,7 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
         // }
         // setErrors(err)
         //test
-        console.log("THESE ARE THE ERRORS IN THE HANDLE SUBMIT", errors)
-        console.log("THIS IS THE VALIDATE", validate)
+
 
         if (Object.values(errors).length) {
             setValidate(true)
