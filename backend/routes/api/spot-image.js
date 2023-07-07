@@ -31,8 +31,7 @@ router.delete('/:imageId', requireAuth, async(req, res, next) => {
         }
     })
 
-    // console.log('currentSpot===============', currentSpot.toJSON())
-    // console.log('currentUser===============', currentUser.toJSON())
+
 
     if (parseInt(currentUser.toJSON().id) !== parseInt(currentSpot.toJSON().ownerId)) {
         const err = new Error('forbidden')
