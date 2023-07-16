@@ -27,9 +27,9 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
     const err = {}
 
     const userHasReview = useSelector(state => state.reviews.Reviews)
-    console.log("trying to check if user already has review", Object.values(userHasReview))
+
     const currentUser = useSelector(state => state.session.user ? state.session.user.id : null)
-    console.log("trying to find the current user", currentUser)
+
 
     const spotName = useSelector(state => state.spots.allSpots ? state.spots.allSpots[editSpotId] : null)
     // console.log('THIS IS THE SPOTNAME', spotName.name)
@@ -51,9 +51,9 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
 
     // }, [stars, userHasReview, validate])
 
-    console.log("THERES ARE THE ERRORS", errors)
 
-    console.log("this is the edit spot id THAT WE WANT", editSpotId)
+
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
