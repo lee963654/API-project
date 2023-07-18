@@ -103,7 +103,7 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
     // useEffect(() => {
 
     // }, [stars])
-    console.log("THESE ARE THE ERRORS", Object.values(errors))
+
 
     const newReviewClass = "review-form-container"
     const editReviewClass = "review-form-container-edit"
