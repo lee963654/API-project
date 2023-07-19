@@ -20,9 +20,7 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
     const [validate, setValidate] = useState(false)
     const [errors, setErrors] = useState({});
 
-    // useEffect(() => {
-    //     setActiveStars(stars);
-    //   }, [stars]);
+
 
     const err = {}
 
@@ -32,24 +30,7 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
 
 
     const spotName = useSelector(state => state.spots.allSpots ? state.spots.allSpots[editSpotId] : null)
-    // console.log('THIS IS THE SPOTNAME', spotName.name)
-    // console.log("THIS IS THE SPOTID", editSpotId)
-    // console.log("THIS IS TEH SPOTNAME", spotName)
-    // console.log("THIS IS THE USERREVIEWSPOTNAME", userReviewSpotName)
 
-    // useEffect(() => {
-
-    //     if (stars === 0) {
-    //         err.stars = "Must pick a star rating"
-    //     }
-    //     for (let review of Object.values(userHasReview)) {
-    //         if (review.userId === currentUser) {
-    //             err.hasReview = "Review already exists for this spot"
-    //         }
-    //     }
-    //     setErrors(err)
-
-    // }, [stars, userHasReview, validate])
 
 
 
@@ -61,14 +42,7 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
 
         const newReview = { ...currentReview, review: review, stars: stars }
 
-        //test
-        // const test = {}
-        // console.log("THESE ARE THE STARS", stars)
-        // if (stars === 0) {
-        //     err.stars = "Must pick a star rating"
-        // }
-        // setErrors(err)
-        //test
+
 
 
         if (Object.values(errors).length) {
@@ -91,18 +65,12 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
         if (stars === 0) {
             err.stars = "Must pick a star rating"
         }
-        // for (let review of Object.values(userHasReview)) {
-        //     if (review.userId === currentUser) {
-        //         err.hasReview = "Review already exists for this spot"
-        //     }
-        // }
+
         setErrors(err)
 
     }, [stars, userHasReview, validate])
 
-    // useEffect(() => {
 
-    // }, [stars])
 
 
     const newReviewClass = "review-form-container"
@@ -111,8 +79,7 @@ export default function ReviewForm({ currentReview, addReportSpotId, closeModal,
     const editReviewClassError = "review-form-container-edit-errors"
 
     return (
-        // <div className="review-form-container">
-        // <div className={validate === true ? "review-form-container-errors" : "review-form-container"}>
+
         <div className={(validate && reviewType === "new") ? newReviewClassError : (validate && reviewType === "edit") ? editReviewClassError : ((validate === false) && reviewType === "new") ? newReviewClass : editReviewClass}>
             <form className="review-form" onSubmit={handleSubmit}>
                 {reviewType === "new" && <h1>How was your stay?</h1>}
