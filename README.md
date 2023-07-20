@@ -25,6 +25,6 @@ This is an Air-Bnb clone.
 ## Spot Page
 
 ## Create a Spot
-
+![](https://github.com/lee963654/API-project/blob/main/create-spot-gif.mp4)
 
 
