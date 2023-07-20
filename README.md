@@ -26,3 +26,5 @@ This is an Air-Bnb clone.
 
 ## Create a Spot
 
+
+
