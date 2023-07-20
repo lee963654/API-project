@@ -21,197 +21,252 @@ module.exports = {
    await queryInterface.bulkInsert(options, [
     {
       spotId: 1,
-      url: 'https://i.imgur.com/Ii3vlvZ.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage1.1.jpg',
       preview: true,
     },
     {
       spotId: 1,
-      url: 'https://i.imgur.com/40jI1jU.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage1.2.jpeg',
       preview: false,
     },
     {
       spotId: 1,
-      url: 'https://i.imgur.com/EwVp3Ot.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage1.3.jpeg',
       preview: false,
     },
     {
       spotId: 1,
-      url: 'https://i.imgur.com/UscGshw.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage1.5.jpeg',
       preview: false,
     },
     {
       spotId: 1,
-      url: 'https://i.imgur.com/tKgPeBb.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage1.4.jpg',
       preview: false,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/IoabqGc.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage2.1.jpg',
       preview: true,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/PjwG0FF.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage2.2.jpg',
       preview: false,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/ZZNYlbV.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage2.3.jpg',
       preview: false,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/ADKfqzn.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage2.4.jpg',
       preview: false,
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/t3f4lJe.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage2.5.jpg',
       preview: false,
     },
     {
       spotId: 3,
-      url: 'https://i.imgur.com/gowDPRX.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage3.1.jpg',
       preview: true,
     },
     {
       spotId: 3,
-      url: 'https://i.imgur.com/BS7TY6r.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage3.2.jpg',
       preview: false,
     },
     {
       spotId: 3,
-      url: 'https://i.imgur.com/yVmeYvq.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage3.3.jpg',
       preview: false,
     },
     {
       spotId: 3,
-      url: 'https://i.imgur.com/EUSMnp5.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage3.4.jpg',
       preview: false,
     },
     {
       spotId: 3,
-      url: 'https://i.imgur.com/WlrjQ1x.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage3.5.jpg',
       preview: false,
     },
     {
       spotId: 4,
-      url: 'https://i.imgur.com/fDScpcH.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage4.1.jpg',
       preview: true,
     },
     {
       spotId: 4,
-      url: 'https://i.imgur.com/R2acnL2.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage4.2.jpg',
       preview: false,
     },
     {
       spotId: 4,
-      url: 'https://i.imgur.com/HGlM74Z.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage4.3.jpg',
       preview: false,
     },
     {
       spotId: 4,
-      url: 'https://i.imgur.com/ohkCuZQ.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage4.4.jpg',
       preview: false,
     },
     {
       spotId: 4,
-      url: 'https://i.imgur.com/isRq2Lw.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage4.5.jpeg',
       preview: false,
     },
     {
       spotId: 5,
-      url: 'https://i.imgur.com/JvUjBTm.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage5.1.jpg',
       preview: true,
     },
     {
       spotId: 5,
-      url: 'https://i.imgur.com/xTZCztE.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage5.2.png',
       preview: false,
     },
     {
       spotId: 5,
-      url: 'https://i.imgur.com/lH2DkED.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage5.3.jpg',
       preview: false,
     },
     {
       spotId: 5,
-      url: 'https://i.imgur.com/g9pFCmg.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage5.4.png',
+      preview: false,
+    },
+    {
+      spotId: 5,
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage5.5.jpg',
       preview: false,
     },
     {
       spotId: 6,
-      url: 'https://i.imgur.com/RfbyX4m.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage6.1.jpg',
       preview: true,
     },
     {
       spotId: 6,
-      url: 'https://i.imgur.com/joGjlLF.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage6.2.jpg',
       preview: false,
     },
     {
       spotId: 6,
-      url: 'https://i.imgur.com/PZaPKDa.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage6.3.jpg',
       preview: false,
     },
     {
+      spotId: 6,
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage6.4.jpg',
+      preview: false,
+    },
+    // {
+    //   spotId: 6,
+    //   url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage6.5.webp',
+    //   preview: false,
+    // },
+    {
       spotId: 7,
-      url: 'https://i.imgur.com/L0QleWh.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage7.1.jpg',
       preview: true,
     },
     {
       spotId: 7,
-      url: 'https://i.imgur.com/FhYQE6C.png',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage7.2.jpg',
       preview: false,
     },
     {
       spotId: 7,
-      url: 'https://i.imgur.com/dQNS19n.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage7.3.jpg',
       preview: false,
     },
     {
       spotId: 7,
-      url: 'https://i.imgur.com/cNdRpop.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage7.4.jpg',
       preview: false,
     },
-    {
-      spotId: 7,
-      url: 'https://i.imgur.com/e2Fz7ZI.jpeg',
-      preview: false,
-    },
+    // {
+    //   spotId: 7,
+    //   url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage7.5.webp',
+    //   preview: false,
+    // },
     {
       spotId: 8,
-      url: 'https://i.imgur.com/IoBbLDu.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage8.1.jpg',
       preview: true,
     },
     {
       spotId: 8,
-      url: 'https://i.imgur.com/2aVDUsD.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage8.2.jpg',
       preview: false,
     },
     {
       spotId: 8,
-      url: 'https://i.imgur.com/Q67MFdt.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage8.3.jpg',
       preview: false,
     },
     {
       spotId: 8,
-      url: 'https://i.imgur.com/rlEpL0A.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage8.4.jpg',
       preview: false,
     },
     {
       spotId: 8,
-      url: 'https://i.imgur.com/HnMkfOD.jpeg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage8.5.jpg',
       preview: false,
     },
     {
       spotId: 9,
-      url: "https://as1.ftcdn.net/v2/jpg/00/06/31/10/1000_F_6311088_HNXoesQXuLgOYbc7KyRyb9veUtWvUfFc.jpg",
+      url: "https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage9.1.jpg",
+      preview: true
+    },
+    {
+      spotId: 9,
+      url: "https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage9.2.jpg",
+      preview: true
+    },
+    {
+      spotId: 9,
+      url: "https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage9.3.jpg",
+      preview: true
+    },
+    {
+      spotId: 9,
+      url: "https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage9.4.png",
+      preview: true
+    },
+    {
+      spotId: 9,
+      url: "https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage9.5.jpg",
       preview: true
     },
     {
       spotId: 10,
-      url: 'https://previews.123rf.com/images/bialasiewicz/bialasiewicz1309/bialasiewicz130900493/22296180-view-of-the-facade-of-a-fabulous-mansion.jpg',
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage10.1.jpg',
+      preview: true,
+    },
+    {
+      spotId: 10,
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage10.2.jpg',
+      preview: true,
+    },
+    {
+      spotId: 10,
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage10.3.jpg',
+      preview: true,
+    },
+    {
+      spotId: 10,
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage10.4.jpg',
+      preview: true,
+    },
+    {
+      spotId: 10,
+      url: 'https://spnotify.s3.us-east-2.amazonaws.com/notbnbimage10.5.jpg',
       preview: true,
     },
    ])
