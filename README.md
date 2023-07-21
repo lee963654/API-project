@@ -21,10 +21,12 @@ This is an Air-Bnb clone.
 * Logged in users can create, update and delete a review for a spot that they do not own.
 
 ## Landing Page
+![image](https://spnotify.s3.us-east-2.amazonaws.com/not-bnb-landingpage.png)
 
 ## Spot Page
+![image](https://spnotify.s3.us-east-2.amazonaws.com/notbnb-your-spots-page.png)
 
 ## Create a Spot
-![](https://github.com/lee963654/API-project/blob/main/create-spot-gif.mp4)
+
 
 
