@@ -1,6 +1,6 @@
 # Not-bnb
 
-This is an Air-Bnb clone.
+This is an Air-Bnb clone. Live site on https://not-bnb.onrender.com
 
 ## Technologies used:
 <div>
@@ -24,9 +24,10 @@ This is an Air-Bnb clone.
 ![image](https://spnotify.s3.us-east-2.amazonaws.com/not-bnb-landingpage.png)
 
 ## Spot Page
-![image](https://spnotify.s3.us-east-2.amazonaws.com/notbnb-your-spots-page.png)
+![](https://github.com/lee963654/API-project/blob/main/spot.gif)
 
 ## Create a Spot
 ![](https://github.com/lee963654/API-project/blob/main/create-spot.gif)
 
-
+## User Spots Page
+![](https://spnotify.s3.us-east-2.amazonaws.com/notbnb-your-spots-page.png)
