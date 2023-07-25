@@ -2,6 +2,10 @@
     text-decoration: none;
 }
 
+.fa-brands {
+    color: black;
+}
+
 .info {
     color: black;
 }
@@ -14,13 +18,24 @@
     width: 70%;
 }
 
+.my-info-icons {
+    display: flex;
+    justify-content: space-between;
+}
+
 .spot-info-container {
 
-    display: flex;
+    /* display: flex;
     justify-content: center;
 
     width: 100%;
+    margin-top: 6rem; */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
     margin-top: 6rem;
+    flex-direction: column;
 }
 
 .spots {

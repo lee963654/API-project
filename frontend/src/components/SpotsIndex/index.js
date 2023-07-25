@@ -47,7 +47,7 @@ export default function SpotsIndex() {
             </div>
         )
     })
-//TEST
+    //TEST
     if (!spots) return null
     if (!testSpots) return null
     if (!sortedSpots) return null
@@ -56,7 +56,18 @@ export default function SpotsIndex() {
 
         <div className="spot-info-container">
             <div className="inside-spot-info">
-            {result && result}
+                {result && result}
+            </div>
+            <div className="my-info">
+                <p>James Lee</p>
+                <div className="my-info-icons">
+                    <a href="https://www.linkedin.com/in/jamesleeswe/" target="_blank" rel="noreferrer">
+                    <i class="fa-brands fa-linkedin fa-xl"></i>
+                    </a>
+                    <a href="https://github.com/lee963654" target="_blank" rel="noreferrer">
+                    <i class="fa-brands fa-github fa-xl"></i>
+                    </a>
+                </div>
             </div>
         </div>
 
